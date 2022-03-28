@@ -16,25 +16,19 @@ public class MainView extends JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1200,800);
         //Maximize window on creation
-        //this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
+        //TEMPORARY CREATION OF LIST OF MOVIE NAMES FOR NOW
         ArrayList<String> tempMovieList = new ArrayList<String>();
-        tempMovieList.add("movie 1");
-        tempMovieList.add("movie 2");
-        tempMovieList.add("movie 3");
-        tempMovieList.add("movie 4");
-        tempMovieList.add("movie 5");
-        tempMovieList.add("movie 6");
-        tempMovieList.add("movie 7");
-        tempMovieList.add("movie 8");
-        tempMovieList.add("movie 9");
-        tempMovieList.add("movie 10");
-        tempMovieList.add("movie 11");
-        tempMovieList.add("movie 12");
+        for(int i = 0; i<100; i++)
+        {
+            tempMovieList.add("movie " + (i+1));
+        }
 
 
-        this.add(new MovieGrid(tempMovieList), BorderLayout.CENTER);
-
+        JScrollPane jp = new JScrollPane(new MovieGrid(tempMovieList), JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jp.getVerticalScrollBar().setUnitIncrement(20);
+        this.add(jp, BorderLayout.CENTER);
 
 
     }
