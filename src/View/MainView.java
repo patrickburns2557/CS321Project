@@ -10,6 +10,7 @@ public class MainView extends JFrame
 
     public MainView()
     {
+        this.setLayout(new BorderLayout());
         JPanel test = new JPanel();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,7 +32,7 @@ public class MainView extends JFrame
         tempMovieList.add("movie 11");
         tempMovieList.add("movie 12");
 
-        this.setLayout(new BorderLayout());
+
         this.add(new MovieGrid(tempMovieList), BorderLayout.CENTER);
 
 

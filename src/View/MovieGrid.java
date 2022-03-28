@@ -16,7 +16,10 @@ public class MovieGrid extends JPanel
             buttonList.add(new JButton(line));
             System.out.println("Added " + line);
         }
-        this.setVisible(true);
+        for(JButton button : buttonList)
+            this.add(button);
+
+
 
     }
 }
