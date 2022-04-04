@@ -1,4 +1,4 @@
-import View.MainView;
+import View.MainWindow;
 
 public class temp
 {
@@ -6,7 +6,7 @@ public class temp
     {
         System.out.println("temp");
         System.out.println("temp2");
-        MainView view = new MainView();
+        MainWindow view = new MainWindow();
         view.setVisible(true);
     }
 }
