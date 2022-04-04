@@ -42,7 +42,7 @@ public class MovieView extends JPanel
         JComboBox collectionList = new JComboBox(TEMPCOLLECTIONLIST);
         posterAndCollectionsLabel.add(collectionList, BorderLayout.SOUTH);
 
-        //picLabel.setBorder(BorderFactory.createSoftBevelBorder(1, Color.RED, Color.GREEN));         //maybe find some border that looks decent for the movie picture
+        //picLabel.setBorder(BorderFactory.createSoftBevelBorder(1, Color.RED, Color.GREEN));         //maybe find some border that looks decent for the Movie picture
         GridBagConstraints picLabelC = new GridBagConstraints();
         picLabelC.gridx = 0;
         picLabelC.gridy = 0;
@@ -57,7 +57,7 @@ public class MovieView extends JPanel
 
 
 
-        //Label for movie name
+        //Label for Movie name
         JLabel movieLabel = new JLabel(movieName);                                        //GRAB MOVIE NAME
         //movieLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
         movieLabel.setFont(new Font("Wide Latin", Font.BOLD, 50));             //FIND A DECENT FONT
@@ -71,7 +71,7 @@ public class MovieView extends JPanel
 
 
 
-        //Label for movie year
+        //Label for Movie year
         JLabel yearLabel = new JLabel("1843");  //GRAB MOVIE YEAR
         yearLabel.setFont(new Font("Georgia", Font.BOLD, 20));
         GridBagConstraints yearLabelC = new GridBagConstraints();
@@ -84,7 +84,7 @@ public class MovieView extends JPanel
 
 
 
-        //Label for movie genre(s)
+        //Label for Movie genre(s)
         JLabel genreLabel = new JLabel("Horror, Action, Genre3");                     //GRAB MOVIE GENRE(S)
         genreLabel.setFont(new Font("Georgia", Font.BOLD, 15));
         GridBagConstraints genreLabelC = new GridBagConstraints();
@@ -97,7 +97,7 @@ public class MovieView extends JPanel
 
 
 
-        //Label for movie description
+        //Label for Movie description
         //Add a "<html>" to the beginning of the label so that it gets interpreted as html and will word wrap
         //It does not word wrap by default
         JLabel description = new JLabel("<html>" + tempLongWords);                   //GRAB MOVIE DESCRIPTIONS

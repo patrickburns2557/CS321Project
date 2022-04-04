@@ -21,8 +21,8 @@ public class MainWindow extends JFrame
         HomeView home = new HomeView();
         this.add(home);
 
-        //MovieView movie = new MovieView("Toy Story 4");
-        //this.add(movie);
+        //MovieView Movie = new MovieView("Toy Story 4");
+        //this.add(Movie);
 
     }
 }
