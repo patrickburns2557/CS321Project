@@ -15,12 +15,12 @@ public class HomeView extends JPanel
         ArrayList<String> tempMovieList = new ArrayList<String>();
         for(int i = 0; i<100; i++)
         {
-            tempMovieList.add("movie " + (i+1));
+            tempMovieList.add("Movie " + (i+1));
         }
 
 
 
-        //Setup movie grid
+        //Setup Movie grid
         MovieGrid grid = new MovieGrid(tempMovieList);
         JScrollPane jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jp.getVerticalScrollBar().setUnitIncrement(20);
