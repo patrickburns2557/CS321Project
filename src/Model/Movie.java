@@ -1,99 +1,59 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Movie
 {
-    private String title = " ";
-
-        private int year = 0;
-        private int month = 0;
-        private int day = 0;
-
-    private String description = " ";
-    private float runtime = 0;
-    ArrayList director = new ArrayList();
-
-    ArrayList genre = new ArrayList();
-    private String posterlink = " ";
+    private String title = "";
+    private Date date;
+    private String description = "";
+    private Float runtime = 0.0f;
+    ArrayList<String> director = new ArrayList();
+    ArrayList<String> genre = new ArrayList();
+    private String posterlink = "";
 
     /** Setter **/
     public void setTitle(String str)
     {
         this.title = str;
     }
-    public void setreleaseyear(int yr)
-    {
-        this.year = yr;
-    }
-    public void setreleasemonth(int mn)
-    {
-        this.month = mn;
-    }
-    public void setreleaseday(int day)
-    {
-        this.day = day;
-    }
-    public void setplot(String plot)
+    public void setDate(Date date) { this.date = date; }
+    public void setPlot(String plot)
     {
         this.description = plot;
     }
-    public void setruntime(float time)
+    public void setRuntime(float time)
     {
         this.runtime = time;
     }
-    public void adddirector(String dr)
+    public void addDirector(String dr)
     {
         this.director.add(dr);
     }
-    public void addgenre(String gn)
-    {
-        this.genre.add(gn);
-    }
-    public void setposterlink(String link)
+    public void addGenre(String gn) { this.genre.add(gn); }
+    public void setPosterLink(String link)
     {
         this.posterlink = link;
     }
 
-    /** GETTER **/
-    public String gettitle()
+    /** Getter **/
+    public String getTitle()
     {
         return this.title;
     }
-    public int getyear()
-    {
-        return this.year;
-    }
-    public int getmonth()
-    {
-        return this.month;
-    }
-    public int getday()
-    {
-        return this.day;
-    }
-    public String getplot()
+    public Date getDate() {return (Date)this.date.clone(); }
+    public String getPlot()
     {
         return this.description;
     }
-    public float getruntime()
+    public Float getRuntime() { return this.runtime; }
+    public ArrayList<String> getGenre()
     {
-        return this.runtime;
-
+        return (ArrayList<String>)this.genre.clone();
     }
-    public ArrayList getgenre()
-    {
-        return this.genre;
-    }
-    public String getposter()
+    public String getPoster()
     {
         return this.posterlink;
     }
-
-
-
-
-
-
-
 }
