@@ -6,12 +6,13 @@ public class Movie
 {
     private String title = " ";
 
-        private int year = 0;
-        private int month = 0;
-        private int day = 0;
+    private int year = 0;
+    private int month = 0;
+    private int day = 0;
 
     private String description = " ";
     private float runtime = 0;
+    private int imdbscore = 0;
     ArrayList director = new ArrayList();
 
     ArrayList genre = new ArrayList();
@@ -42,6 +43,7 @@ public class Movie
     {
         this.runtime = time;
     }
+    public void setimdbscore(int score){this.imdbscore = score;}
     public void adddirector(String dr)
     {
         this.director.add(dr);
@@ -81,6 +83,7 @@ public class Movie
         return this.runtime;
 
     }
+    public int getscore(){return this.imdbscore;}
     public ArrayList getgenre()
     {
         return this.genre;
