@@ -1,7 +1,9 @@
-import View.CollectionPeekView;
+import Model.Movie;
 import View.MainWindow;
 
 import java.awt.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class temp
 {
@@ -13,7 +15,7 @@ public class temp
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String[] fonts = ge.getAvailableFontFamilyNames();
 
-        for(String f : fonts)
-            System.out.println(f);
+        //for(String f : fonts)
+        //    System.out.println(f);
     }
 }

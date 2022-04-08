@@ -15,7 +15,7 @@ public class FilterMovies {
                 (movie) -> {
                     boolean remove = false;
                     for (String genre : genres) {
-                        remove = !movie.getGenre().contains(genre);
+                        remove = !movie.getGenres().contains(genre);
                     }
                     return remove;
                 });
@@ -54,16 +54,21 @@ public class FilterMovies {
     }
 
     /**
+     * Will remove movies that don't have the character sequence given in the title
+     * @param movies
+     * @param title
+     */
+    public void filterByTitle(ArrayList<Movie> movies, String title) {
+        movies.removeIf((movie) -> !movie.getTitle().contains(title));
+    }
+
+    /**
      * Will remove movies from the array list that weren't released that year
      * @param movies
      * @param year
      */
-    public void filterByYear(ArrayList<Movie> movies, int year) {
-        movies.removeIf(
-                (movie) -> {
-                   //return movie.getYear() != year;
-                    return false;
-                });
+    public void filterByYear(ArrayList<Movie> movies, Integer year) {
+        movies.removeIf((movie) -> !movie.getYear().equals(year));
     }
 
     /**

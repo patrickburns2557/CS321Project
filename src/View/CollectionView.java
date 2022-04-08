@@ -22,7 +22,7 @@ public class CollectionView extends JPanel {
         for (var collection : collections) {
             list.add(collection, BorderLayout.CENTER);
         }
-        JScrollPane jp = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane jp = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         jp.getVerticalScrollBar().setUnitIncrement(20);
         this.add(jp, BorderLayout.CENTER);
     }
