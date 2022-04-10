@@ -18,7 +18,7 @@ public class JsonInterface {
         String content = new String(Files.readAllBytes(Paths.get("C:\\Users\\M\\Desktop\\SampleMovieFile.json"))); //Movie file
         MasterList = gson.fromJson(content, Movie[].class);
 
-       
+
     }
 
 
