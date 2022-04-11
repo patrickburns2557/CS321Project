@@ -4,30 +4,33 @@ import java.util.ArrayList;
 
 public class Movie
 {
-    private String title = " ";
+    private String Title;
 
-    private int year = 0;
-    private int month = 0;
-    private int day = 0;
+    private Integer Year;
+    private String month;
+    private Integer day;
 
-    private String description = " ";
-    private float runtime = 0;
-    private int imdbscore = 0;
-    ArrayList director = new ArrayList();
+    private String Plot;
+    private String Runtime;
+    private float imdbRating;
+    private String Director;
+    private String Genre;
+    private String Poster ;
 
-    ArrayList genre = new ArrayList();
-    private String posterlink = " ";
+    private String Language;
+    private String Rated;
+    private String Country;
 
     /** Setter **/
     public void setTitle(String str)
     {
-        this.title = str;
+        this.Title = str;
     }
     public void setreleaseyear(int yr)
     {
-        this.year = yr;
+        this.Year = yr;
     }
-    public void setreleasemonth(int mn)
+    public void setreleasemonth(String mn)
     {
         this.month = mn;
     }
@@ -37,36 +40,49 @@ public class Movie
     }
     public void setplot(String plot)
     {
-        this.description = plot;
+        this.Plot = plot;
     }
-    public void setruntime(float time)
+    public void setruntime(String time)
     {
-        this.runtime = time;
+        this.Runtime = time;
     }
-    public void setimdbscore(int score){this.imdbscore = score;}
-    public void adddirector(String dr)
+    public void setimdbscore(int score){this.imdbRating = score;}
+   /* public void adddirector(String dr)
     {
-        this.director.add(dr);
+        this.Director.add(dr);
     }
     public void addgenre(String gn)
     {
-        this.genre.add(gn);
-    }
+        this.Genre.add(gn);
+    }*/
     public void setposterlink(String link)
     {
-        this.posterlink = link;
+        this.Poster = link;
+    }
+    /*
+        public void addlanguage(String lg)
+        {
+            this.Genre.add(lg);
+        }
+        public void addcountry(String cc)
+        {
+            this.Genre.add(cc);
+        }*/
+    public void setagerating(String rate)
+    {
+        this.Rated = rate;
     }
 
     /** GETTER **/
     public String gettitle()
     {
-        return this.title;
+        return this.Title;
     }
     public int getyear()
     {
-        return this.year;
+        return this.Year;
     }
-    public int getmonth()
+    public String getmonth()
     {
         return this.month;
     }
@@ -76,24 +92,37 @@ public class Movie
     }
     public String getplot()
     {
-        return this.description;
+        return this.Plot;
     }
-    public float getruntime()
+    public String getruntime()
     {
-        return this.runtime;
+        return this.Runtime;
 
     }
-    public int getscore(){return this.imdbscore;}
-    public ArrayList getgenre()
+    public float getscore(){return this.imdbRating;}
+    public String getgenre()
     {
-        return this.genre;
+        return this.Genre;
+
     }
     public String getposter()
     {
-        return this.posterlink;
+        return this.Poster;
     }
 
+    public String getagerating()
+    {
+        return this.Rated;
+    }
 
+    public String getlanguage()
+    {
+        return this.Language;
+    }
+    public String getcountry()
+    {
+        return this.Country;
+    }
 
 
 
