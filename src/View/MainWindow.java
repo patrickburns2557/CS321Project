@@ -23,8 +23,8 @@ public class MainWindow extends JFrame
         this.add(home);
 
 
-        //MovieView Movie = new MovieView("Toy Story 4");
-        //this.add(Movie);
+        MovieView Movie = new MovieView("Toy Story 4");
+        this.add(Movie);
 
         //this.add(test);
     }
