@@ -5,10 +5,13 @@ import java.awt.*;
 
 public class SearchPanel extends JPanel
 {
-    public SearchPanel()
+    LoginWindow loginWindow;
+
+    public SearchPanel(JFrame parent)
     {
         final int SEARCH_SIZE = 20;
         this.setLayout(new BorderLayout(7, 7));
+        loginWindow = new LoginWindow(parent);
 
         //Setup search bar
         Font searchFont = new Font(Font.SANS_SERIF, Font.BOLD, 35);
@@ -22,10 +25,7 @@ public class SearchPanel extends JPanel
 
         //setup login/signup button
         JButton loginSignupButton = new JButton("Login/Signup");
-        loginSignupButton.addActionListener(event ->
-        {
-            System.out.println("Login button pressed"); //action listener for login button
-        });
+        loginSignupButton.addActionListener(loginWindow);
 
         //setup home button
         JButton homeButton = new JButton("Home");

@@ -19,13 +19,13 @@ public class MainWindow extends JFrame
 
 
         //Just change between the two things below for homeview and movieview by commenting out for now until transitioning between them is setup
-        //HomeView home = new HomeView();
-        //this.add(home);
+        HomeView home = new HomeView(this);
+        this.add(home);
 
 
         //MovieView Movie = new MovieView("Toy Story 4");
         //this.add(Movie);
 
-        this.add(test);
+        //this.add(test);
     }
 }

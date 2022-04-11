@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class HomeView extends JPanel
 {
-    public HomeView()
+    public HomeView(JFrame parent)
     {
 
         this.setLayout(new BorderLayout());
@@ -26,7 +26,7 @@ public class HomeView extends JPanel
         jp.getVerticalScrollBar().setUnitIncrement(20);
 
         this.add(jp, BorderLayout.CENTER);
-        this.add(new SearchPanel(), BorderLayout.NORTH);
+        this.add(new SearchPanel(parent), BorderLayout.NORTH);
 
     }
 
