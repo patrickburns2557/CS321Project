@@ -6,82 +6,93 @@ import java.util.GregorianCalendar;
 
 public class Movie
 {
-    private String title = "";
-    private GregorianCalendar date = new GregorianCalendar();
-    private Integer year = 0;
-    private String description = "";
-    private Float runtime = 0.0f;
-    private Float criticRating = 0.0f;
-    ArrayList<String> director = new ArrayList<>();
-    ArrayList<String> genre = new ArrayList<>();
-    private String posterLink = "";
+    private String Title = "";
+	private Integer Year = 0;
+    private String Plot = "";
+    private Float Runtime = 0.0f;
+    private Float imdbRating = 0.0f;
+
+    private String Poster = "";
+	private String Director = "";
+	private String Genre = "";
+	private String Language = "";
+	private String Rated = "";
+	private String Country = "";
+
 
     public Movie() {}
 
-    /** Setter **/
-    public void setTitle(String str)
-    {
-        this.title = str;
-    }
-    public void setDate(GregorianCalendar date) {
-        this.date = date;
-    }
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-    public void setPlot(String plot)
-    {
-        this.description = plot;
-    }
-    public void setRuntime(Float time)
-    {
-        this.runtime = time;
-    }
-    public void setCriticRating(Float criticRating) {
-        this.criticRating = criticRating;
-    }
-    public void addDirector(String dr)
-    {
-        this.director.add(dr);
-    }
-    public void addGenre(String gn) {
-        this.genre.add(gn);
-    }
-    public void setPosterLink(String link)
-    {
-        this.posterLink = link;
-    }
+
+
 
     /** Getter **/
-    public String getTitle()
+    public String gettitle()
     {
-        return this.title;
+        return this.Title;
     }
-    public GregorianCalendar getDate() {
-        return (GregorianCalendar)this.date.clone();
-    }
-    public Integer getYear() {
-        return this.year;
-    }
-    public String getPlot()
+	
+	
+    public int getyear()
     {
-        return this.description;
+        return this.Year;
     }
-    public Float getRuntime() {
-        return this.runtime;
+	
+    public Integer getyear()
+	{
+        return this.Year;
     }
-    public Float getCriticRating() {
-        return this.criticRating;
+	
+    public String getplot()
+    {
+        return this.Plot;
     }
-    public ArrayList<String> getDirectors() {
+
+   
+   
+    public ArrayList<String> getDirectors()
+	{
         return (ArrayList<String>)this.director.clone();
     }
+	
     public ArrayList<String> getGenres()
     {
         return (ArrayList<String>)this.genre.clone();
-    }
-    public String getPoster()
+	}
+	
+    public String getruntime()
     {
-        return this.posterLink;
+        return this.Runtime;
+
+    }
+	
+    public float getscore()
+	{
+		return this.imdbRating;
+	}
+	
+    public String getgenre()
+    {
+        return this.Genre;
+    }
+	
+    public String getposter()
+    {
+        return this.Poster;
+    }
+
+    public String getagerating()
+    {
+        return this.Rated;
+    }
+
+    public String getlanguage()
+    {
+        return this.Language;
+    }
+    
+	public String getcountry()
+    {
+        return this.Country;
     }
 }
+

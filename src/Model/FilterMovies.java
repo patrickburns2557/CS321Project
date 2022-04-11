@@ -15,7 +15,7 @@ public class FilterMovies {
                 (movie) -> {
                     boolean remove = false;
                     for (String genre : genres) {
-                        remove = !movie.getGenres().contains(genre);
+                        remove = !movie.getgenre().contains(genre);
                     }
                     return remove;
                 });
@@ -31,7 +31,7 @@ public class FilterMovies {
                 (movie) -> {
                     boolean remove = false;
                     for (String language : languages) {
-                        //remove = !movie.getLanguages().contains(language);
+                        remove = !movie.getlanguage().contains(language);
                     }
                     return remove;
                 });
@@ -47,7 +47,7 @@ public class FilterMovies {
                 (movie) -> {
                     boolean remove = false;
                     for (String country : countries) {
-                        //remove = !movie.getCountries().contains(country);
+                        remove = !movie.getcountry().contains(country);
                     }
                     return remove;
                 });
@@ -67,8 +67,11 @@ public class FilterMovies {
      * @param movies
      * @param year
      */
-    public void filterByYear(ArrayList<Movie> movies, Integer year) {
-        movies.removeIf((movie) -> !movie.getYear().equals(year));
+    public void filterByYear(ArrayList<Movie> movies, int year) {
+        movies.removeIf(
+                (movie) -> {
+                   return movie.getyear() != year;
+                });
     }
 
     /**
@@ -79,8 +82,7 @@ public class FilterMovies {
     public void filterByAgeRating(ArrayList<Movie> movies, String ageRating) {
         movies.removeIf(
                 (movie) -> {
-                    //return movie.getAgeRating() != ageRating;
-                    return false;
+                    return movie.getagerating() != ageRating;
                 });
     }
 }
