@@ -1,20 +1,21 @@
+import Model.Movie;
 import View.MainWindow;
 
 import java.awt.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class temp
 {
     public static void main(String[] args)
     {
-        System.out.println("temp");
-        System.out.println("temp2");
         MainWindow view = new MainWindow();
         view.setVisible(true);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String[] fonts = ge.getAvailableFontFamilyNames();
 
-        for(String f : fonts)
-            System.out.println(f);
+        //for(String f : fonts)
+        //    System.out.println(f);
     }
 }

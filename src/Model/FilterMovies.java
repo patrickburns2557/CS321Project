@@ -54,6 +54,15 @@ public class FilterMovies {
     }
 
     /**
+     * Will remove movies that don't have the character sequence given in the title
+     * @param movies
+     * @param title
+     */
+    public void filterByTitle(ArrayList<Movie> movies, String title) {
+        movies.removeIf((movie) -> !movie.getTitle().contains(title));
+    }
+
+    /**
      * Will remove movies from the array list that weren't released that year
      * @param movies
      * @param year

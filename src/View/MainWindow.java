@@ -1,11 +1,12 @@
 package View;
 
 import javax.swing.*;
+import java.util.Collection;
 
 
 public class MainWindow extends JFrame
 {
-
+    private CollectionView test = new CollectionView();
 
     public MainWindow()
     {
@@ -21,8 +22,10 @@ public class MainWindow extends JFrame
         //HomeView home = new HomeView();
         //this.add(home);
 
+
         MovieView Movie = new MovieView("Toy Story 4");
         this.add(Movie);
 
+        this.add(test);
     }
 }

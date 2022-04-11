@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 public class MovieGrid extends JPanel
 {
+    public static final int MOVIE_WIDTH = 220;
+    public static final int MOVIE_HEIGHT = 330;
+
     public MovieGrid(ArrayList<String> tempList) //REPLACE WITH MOVIELIST LATER
     {
         this.setLayout(new WrapLayout(FlowLayout.CENTER, 15, 15)); // Wrap Layout extends Flowlayout and just
@@ -21,7 +24,7 @@ public class MovieGrid extends JPanel
         }
         for(JButton button : buttonList)
         {
-            button.setPreferredSize(new Dimension(220,330));
+            button.setPreferredSize(new Dimension(MOVIE_WIDTH,MOVIE_HEIGHT));
             this.add(button);
         }
     }
