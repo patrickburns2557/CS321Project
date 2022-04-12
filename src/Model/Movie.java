@@ -9,7 +9,7 @@ public class Movie
     private String Title = "";
 	private Integer Year = 0;
     private String Plot = "";
-    private Float Runtime = 0.0f;
+    private String  Runtime = "";
     private Float imdbRating = 0.0f;
 
     private String Poster = "";
@@ -36,11 +36,7 @@ public class Movie
     {
         return this.Year;
     }
-	
-    public Integer getyear()
-	{
-        return this.Year;
-    }
+
 	
     public String getplot()
     {
@@ -49,7 +45,7 @@ public class Movie
 
    
    
-    public ArrayList<String> getDirectors()
+    /*public ArrayList<String> getDirectors()
 	{
         return (ArrayList<String>)this.director.clone();
     }
@@ -57,7 +53,7 @@ public class Movie
     public ArrayList<String> getGenres()
     {
         return (ArrayList<String>)this.genre.clone();
-	}
+	}*/
 	
     public String getruntime()
     {
