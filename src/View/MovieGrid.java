@@ -1,6 +1,5 @@
 package View;
 
-import Model.CreatePoster;
 import Model.Movie;
 
 import javax.swing.*;

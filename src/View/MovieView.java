@@ -1,10 +1,8 @@
 package View;
 
-import Model.CreatePoster;
 import Model.Movie;
 
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
