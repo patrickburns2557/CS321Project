@@ -6,9 +6,11 @@ import Model.Movie;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class MovieView extends JPanel
 {
+    private JButton homeButton;
     private ImageIcon poster;
     private JPanel posterAndCollectionsLabel = new JPanel();
     private JComboBox collectionList;
@@ -34,6 +36,24 @@ public class MovieView extends JPanel
 
         this.setLayout(new GridBagLayout());
 
+        homeButton = new JButton("<-- Return to home");
+        homeButton.setFont(new Font("Georgia", Font.BOLD, 18));
+        GridBagConstraints homeButtonC = new GridBagConstraints();
+        homeButtonC.gridx = 0;
+        homeButtonC.gridy = 0;
+        homeButtonC.ipadx = 10;
+        homeButtonC.ipady = 10;
+        homeButtonC.insets = new Insets(10,10,10,10);
+        homeButtonC.anchor = GridBagConstraints.FIRST_LINE_START;
+        this.add(homeButton, homeButtonC);
+
+        //temp
+        homeButton.addActionListener(event ->
+        {
+            MainWindow view = MainWindow.getInstance();
+            view.ShowHome();
+        });
+
 
 
         //Poster and add to collection dropdown
@@ -50,7 +70,7 @@ public class MovieView extends JPanel
         picLabel.setBorder(BorderFactory.createEtchedBorder());         //maybe find some border that looks decent for the Movie picture
         GridBagConstraints picLabelC = new GridBagConstraints();
         picLabelC.gridx = 0;
-        picLabelC.gridy = 0;
+        picLabelC.gridy = 1;
         picLabelC.gridwidth = 1;
         picLabelC.gridheight = 10;
         picLabelC.ipadx = 25;
@@ -68,7 +88,7 @@ public class MovieView extends JPanel
         movieLabel.setFont(new Font("Wide Latin", Font.BOLD, 50));             //FIND A DECENT FONT
         GridBagConstraints movieLabelC = new GridBagConstraints();
         movieLabelC.gridx = 1;
-        movieLabelC.gridy = 0;
+        movieLabelC.gridy = 1;
         movieLabelC.ipadx = 10;
         movieLabelC.ipady = 10;
         movieLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -81,7 +101,7 @@ public class MovieView extends JPanel
         yearLabel.setFont(new Font("Georgia", Font.BOLD, 20));
         GridBagConstraints yearLabelC = new GridBagConstraints();
         yearLabelC.gridx = 1;
-        yearLabelC.gridy = 1;
+        yearLabelC.gridy = 2;
         yearLabelC.ipadx = 10;
         yearLabelC.ipady = 10;
         yearLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -94,7 +114,7 @@ public class MovieView extends JPanel
         genreLabel.setFont(new Font("Georgia", Font.BOLD, 15));
         GridBagConstraints genreLabelC = new GridBagConstraints();
         genreLabelC.gridx = 1;
-        genreLabelC.gridy = 2;
+        genreLabelC.gridy = 3;
         genreLabelC.ipadx = 10;
         genreLabelC.ipady = 10;
         genreLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -107,7 +127,7 @@ public class MovieView extends JPanel
         runtimeLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints runtimeLabelC = new GridBagConstraints();
         runtimeLabelC.gridx = 1;
-        runtimeLabelC.gridy = 3;
+        runtimeLabelC.gridy = 4;
         runtimeLabelC.ipadx = 10;
         runtimeLabelC.ipady = 10;
         runtimeLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -125,7 +145,7 @@ public class MovieView extends JPanel
         //descriptionLabelC.weightx = 0.5;
         //descriptionLabelC.weighty = 0.5;
         descriptionLabelC.gridx = 1;
-        descriptionLabelC.gridy = 4;
+        descriptionLabelC.gridy = 5;
         descriptionLabelC.ipadx = 15;
         descriptionLabelC.ipady = 15;
         descriptionLabelC.insets = new Insets(50, 0, 0, 20);
@@ -143,7 +163,7 @@ public class MovieView extends JPanel
         //directorLabelC.weightx = 0.5;
         //directorLabelC.weighty = 0.5;
         directorLabelC.gridx = 1;
-        directorLabelC.gridy = 5;
+        directorLabelC.gridy = 6;
         directorLabelC.ipadx = 10;
         directorLabelC.ipady = 10;
         directorLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -159,11 +179,17 @@ public class MovieView extends JPanel
         actorLabelC.weightx = 0.5;
         actorLabelC.weighty = 0.5;
         actorLabelC.gridx = 1;
-        actorLabelC.gridy = 6;
+        actorLabelC.gridy = 7;
         actorLabelC.ipadx = 10;
         actorLabelC.ipady = 10;
         actorLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
         this.add(actorLabel, actorLabelC);
 
+    }
+
+
+    public void addHomeListener(ActionListener listenForHomeButton)
+    {
+        homeButton.addActionListener(listenForHomeButton);
     }
 }

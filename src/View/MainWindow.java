@@ -58,7 +58,7 @@ public class MainWindow extends JFrame
     public void ShowHome()
     {
         this.getContentPane().removeAll();
-        homeView = new HomeView();
+        //homeView = new HomeView();
         this.add(homeView);
         this.repaint();
         this.setVisible(true);
