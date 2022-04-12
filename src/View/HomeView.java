@@ -9,19 +9,22 @@ import java.util.ArrayList;
 
 public class HomeView extends JPanel
 {
+    private MovieGrid grid;
     public HomeView()
     {
 
         this.setLayout(new BorderLayout());
-
-        //TEMP FOR NOW
-        ArrayList<String> tempMovieList = new ArrayList<String>();
-        for(int i = 0; i<100; i++)
-        {
-            tempMovieList.add("Movie " + (i+1));
-        }
-
-
+        JPanel temp = new JPanel();
+        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
+        JButton b1 = new JButton("tempbutton");
+        JButton b2 = new JButton("tempbutton");
+        JButton b3 = new JButton("tempbutton");
+        JButton b4 = new JButton("tempbutton");
+        temp.add(b1);
+        temp.add(b2);
+        temp.add(b3);
+        temp.add(b4);
+        this.add(temp, BorderLayout.WEST);
 
         //Setup Movie grid
         //JUST CALLING JSON BUILDMASTERLIST TEMPORARILY FOR NOW UNTIL WE ARE ABLE TO PASS IN WHAT MOVIE LIST WE'RE CURRENTLY WORKING ON
@@ -31,7 +34,7 @@ public class HomeView extends JPanel
             list = JsonInterface.buildmasterlist("src\\Model\\Movies.json");
 
 
-            MovieGrid grid = new MovieGrid(list);
+            grid = new MovieGrid(list);
             JScrollPane jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             jp.getVerticalScrollBar().setUnitIncrement(20);
 

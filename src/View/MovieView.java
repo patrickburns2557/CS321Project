@@ -55,7 +55,7 @@ public class MovieView extends JPanel
 
 
         //Poster and add to collection dropdown
-        poster = new ImageIcon(CreatePoster.getFromURL(inputMovie.getposter(), Title));                      //will eventually get the image from the Movie object passed in
+        poster = new ImageIcon(CreatePoster.getFromURL(inputMovie.getposter(), Title));
         JLabel picLabel = new JLabel(poster);
 
         posterAndCollectionsLabel.setLayout(new BorderLayout());
