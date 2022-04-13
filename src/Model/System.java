@@ -1,3 +1,5 @@
+package Model;
+
 public class System {
     private String Username = " ";
     private String Password = " ";

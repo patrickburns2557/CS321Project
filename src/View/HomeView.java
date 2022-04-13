@@ -21,12 +21,12 @@ public class HomeView extends JPanel
 
 
         //Setup Movie grid
-        MovieGrid grid = new MovieGrid(tempMovieList);
-        JScrollPane jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        jp.getVerticalScrollBar().setUnitIncrement(20);
+        //MovieGrid grid = new MovieGrid(tempMovieList);
+        //JScrollPane jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        //jp.getVerticalScrollBar().setUnitIncrement(20);
 
-        this.add(jp, BorderLayout.CENTER);
-        this.add(new SearchPanel(parent), BorderLayout.NORTH);
+        //this.add(jp, BorderLayout.CENTER);
+        //this.add(new SearchPanel(parent), BorderLayout.NORTH);
 
     }
 

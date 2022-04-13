@@ -4,8 +4,8 @@ import java.util.Comparator;
 
 public class MovieComparatorByRuntime implements Comparator<Movie> {
     public int compare(Movie a, Movie b) {
-        Float A = a.getruntime();
-        Float B = b.getruntime();
+        Integer A = a.getruntime();
+        Integer B = b.getruntime();
         return A.compareTo(B);
     }
 }
