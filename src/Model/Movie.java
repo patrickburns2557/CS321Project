@@ -32,7 +32,7 @@ public class Movie
     }
 	
 	
-    public int getyear()
+    public Integer getyear()
     {
         return this.Year;
     }
@@ -43,9 +43,8 @@ public class Movie
         return this.Plot;
     }
 
-   
-   
-    /*public ArrayList<String> getDirectors()
+    /*
+    public ArrayList<String> getDirectors()
 	{
         return (ArrayList<String>)this.director.clone();
     }
@@ -53,8 +52,9 @@ public class Movie
     public ArrayList<String> getGenres()
     {
         return (ArrayList<String>)this.genre.clone();
-	}*/
-	
+	}
+	*/
+
     public String getruntime()
     {
         return this.Runtime;
@@ -89,6 +89,11 @@ public class Movie
 	public String getcountry()
     {
         return this.Country;
+    }
+
+    public String getCriticRating() {
+        String str = "0";
+        return str;
     }
 }
 
