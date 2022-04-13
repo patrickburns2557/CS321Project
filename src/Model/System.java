@@ -1,26 +1,35 @@
 package Model;
-public class System {
-    private String Username = " ";
-    private String Password = " ";
 
-    public System(String username, String password) {
-        Username = username;
-        Password = password;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class System
+{
+    private ArrayList<Movie> masterList;
+    private static System instance = null;
+    static{
+        instance = new System();
     }
 
-    public String getUsername() {
-        return Username;
+    public static System getInstance() {
+        return instance;
+    }
+    public Movie getMovie(int m){
+        return masterList.get(m);
     }
 
-    public void setUsername(String username) {
-        Username = username;
+    private System()
+    {
+        try
+        {
+            Movie[] list = JsonInterface.buildmasterlist("src\\Model\\Movies.json");
+            masterList = new ArrayList<Movie>(Arrays.asList(list));
+        }catch(IOException ex)
+        {
+
+        }
     }
 
-    public String getPassword() {
-        return Password;
-    }
 
-    public void setPassword(String password) {
-        Password = password;
-    }
 }

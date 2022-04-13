@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Collection {
     private String name;
-    private ArrayList<Movie> movies;
+    private ArrayList<Integer> movies;
 
     public Collection(String name) {
         this.name = name;
@@ -12,26 +12,32 @@ public class Collection {
     }
 
     public String getName() {
+
         return name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
-    public ArrayList<Movie> getMovies() {
+    public ArrayList<Integer> getMovies() {
+
         return movies;
     }
 
-    public void addMovie(Movie movie){
+    public void addMovie(Integer movie){
+
         movies.add(movie);
     }
 
-    public void removeMovie(Movie movie){
+    public void removeMovie(Integer movie){
+
         movies.remove(movie);
     }
 
     public void deleteCollection(){
+
         movies.clear();
     }
 }
