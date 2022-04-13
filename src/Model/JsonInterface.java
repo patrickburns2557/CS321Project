@@ -11,7 +11,7 @@ public class JsonInterface {
     //load user
     //save user
 
-public Movie[] buildmasterlist(String jsonfile) throws IOException {
+public static Movie[] buildmasterlist(String jsonfile) throws IOException {
 
     Gson gson = new Gson();
     Movie[] MasterList;
@@ -20,7 +20,7 @@ public Movie[] buildmasterlist(String jsonfile) throws IOException {
     MasterList = gson.fromJson(content, Movie[].class);
     return MasterList;
 }
-public User[] getuserlist(String userjson) throws IOException {
+public static User[] getuserlist(String userjson) throws IOException {
 
     Gson gson = new Gson();
     User[] UserList;

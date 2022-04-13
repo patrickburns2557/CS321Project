@@ -1,9 +1,17 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class User {
     private String username;
     private String password;
+    private ArrayList<Collection> Collections;
 
+    public User(String ur, String pw)
+    {
+        this.password = pw;
+        this.username = ur;
+    }
     //Getter
 
     public String getPassword() {

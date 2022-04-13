@@ -9,7 +9,7 @@ public class temp
 {
     public static void main(String[] args)
     {
-        MainWindow view = new MainWindow();
+        MainWindow view = MainWindow.getInstance();
         view.setVisible(true);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
