@@ -19,24 +19,14 @@ public class Movie
 	private String Rated = "";
 	private String Country = "";
 
-
     public Movie() {}
-
-
-
 
     /** Getter **/
     public String gettitle()
     {
         return this.Title;
     }
-	
-	
-    public int getyear()
-    {
-        return this.Year;
-    }
-	
+
     public Integer getyear()
 	{
         return this.Year;
@@ -47,25 +37,21 @@ public class Movie
         return this.Plot;
     }
 
-   
-   
-    public ArrayList<String> getDirectors()
-	{
-        return (ArrayList<String>)this.director.clone();
-    }
+    //public ArrayList<String> getDirectors()
+	//{
+    //    return (ArrayList<String>)this.director.clone();
+    //}
 	
-    public ArrayList<String> getGenres()
-    {
-        return (ArrayList<String>)this.genre.clone();
-	}
-	
-    public String getruntime()
-    {
-        return this.Runtime;
+    //public ArrayList<String> getGenres()
+    //{
+    //    return (ArrayList<String>)this.genre.clone();
+    //}
 
+    public Float getruntime() {
+        return this.Runtime;
     }
 	
-    public float getscore()
+    public Float getscore()
 	{
 		return this.imdbRating;
 	}
