@@ -14,17 +14,18 @@ import java.nio.Buffer;
 
 public class CreatePoster
 {
-    public static Image getFromURL(String inputURL, String MovieName)
+    public static Image getFromURL(String inputURL, String MovieName, int MovieYear)
     {
         ImageIcon icon;
         try
         {
-            File tempFile = new File("src\\Posters\\" + MovieName + ".png");
+            MovieName = MovieName.replace(":", "_");
+            File tempFile = new File("src\\Posters\\" + MovieName + MovieYear + ".png");
             //Check to see if a poster file already exists for the movie, and load that if so
             if(tempFile.exists())
             {
                 BufferedImage img = null;
-                img = ImageIO.read(new File("src\\Posters\\" + MovieName + ".png"));
+                img = ImageIO.read(new File("src\\Posters\\" + MovieName + MovieYear + ".png"));
                 return img;
             }
             else//image doesn't exist yet
@@ -39,12 +40,12 @@ public class CreatePoster
                     icon.paintIcon(null, g, 0, 0);
                     g.dispose();
 
-                    ImageIO.write(outputImage, "png", new File("src\\Posters\\" + MovieName + ".png"));
+                    ImageIO.write(outputImage, "png", new File("src\\Posters\\" + MovieName + MovieYear + ".png"));
                     return outputImage;
                 }catch(Exception ex)
                 {
                     //If no poster image was found, create a blank poster with just the movie title
-                    return defaultPoster(MovieName);
+                    return defaultPoster(MovieName, MovieYear);
                 }
 
             }
@@ -52,13 +53,13 @@ public class CreatePoster
         {
 
         }
-        return defaultPoster(MovieName);
+        return defaultPoster(MovieName, MovieYear);
     }
 
     //creates default poster image from the movie name
-    public static BufferedImage defaultPoster(String MovieName)
+    public static BufferedImage defaultPoster(String MovieName, int MovieYear)
     {
-        PosterText posterIcon = new PosterText(MovieName);
+        PosterText posterIcon = new PosterText(MovieName + " " + MovieYear);
         int w = posterIcon.getIconWidth();
         int h = posterIcon.getIconHeight();
         //Converts from an Icon to an image to return

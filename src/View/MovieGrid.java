@@ -26,7 +26,8 @@ public class MovieGrid extends JPanel
         ArrayList<JButton> buttonList = new ArrayList<JButton>();
         for(Movie movie : movieList)
         {
-            Image img = new ImageIcon(CreatePoster.getFromURL(movie.getposter(), movie.gettitle())).getImage(); //create image from the poster link
+            //Image img = new ImageIcon(CreatePoster.getFromURL(movie.getposter(), movie.gettitle(), movie.getyear()).getImage(); //create image from the poster link
+            Image img = new ImageIcon(CreatePoster.getFromURL(movie.getposter(), movie.gettitle(), movie.getyear())).getImage();
             Image resizedImage = img.getScaledInstance(MOVIE_WIDTH, MOVIE_HEIGHT, Image.SCALE_SMOOTH); //resize the image to fit on teh button
             buttonList.add(new JButton(new ImageIcon(resizedImage))); //add the button to the buttonList
         }
