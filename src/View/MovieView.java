@@ -16,9 +16,13 @@ public class MovieView extends JPanel
     private JLabel yearLabel;
     private JLabel genreLabel;
     private JLabel runtimeLabel;
+    private JLabel userRating;
     private JLabel descriptionLabel;
     private JLabel directorLabel;
     private JLabel actorLabel;
+    private ButtonGroup ratingGroup;
+    private JButton submitRatingButton;
+
 
     public MovieView(Movie inputMovie) //TEMP FOR NOW, WILL BE MOVIE OBJECT LATER
     {
@@ -34,6 +38,7 @@ public class MovieView extends JPanel
 
         this.setLayout(new GridBagLayout());
 
+        //Button to return home
         homeButton = new JButton("<-- Return to home");
         homeButton.setFont(new Font("Georgia", Font.BOLD, 18));
         GridBagConstraints homeButtonC = new GridBagConstraints();
@@ -45,7 +50,6 @@ public class MovieView extends JPanel
         homeButtonC.anchor = GridBagConstraints.FIRST_LINE_START;
         this.add(homeButton, homeButtonC);
 
-        //temp
         homeButton.addActionListener(event ->
         {
             MainWindow view = MainWindow.getInstance();
@@ -83,7 +87,7 @@ public class MovieView extends JPanel
         //Label for Movie name
         movieLabel = new JLabel(inputMovie.gettitle());                                        //GRAB MOVIE NAME
         //movieLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
-        movieLabel.setFont(new Font("Wide Latin", Font.BOLD, 50));             //FIND A DECENT FONT
+        movieLabel.setFont(new Font("Arial Black", Font.BOLD, 50));             //FIND A DECENT FONT
         GridBagConstraints movieLabelC = new GridBagConstraints();
         movieLabelC.gridx = 1;
         movieLabelC.gridy = 1;
@@ -119,8 +123,7 @@ public class MovieView extends JPanel
         this.add(genreLabel, genreLabelC);
 
 
-        int minutes = 112;                                                          //GRAB MOVIE RUNTIME
-        //runtimeLabel = new JLabel("Runtime: " + minutes + " minutes");
+
         runtimeLabel = new JLabel(Runtime);
         runtimeLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints runtimeLabelC = new GridBagConstraints();
@@ -133,20 +136,34 @@ public class MovieView extends JPanel
 
 
 
+        userRating = new JLabel("User Ratings: " + "3.4/5");                    //CALCULATE USER RATING
+        userRating.setFont(new Font("Georgia", Font.BOLD, 17));
+        GridBagConstraints userRatingC = new GridBagConstraints();
+        userRatingC.gridx = 1;
+        userRatingC.gridy = 5;
+        userRatingC.ipadx = 10;
+        userRatingC.ipady = 10;
+        userRatingC.anchor = GridBagConstraints.FIRST_LINE_START;
+        this.add(userRating, userRatingC);
+
+
+
+
+
         //Label for Movie description
         //Add a "<html>" to the beginning of the label so that it gets interpreted as html and will word wrap
         //It does not word wrap by default
         descriptionLabel = new JLabel("<html>" + Plot);                   //GRAB MOVIE DESCRIPTIONS
-        descriptionLabel.setFont(new Font("Georgia", Font.PLAIN, 17));
+        descriptionLabel.setFont(new Font("Georgia", Font.PLAIN, 20));
         descriptionLabel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Movie Description"));
         GridBagConstraints descriptionLabelC = new GridBagConstraints();
         //descriptionLabelC.weightx = 0.5;
         //descriptionLabelC.weighty = 0.5;
         descriptionLabelC.gridx = 1;
-        descriptionLabelC.gridy = 5;
+        descriptionLabelC.gridy = 6;
         descriptionLabelC.ipadx = 15;
         descriptionLabelC.ipady = 15;
-        descriptionLabelC.insets = new Insets(50, 0, 0, 20);
+        descriptionLabelC.insets = new Insets(30, 0, 30, 20);
         descriptionLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
         descriptionLabelC.fill = GridBagConstraints.HORIZONTAL;
         this.add(descriptionLabel, descriptionLabelC);
@@ -161,7 +178,7 @@ public class MovieView extends JPanel
         //directorLabelC.weightx = 0.5;
         //directorLabelC.weighty = 0.5;
         directorLabelC.gridx = 1;
-        directorLabelC.gridy = 6;
+        directorLabelC.gridy = 7;
         directorLabelC.ipadx = 10;
         directorLabelC.ipady = 10;
         directorLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -174,20 +191,52 @@ public class MovieView extends JPanel
         actorLabel = new JLabel("Actors: " + actors);                           //GRAB MOVIE ACTORS
         actorLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints actorLabelC = new GridBagConstraints();
-        actorLabelC.weightx = 0.5;
-        actorLabelC.weighty = 0.5;
+        //actorLabelC.weightx = 0.5;
+        //actorLabelC.weighty = 0.5;
         actorLabelC.gridx = 1;
-        actorLabelC.gridy = 7;
+        actorLabelC.gridy = 8;
         actorLabelC.ipadx = 10;
         actorLabelC.ipady = 10;
         actorLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
         this.add(actorLabel, actorLabelC);
 
-    }
 
 
-    public void addHomeListener(ActionListener listenForHomeButton)
-    {
-        homeButton.addActionListener(listenForHomeButton);
+        //Panel for letting the user rate the movie
+        final JRadioButton star1 = new JRadioButton("1");
+        final JRadioButton star2 = new JRadioButton("2");
+        final JRadioButton star3 = new JRadioButton("3");
+        final JRadioButton star4 = new JRadioButton("4");
+        final JRadioButton star5 = new JRadioButton("5");
+        submitRatingButton = new JButton("Submit Rating");
+        ratingGroup = new ButtonGroup();
+        ratingGroup.add(star1);
+        ratingGroup.add(star2);
+        ratingGroup.add(star3);
+        ratingGroup.add(star4);
+        ratingGroup.add(star5);
+        JPanel ratingPanel = new JPanel();
+        ratingPanel.setLayout(new GridLayout(1,6));
+        ratingPanel.add(star1);
+        ratingPanel.add(star2);
+        ratingPanel.add(star3);
+        ratingPanel.add(star4);
+        ratingPanel.add(star5);
+        ratingPanel.add(submitRatingButton);
+        ratingPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Rate Movie:"));
+        GridBagConstraints ratingC = new GridBagConstraints();
+        ratingC.weightx = 0.5;
+        ratingC.weighty = 0.5;
+        ratingC.gridx = 1;
+        ratingC.gridy = 9;
+        ratingC.ipadx = 10;
+        ratingC.ipady = 10;
+        ratingC.anchor = GridBagConstraints.FIRST_LINE_START;
+        this.add(ratingPanel, ratingC);
+
+        //Label for showing current user rating
+        userRating = new JLabel();
+
+
     }
 }
