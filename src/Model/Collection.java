@@ -4,6 +4,20 @@ package Model;
 import java.util.ArrayList;
 
 public class Collection implements Cloneable {
+
+    public Collection clone() throws CloneNotSupportedException {
+        try {
+            return (Collection) super.clone();
+        } catch (CloneNotSupportedException e) {
+
+            return null;
+        }
+
+
+    }
+
+
+
     private String name;
     private ArrayList<Integer> movies;
 
