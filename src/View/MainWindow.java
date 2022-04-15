@@ -15,6 +15,7 @@ public class MainWindow extends JFrame
     private static MainWindow mainWindow;
     private static HomeView homeView;
     private static MovieView movieView;
+    private static CollectionView collectionView;
 
     static
     {
@@ -31,14 +32,45 @@ public class MainWindow extends JFrame
 
 
 
-        //Just change between the two things below for homeview and movieview by commenting out for now until transitioning between them is setup
-        //HomeView home = new HomeView();
-        //this.add(home);
+        ArrayList<Movie> newList = sys.getMasterList();
+        //MovieView movieView = new MovieView(newList.get(78));
+        //this.add(movieView);
 
+        //homeView = new HomeView();
+        //this.add(homeView);
+        ArrayList<Collection> tempCollections = new ArrayList<>();
+        Collection collectionA = new Collection("Collection A", new ArrayList<>(newList.subList(0, 3)));
+        Collection collectionB = new Collection("Collection B", new ArrayList<>(newList.subList(9, 20)));
+        Collection collectionC = new Collection("Collection B", new ArrayList<>(newList.subList(21, 26)));
+        tempCollections.add(collectionA);
+        //tempCollections.add(collectionB);
+        //tempCollections.add(collectionC);
+        collectionView = new CollectionView(tempCollections);
+        this.add(collectionView);
+        collectionView.refresh();
+    }
 
-        MovieView Movie = new MovieView("Toy Story 4");
-        this.add(Movie);
+    public static MainWindow getInstance()
+    {
+        return mainWindow;
+    }
 
-        this.add(test);
+    public void ShowHome()
+    {
+        this.getContentPane().removeAll();
+        //homeView = new HomeView();
+        this.add(homeView);
+        this.repaint();
+        this.setVisible(true);
+    }
+
+    public void ShowMovie(Movie movie)
+    {
+        this.getContentPane().removeAll();
+        movieView = new MovieView(movie);
+        System.out.println(movie.gettitle() + " ENTERED");
+        this.add(movieView);
+        this.repaint();
+        this.setVisible(true);
     }
 }

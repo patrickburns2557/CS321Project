@@ -22,9 +22,12 @@ public class CollectionView extends JPanel implements ActionListener {
      * @param actionEvent
      */
     public void actionPerformed(ActionEvent actionEvent) {
-
+        refresh();
     }
 
+    /**
+     * Updates the collection view
+     */
     public void refresh() {
         // Clear all components
         this.removeAll();
@@ -36,9 +39,9 @@ public class CollectionView extends JPanel implements ActionListener {
             for (var collection : userCollections) {
                 list.add(new CollectionPeekView(this, collection), BorderLayout.CENTER);
             }
-            JScrollPane jp = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            JScrollPane jp = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             jp.getVerticalScrollBar().setUnitIncrement(20);
-            this.add(jp, BorderLayout.NORTH);
+            this.add(jp, BorderLayout.CENTER);
         }
         else {
             // If the user collection list is empty then display text

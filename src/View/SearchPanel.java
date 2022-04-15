@@ -23,6 +23,7 @@ public class SearchPanel extends JPanel
         searchBar.addActionListener(event ->
         {
             System.out.println("Enter Pressed");   //Use this action lister to search when enter button is pressed in search bar
+
         });
 
         //setup login/signup button

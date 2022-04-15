@@ -28,7 +28,7 @@ public class CollectionPeekView extends JPanel implements ComponentListener {
         if (getComponentCount() > componentCount)
             this.remove(getComponentCount() - 1);
         // Correct the size by recreating the movie grid
-        MovieGrid grid = new MovieGrid(collection.getMovies(), viewableMovies);
+        MovieGrid grid = new MovieGrid(collection, viewableMovies);
         Insets insets = border.getBorderInsets(this);
         grid.setLayout(new FlowLayout(FlowLayout.CENTER, horizontalPadding, 0));
         this.add(grid, BorderLayout.CENTER);

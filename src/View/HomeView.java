@@ -61,4 +61,31 @@ public class HomeView extends JPanel
 
     }
 
+    public void SearchMovies(String search)
+    {
+        FilterMovies.filterByTitle(currentList.getMovies(), search);
+        this.remove(jp);
+        grid = new MovieGrid(currentList);
+        jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+
+        this.add(jp,BorderLayout.CENTER);
+        this.repaint();
+        MainWindow.getInstance().setVisible(true);
+    }
+
+    public void SearchMoviesS()
+    {
+        FilterMovies.filterByTitle(currentList.getMovies(), searchPanel.getEntry());
+        this.remove(jp);
+        grid = new MovieGrid(currentList);
+        jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+
+        this.add(jp,BorderLayout.CENTER);
+        this.repaint();
+        MainWindow.getInstance().setVisible(true);
+    }
+
+
 }
