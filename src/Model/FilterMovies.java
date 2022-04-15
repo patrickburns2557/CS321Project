@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class FilterMovies {
 
@@ -59,7 +60,7 @@ public class FilterMovies {
      * @param title
      */
     public static void filterByTitle(ArrayList<Movie> movies, String title) {
-        movies.removeIf((movie) -> !movie.gettitle().contains(title));
+        movies.removeIf((movie) -> !movie.gettitle().toLowerCase().contains(title.toLowerCase()));
     }
 
     /**
