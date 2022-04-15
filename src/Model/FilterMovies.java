@@ -9,7 +9,7 @@ public class FilterMovies {
      * @param movies
      * @param genres
      */
-    public void filterByGenre(ArrayList<Movie> movies, ArrayList<String> genres) {
+    public static void filterByGenre(ArrayList<Movie> movies, ArrayList<String> genres) {
         // Uses a lambda to test if the movies have one of the genres
         movies.removeIf(
                 (movie) -> {
@@ -26,7 +26,7 @@ public class FilterMovies {
      * @param movies
      * @param languages
      */
-    public void filterByLanguage(ArrayList<Movie> movies, ArrayList<String> languages) {
+    public static void filterByLanguage(ArrayList<Movie> movies, ArrayList<String> languages) {
         movies.removeIf(
                 (movie) -> {
                     boolean remove = false;
@@ -42,7 +42,7 @@ public class FilterMovies {
      * @param movies
      * @param countries
      */
-    public void filterByCountry(ArrayList<Movie> movies, ArrayList<String> countries) {
+    public static void filterByCountry(ArrayList<Movie> movies, ArrayList<String> countries) {
         movies.removeIf(
                 (movie) -> {
                     boolean remove = false;
@@ -58,7 +58,11 @@ public class FilterMovies {
      * @param movies
      * @param title
      */
+<<<<<<< HEAD
     public void filterByTitle(ArrayList<Movie> movies, String title) {
+=======
+    public static void filterByTitle(ArrayList<Movie> movies, String title) {
+>>>>>>> main
         movies.removeIf((movie) -> !movie.gettitle().contains(title));
     }
 
@@ -67,7 +71,7 @@ public class FilterMovies {
      * @param movies
      * @param year
      */
-    public void filterByYear(ArrayList<Movie> movies, int year) {
+    public static void filterByYear(ArrayList<Movie> movies, int year) {
         movies.removeIf(
                 (movie) -> {
                    return movie.getyear() != year;
@@ -79,7 +83,7 @@ public class FilterMovies {
      * @param movies
      * @param ageRating
      */
-    public void filterByAgeRating(ArrayList<Movie> movies, String ageRating) {
+    public static void filterByAgeRating(ArrayList<Movie> movies, String ageRating) {
         movies.removeIf(
                 (movie) -> {
                     return movie.getagerating() != ageRating;

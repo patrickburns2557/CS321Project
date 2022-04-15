@@ -1,15 +1,28 @@
 package View;
 
+import Model.Collection;
+import Model.JsonInterface;
+import Model.Movie;
+
 import javax.swing.*;
-import java.util.Collection;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class MainWindow extends JFrame
 {
-    private CollectionView test = new CollectionView();
+    //private CollectionView test = new CollectionView();
+    private static MainWindow mainWindow;
+    private static HomeView homeView;
+    private static MovieView movieView;
 
-    public MainWindow()
+    static
     {
+        mainWindow = new MainWindow();
+    }
+    private MainWindow()
+    {
+        Model.System sys = Model.System.getInstance();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1200,800);
         //Maximize window on creation
@@ -18,14 +31,36 @@ public class MainWindow extends JFrame
 
 
 
-        //Just change between the two things below for homeview and movieview by commenting out for now until transitioning between them is setup
-        //HomeView home = new HomeView();
-        //this.add(home);
+        /*ArrayList<Movie> newList = sys.getMasterList();
+        MovieView movieView = new MovieView(newList.get(78));
+        this.add(movieView);*/
 
+        homeView = new HomeView();
+        this.add(homeView);
 
-        MovieView Movie = new MovieView("Toy Story 4");
-        this.add(Movie);
+    }
 
-        this.add(test);
+    public static MainWindow getInstance()
+    {
+        return mainWindow;
+    }
+
+    public void ShowHome()
+    {
+        this.getContentPane().removeAll();
+        //homeView = new HomeView();
+        this.add(homeView);
+        this.repaint();
+        this.setVisible(true);
+    }
+
+    public void ShowMovie(Movie movie)
+    {
+        this.getContentPane().removeAll();
+        movieView = new MovieView(movie);
+        System.out.println(movie.gettitle() + " ENTERED");
+        this.add(movieView);
+        this.repaint();
+        this.setVisible(true);
     }
 }
