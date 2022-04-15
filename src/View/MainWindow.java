@@ -1,11 +1,12 @@
 package View;
 
+import Model.Collection;
 import Model.JsonInterface;
 import Model.Movie;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.ArrayList;
 
 
 public class MainWindow extends JFrame
@@ -21,6 +22,7 @@ public class MainWindow extends JFrame
     }
     private MainWindow()
     {
+        Model.System sys = Model.System.getInstance();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1200,800);
         //Maximize window on creation
@@ -29,25 +31,13 @@ public class MainWindow extends JFrame
 
 
 
-        //Just change between the two things below for homeview and movieview by commenting out for now until transitioning between them is setup
-        //HomeView home = new HomeView();
-        //this.add(home);
-        Movie[] list;
-        try
-        {
-            list = JsonInterface.buildmasterlist("src\\Model\\Movies.json");
-            /*MovieView movieView = new MovieView(list[78]);
-            this.add(movieView);*/
+        /*ArrayList<Movie> newList = sys.getMasterList();
+        MovieView movieView = new MovieView(newList.get(78));
+        this.add(movieView);*/
 
+        homeView = new HomeView();
+        this.add(homeView);
 
-            homeView = new HomeView();
-            this.add(homeView);
-
-            //this.add(test);
-        } catch(IOException ex)
-        {
-
-        }
     }
 
     public static MainWindow getInstance()
