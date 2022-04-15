@@ -1,8 +1,9 @@
 package Model;
 
+
 import java.util.ArrayList;
 
-public class Collection {
+public class Collection implements Cloneable {
     private String name;
     private ArrayList<Integer> movies;
 
