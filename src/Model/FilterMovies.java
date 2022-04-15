@@ -58,7 +58,7 @@ public class FilterMovies {
      * @param movies
      * @param title
      */
-    public void filterByTitle(ArrayList<Movie> movies, String title) {
+    public static void filterByTitle(ArrayList<Movie> movies, String title) {
         movies.removeIf((movie) -> !movie.gettitle().contains(title));
     }
 

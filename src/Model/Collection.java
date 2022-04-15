@@ -1,5 +1,6 @@
 package Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Collection {
@@ -9,6 +10,12 @@ public class Collection {
     public Collection(String name) {
         this.name = name;
         this.movies = new ArrayList<>();
+    }
+
+    public Collection(String name, ArrayList<Movie> movies)
+    {
+        this.name = name;
+        this.movies = movies;
     }
 
     public String getName() {

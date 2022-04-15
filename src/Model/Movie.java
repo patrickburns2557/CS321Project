@@ -9,7 +9,7 @@ public class Movie
     private String Title = "";
 	private Integer Year = 0;
     private String Plot = "";
-    private String Runtime = "";
+    private String  Runtime = "";
     private Float imdbRating = 0.0f;
 
     private String Poster = "";
@@ -19,36 +19,46 @@ public class Movie
 	private String Rated = "";
 	private String Country = "";
 
+
     public Movie() {}
+
+
+
 
     /** Getter **/
     public String gettitle()
     {
         return this.Title;
     }
-
+	
+	
     public Integer getyear()
-	{
+    {
         return this.Year;
     }
+
 	
     public String getplot()
     {
         return this.Plot;
     }
 
-    //public ArrayList<String> getDirectors()
-	//{
-    //    return (ArrayList<String>)this.director.clone();
-    //}
+    /*
+    public ArrayList<String> getDirectors()
+	{
+        return (ArrayList<String>)this.director.clone();
+    }
 	
-    //public ArrayList<String> getGenres()
-    //{
-    //    return (ArrayList<String>)this.genre.clone();
-    //}
+    public ArrayList<String> getGenres()
+    {
+        return (ArrayList<String>)this.genre.clone();
+	}
+	*/
 
-    public Integer getruntime() {
-        return Integer.parseInt(Runtime);
+    public String getruntime()
+    {
+        return this.Runtime;
+
     }
 	
     public Float getscore()

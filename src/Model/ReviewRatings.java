@@ -1,3 +1,5 @@
+package Model;
+
 public class ReviewRatings {
     private int ratings = 0;
     private String review =  " ";
