@@ -28,10 +28,7 @@ public class SearchPanel extends JPanel
 
         //setup login/signup button
         loginSignupButton = new JButton("Login/Signup");
-        loginSignupButton.addActionListener(event ->
-        {
-            System.out.println("Login button pressed"); //action listener for login button
-        });
+        loginSignupButton.addActionListener(new LoginWindow());
 
         //setup home button
         homeButton = new JButton("Home");

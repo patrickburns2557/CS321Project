@@ -8,12 +8,10 @@ import java.awt.event.ActionListener;
 import static javax.swing.SwingConstants.RIGHT;
 
 public class LoginWindow extends JPanel implements ActionListener {
-    JFrame parent;
     JTextField username;
     JPasswordField password;
 
-    public LoginWindow(JFrame parent) {
-        this.parent = parent;
+    public LoginWindow() {
         this.setLayout(new GridLayout(2, 2, 3, 5));
         username = new JTextField();
         password = new JPasswordField();
@@ -24,6 +22,8 @@ public class LoginWindow extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        MainWindow parent = MainWindow.getInstance();
+
         int result = JOptionPane.showOptionDialog(
                 parent,
                 this,
