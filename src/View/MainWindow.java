@@ -45,6 +45,11 @@ public class MainWindow extends JFrame
         return mainWindow;
     }
 
+    public static HomeView getHomeView()
+    {
+        return homeView;
+    }
+
     public void ShowHome()
     {
         this.getContentPane().removeAll();
@@ -58,9 +63,15 @@ public class MainWindow extends JFrame
     {
         this.getContentPane().removeAll();
         movieView = new MovieView(movie);
-        System.out.println(movie.gettitle() + " ENTERED");
         this.add(movieView);
         this.repaint();
         this.setVisible(true);
+    }
+
+    public void ShowTemp()
+    {
+        this.getContentPane().removeAll();
+        Collection temp = new Collection("master", Model.System.getInstance().getMasterList());
+        this.add(new MovieGridCollection(temp));
     }
 }

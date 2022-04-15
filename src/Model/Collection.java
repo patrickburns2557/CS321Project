@@ -3,7 +3,7 @@ package Model;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Collection {
+public class Collection implements Cloneable {
     private String name;
     private ArrayList<Movie> movies;
 
@@ -16,6 +16,17 @@ public class Collection {
     {
         this.name = name;
         this.movies = movies;
+    }
+
+    public Collection clone()
+    {
+        try
+        {
+            return (Collection) super.clone();
+        } catch(CloneNotSupportedException ex)
+        {
+            return null;
+        }
     }
 
     public String getName() {

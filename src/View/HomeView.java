@@ -1,15 +1,14 @@
 package View;
 
-import Model.Collection;
-import Model.FilterMovies;
-import Model.JsonInterface;
-import Model.Movie;
+import Model.*;
 import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
 import java.security.cert.CollectionCertStoreParameters;
+import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Filter;
 
 public class HomeView extends JPanel
@@ -27,8 +26,8 @@ public class HomeView extends JPanel
         JPanel temp = new JPanel();
         temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
         JButton b1 = new JButton("tempbutton b1");
-        JButton b2 = new JButton("tempbutton");
-        JButton b3 = new JButton("tempbutton");
+        JButton b2 = new JButton("tempbutton collectiongrid");
+        JButton b3 = new JButton("tempbutton sort");
         JButton b4 = new JButton("tempbutton");
         temp.add(b1);
         temp.add(b2);
@@ -36,13 +35,17 @@ public class HomeView extends JPanel
         temp.add(b4);
         this.add(temp, BorderLayout.WEST);
 
-        b1.addActionListener(event ->
+        b2.addActionListener(event ->
         {
-            SearchMovies("Fast");
+            MainWindow.getInstance().ShowTemp();
+        });
+        b3.addActionListener(event ->
+        {
+            SortMovies();
         });
 
         //Setup Movie grid
-        currentList = new Collection("Master", sys.getMasterList());
+        currentList = new Collection("master", sys.getMasterList());
         grid = new MovieGrid(currentList);
 
 
@@ -56,30 +59,31 @@ public class HomeView extends JPanel
 
         searchPanel.searchBar.addActionListener(event ->
         {
-            SearchMoviesS();
+            SearchMovies();
         });
 
     }
 
-    public void SearchMovies(String search)
+    public void SearchMovies()
     {
-        FilterMovies.filterByTitle(currentList.getMovies(), search);
-        this.remove(jp);
-        grid = new MovieGrid(currentList);
-        jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-
-        this.add(jp,BorderLayout.CENTER);
-        this.repaint();
-        MainWindow.getInstance().setVisible(true);
+        Model.System sys = Model.System.getInstance();
+        currentList = new Collection("master", sys.getMasterList());
+        FilterMovies.filterByTitle(currentList.getMovies(), searchPanel.getEntry());
+        RefreshGrid();
     }
 
-    public void SearchMoviesS()
+    public void SortMovies()
     {
-        FilterMovies.filterByTitle(currentList.getMovies(), searchPanel.getEntry());
+        Collections.sort(currentList.getMovies(), new MovieComparatorByName());
+        RefreshGrid();
+    }
+
+    public void RefreshGrid()
+    {
         this.remove(jp);
         grid = new MovieGrid(currentList);
         jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jp.getVerticalScrollBar().setUnitIncrement(20);
 
 
         this.add(jp,BorderLayout.CENTER);

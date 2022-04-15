@@ -33,7 +33,8 @@ public class System {
     public ArrayList<Movie> getMasterList()
     {
         //will want to clone
-        return masterList;
+        return (ArrayList<Movie>) masterList.clone();
+
     }
 
 }
