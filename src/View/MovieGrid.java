@@ -58,6 +58,7 @@ public class MovieGrid extends JPanel
         for(int i = 0; i < viewableMovies; i++)
         {
             CreateButton(movieList.get(i));
+            System.out.println(movieList.get(i).getcountry());
         }
         //add each button to the MovieGrid JPanel
         for(int i = 0; i < viewableMovies; i++)
