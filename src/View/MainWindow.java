@@ -56,7 +56,7 @@ public class MainWindow extends JFrame
         return mainWindow;
     }
 
-    public static HomeView getHomeView()
+    public HomeView getHomeView()
     {
         return homeView;
     }

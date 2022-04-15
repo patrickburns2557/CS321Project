@@ -91,8 +91,7 @@ public class Movie
         return this.Country;
     }
 
-    public String getCriticRating() {
-        String str = "0";
-        return str;
+    public float getCriticRating() {
+        return this.imdbRating;
     }
 }
