@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static java.lang.Math.min;
+
 public class MovieGrid extends JPanel
 {
     public static final int MOVIE_WIDTH = 220;
@@ -16,6 +18,7 @@ public class MovieGrid extends JPanel
     public ArrayList<JPanel> posterPanels;
     ArrayList<JButton> buttonList;
     ArrayList<Movie> movieList;
+
 
     public MovieGrid()
     {
@@ -40,9 +43,10 @@ public class MovieGrid extends JPanel
         }
     }
 
-    public MovieGrid(Collection list)
+    public MovieGrid(Collection list, int viewableMovies)
     {
         movieList = list.getMovies();
+        viewableMovies = min(viewableMovies, movieList.size());
         this.setLayout(new WrapLayout(FlowLayout.LEADING, 15, 15)); // Wrap Layout extends Flowlayout and just
         // properly wraps to the next line when runs out of horizontal space
         // Regular FlowLayout doesn't wrap to the next line when a JScrollPane is added to it
@@ -51,17 +55,20 @@ public class MovieGrid extends JPanel
         //Create Buttons for each movie listed in the grid
         posterPanels = new ArrayList<JPanel>();
         buttonList = new ArrayList<JButton>();
-        for(Movie movie : movieList)
+        for(int i = 0; i < viewableMovies; i++)
         {
-            CreateButton(movie);
+            CreateButton(movieList.get(i));
         }
         //add each button to the MovieGrid JPanel
-        for(int i = 0; i < movieList.size(); i++)
+        for(int i = 0; i < viewableMovies; i++)
         {
             SelectMovie(i);
         }
     }
 
+    public MovieGrid(Collection list) {
+        this(list, list.getMovies().size());
+    }
 
     private void SelectMovie(int i)
     {
@@ -81,6 +88,7 @@ public class MovieGrid extends JPanel
         this.add(buttonList.get(i));
     }
 
+
     private void CreateButton(Movie movie)
     {
         Image img = new ImageIcon(CreatePoster.getFromURL(movie.getposter(), movie.gettitle(), movie.getyear())).getImage();//create image from the poster link
@@ -92,3 +100,4 @@ public class MovieGrid extends JPanel
         posterPanels.add(panel);
     }
 }
+

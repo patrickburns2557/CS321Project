@@ -70,7 +70,7 @@ public class FilterMovies {
     public static void filterByYear(ArrayList<Movie> movies, int year) {
         movies.removeIf(
                 (movie) -> {
-                   return movie.getyear() != year;
+                    return movie.getyear() != year;
                 });
     }
 
