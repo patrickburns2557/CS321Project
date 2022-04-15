@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import Model.Collection;
 import Model.Movie;
 
-public class CollectionPeekView extends JPanel implements ComponentListener {
+public class CollectionPeekView extends JPanel implements ComponentListener, ActionListener{
     private Collection collection;
     private int componentCount = 0;
     private JPanel parent;
@@ -43,6 +43,7 @@ public class CollectionPeekView extends JPanel implements ComponentListener {
         this.setLayout(new BorderLayout());
 
         JButton viewMore = new JButton("View More");
+        viewMore.addActionListener(this);
 
         JPanel topBar = new JPanel();
         topBar.setLayout(new BorderLayout());
@@ -51,5 +52,11 @@ public class CollectionPeekView extends JPanel implements ComponentListener {
         this.add(topBar, BorderLayout.NORTH);
 
         componentCount = getComponentCount();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        MainWindow mainWindow = MainWindow.getInstance();
+        mainWindow.ShowCollection(collection);
     }
 }
