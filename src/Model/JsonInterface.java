@@ -11,29 +11,29 @@ public class JsonInterface {
     //load user
     //save user
 
-public static Movie[] buildmasterlist(String jsonfile) throws IOException {
+    public static Movie[] buildmasterlist(String jsonfile) throws IOException {
 
-    Gson gson = new Gson();
-    Movie[] MasterList;
+        Gson gson = new Gson();
+        Movie[] MasterList;
 
-    String content = new String(Files.readAllBytes(Paths.get(jsonfile))); //Movie file
-    MasterList = gson.fromJson(content, Movie[].class);
-    return MasterList;
-}
-public static User[] getuserlist(String userjson) throws IOException {
+        String content = new String(Files.readAllBytes(Paths.get(jsonfile))); //Movie file
+        MasterList = gson.fromJson(content, Movie[].class);
+        return MasterList;
+    }
+    public static User[] getuserlist(String userjson) throws IOException {
 
-    Gson gson = new Gson();
-    User[] UserList;
-    String content = new String(Files.readAllBytes(Paths.get(userjson))); //Movie file
-    UserList = gson.fromJson(content, User[].class);
-    return UserList;
-}
-public void writeUser(String str)
-{
+        Gson gson = new Gson();
+        User[] UserList;
+        String content = new String(Files.readAllBytes(Paths.get(userjson))); //Movie file
+        UserList = gson.fromJson(content, User[].class);
+        return UserList;
+    }
+    public void writeUser(String str)
+    {
 
 //tentative
 
-}
+    }
 
 
 

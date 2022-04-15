@@ -7,17 +7,17 @@ import java.util.GregorianCalendar;
 public class Movie
 {
     private String Title = "";
-	private Integer Year = 0;
+    private Integer Year = 0;
     private String Plot = "";
     private String  Runtime = "";
     private Float imdbRating = 0.0f;
 
     private String Poster = "";
-	private String Director = "";
-	private String Genre = "";
-	private String Language = "";
-	private String Rated = "";
-	private String Country = "";
+    private String Director = "";
+    private String Genre = "";
+    private String Language = "";
+    private String Rated = "";
+    private String Country = "";
 
 
     public Movie() {}
@@ -30,14 +30,14 @@ public class Movie
     {
         return this.Title;
     }
-	
-	
+
+
     public Integer getyear()
     {
         return this.Year;
     }
 
-	
+
     public String getplot()
     {
         return this.Plot;
@@ -60,17 +60,17 @@ public class Movie
         return this.Runtime;
 
     }
-	
+
     public float getscore()
-	{
-		return this.imdbRating;
-	}
-	
+    {
+        return this.imdbRating;
+    }
+
     public String getgenre()
     {
         return this.Genre;
     }
-	
+
     public String getposter()
     {
         return this.Poster;
@@ -85,8 +85,8 @@ public class Movie
     {
         return this.Language;
     }
-    
-	public String getcountry()
+
+    public String getcountry()
     {
         return this.Country;
     }
@@ -96,4 +96,3 @@ public class Movie
         return str;
     }
 }
-
