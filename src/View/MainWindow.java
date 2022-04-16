@@ -26,7 +26,7 @@ public class MainWindow extends JFrame
     {
         Model.System sys = Model.System.getInstance();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1200,800);
+        this.setSize(1500,900);
         //Maximize window on creation
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
@@ -42,7 +42,7 @@ public class MainWindow extends JFrame
         /*ArrayList<Collection> tempCollections = new ArrayList<>();
         Collection collectionA = new Collection("Collection A", new ArrayList<>(newList.subList(0, 3)));
         Collection collectionB = new Collection("Collection B", new ArrayList<>(newList.subList(9, 20)));
-        Collection collectionC = new Collection("Collection B", new ArrayList<>(newList.subList(21, 26)));
+        Collection collectionC = new Collection("Collection C", new ArrayList<>(newList.subList(21, 26)));
         tempCollections.add(collectionA);
         tempCollections.add(collectionB);
         tempCollections.add(collectionC);

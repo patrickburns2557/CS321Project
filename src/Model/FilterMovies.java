@@ -64,14 +64,14 @@ public class FilterMovies {
     }
 
     /**
-     * Will remove movies from the array list that weren't released that year
+     * Will remove movies from the array list that weren't released in the specified years
      * @param movies
-     * @param year
+     * @param years - Will contain 2 numbers, the beginning of the range, and end of the range
      */
-    public static void filterByYear(ArrayList<Movie> movies, int year) {
+    public static void filterByYear(ArrayList<Movie> movies, ArrayList<Integer> years) {
         movies.removeIf(
                 (movie) -> {
-                    return movie.getyear() != year;
+                    return !(movie.getyear() >= years.get(0) && movie.getyear() <= years.get(1));
                 });
     }
 
@@ -81,9 +81,6 @@ public class FilterMovies {
      * @param ageRating
      */
     public static void filterByAgeRating(ArrayList<Movie> movies, String ageRating) {
-        movies.removeIf(
-                (movie) -> {
-                    return movie.getagerating() != ageRating;
-                });
+        movies.removeIf((movie) -> !movie.getagerating().equals(ageRating));
     }
 }

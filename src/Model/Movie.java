@@ -14,6 +14,7 @@ public class Movie
 
     private String Poster = "";
     private String Director = "";
+    private String Actors = "";
     private String Genre = "";
     private String Language = "";
     private String Rated = "";
@@ -89,6 +90,16 @@ public class Movie
     public String getcountry()
     {
         return this.Country;
+    }
+
+    public String getDirector()
+    {
+        return this.Director;
+    }
+
+    public String getActors()
+    {
+        return this.Actors;
     }
 
     public float getCriticRating() {

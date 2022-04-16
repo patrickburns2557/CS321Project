@@ -5,7 +5,9 @@ import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.AreaAveragingScaleFilter;
 import java.security.cert.CollectionCertStoreParameters;
+import java.sql.Array;
 import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,11 +44,12 @@ public class HomeView extends JPanel
         });
         b3.addActionListener(event ->
         {
-            SortMoviesTitle();
+            ResetMovies();
         });
 
         //Setup Movie grid
         currentList = new Collection("master", sys.getMasterList());
+        Collections.sort(currentList.getMovies(), new MovieComparatorByName());
         grid = new MovieGrid(currentList);
         jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jp.getVerticalScrollBar().setUnitIncrement(20);
@@ -66,7 +69,13 @@ public class HomeView extends JPanel
         {
             SearchMovies();
         });
+    }
 
+    public void ResetMovies()
+    {
+        Model.System sys = Model.System.getInstance();
+        currentList = new Collection("master", sys.getMasterList());
+        SortMoviesTitle();
     }
 
     public void SearchMovies()
@@ -79,7 +88,6 @@ public class HomeView extends JPanel
 
     public void SortMoviesTitle()
     {
-        java.lang.System.out.println("SORT2");
         Collections.sort(currentList.getMovies(), new MovieComparatorByName());
         RefreshGrid();
     }
@@ -96,6 +104,69 @@ public class HomeView extends JPanel
     public void SortMoviesRuntime()
     {
         Collections.sort(currentList.getMovies(), new MovieComparatorByName());
+        RefreshGrid();
+    }
+
+    public void FilterMoviesGenre(String genre)
+    {
+        if(genre.equals("Genre"))
+            return;
+        ArrayList<String> genrePass = new ArrayList<String>();
+        genrePass.add(genre);
+        FilterMovies.filterByGenre(currentList.getMovies(),genrePass);
+        RefreshGrid();
+    }
+    public void FilterMoviesLanguage(String language)
+    {
+        if(language.equals("Language"))
+            return;
+        ArrayList<String> languagePass = new ArrayList<String>();
+        languagePass.add(language);
+        FilterMovies.filterByLanguage(currentList.getMovies(), languagePass);
+        RefreshGrid();
+    }
+    public void FilterMoviesCountry(String country)
+    {
+        if(country.equals("Country"))
+            return;
+        ArrayList<String> countryPass = new ArrayList<String>();
+        countryPass.add(country);
+        FilterMovies.filterByCountry(currentList.getMovies(), countryPass);
+        RefreshGrid();
+    }
+    public void FilterMoviesYear(String year)
+    {
+        if(year.equals("Years"))
+            return;
+        ArrayList<Integer> years = new ArrayList<Integer>();
+        int begin = 0, end = 9;
+        //Generate a range of years to pass into the filter method based on the selected decade
+        switch(year)
+        {
+            case "1920s": begin = 1920; end = 1929; break;
+            case "1950s": begin = 1950; end = 1959; break;
+            case "1960s": begin = 1960; end = 1969; break;
+            case "1970s": begin = 1970; end = 1979; break;
+            case "1980s": begin = 1980; end = 1989; break;
+            case "1990s": begin = 1990; end = 1999; break;
+            case "2000s": begin = 2000; end = 2009; break;
+            case "2010s": begin = 2010; end = 2019; break;
+            case "2020s": begin = 2020; end = 2029; break;
+        }
+        /*for(int i = begin;i<=end;i++)
+            years.add(i);*/
+
+        years.add(begin);
+        years.add(end);
+
+        FilterMovies.filterByYear(currentList.getMovies(), years);
+        RefreshGrid();
+    }
+    public void FilterMoviesAge(String age)
+    {
+        if(age.equals("Age Rating"))
+            return;
+        FilterMovies.filterByAgeRating(currentList.getMovies(), age);
         RefreshGrid();
     }
 
