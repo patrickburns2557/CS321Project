@@ -103,7 +103,8 @@ public class HomeView extends JPanel
     }
     public void SortMoviesRuntime()
     {
-        Collections.sort(currentList.getMovies(), new MovieComparatorByName());
+        //Collections.sort(currentList.getMovies(), new MovieComparatorByName());
+        Collections.sort(currentList.getMovies(), new MovieComparatorByRuntime());
         RefreshGrid();
     }
 
