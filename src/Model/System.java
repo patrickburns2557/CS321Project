@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class System {
     private ArrayList<Movie> masterList;
+    private ArrayList<User> userList;
     private static System instance = null;
 
     static
@@ -23,6 +24,7 @@ public class System {
         {
 
         }
+
     }
 
     public static System getInstance()

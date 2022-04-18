@@ -2,9 +2,11 @@ package Model;
 
 import com.google.gson.*;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class JsonInterface {
     //array movie (master list)
@@ -28,10 +30,23 @@ public static User[] getuserlist(String userjson) throws IOException {
     UserList = gson.fromJson(content, User[].class);
     return UserList;
 }
-public void writeUser(String str)
+public void writeUser(ArrayList<User> users)
 {
+    Gson gson = new Gson();
 
-//tentative
+    String json = gson.toJson(users);
+
+    try {
+        FileWriter writer = new FileWriter("src/MasterUser.json");
+        writer.write(json);
+        writer.close();
+
+
+
+    } catch (IOException e){
+
+        e.printStackTrace();
+    }
 
 }
 

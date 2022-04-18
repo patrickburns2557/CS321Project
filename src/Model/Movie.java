@@ -9,11 +9,9 @@ public class Movie
     private String Title = "";
 	private Integer Year = 0;
     private String Plot = "";
-<<<<<<< HEAD
+
     private String Runtime = "";
-=======
-    private String  Runtime = "";
->>>>>>> main
+
     private Float imdbRating = 0.0f;
 
     private String Poster = "";
@@ -22,6 +20,7 @@ public class Movie
 	private String Language = "";
 	private String Rated = "";
 	private String Country = "";
+
 
 
     public Movie() {}
@@ -34,11 +33,7 @@ public class Movie
     {
         return this.Title;
     }
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> main
 	
     public Integer getyear()
     {
@@ -51,7 +46,7 @@ public class Movie
         return this.Plot;
     }
 
-<<<<<<< HEAD
+
    
    /*
 =======
@@ -105,13 +100,10 @@ public class Movie
     }
 
     public String getCriticRating() {
-<<<<<<< HEAD
+
        String str = "0";
        return str;
-=======
-        String str = "0";
-        return str;
->>>>>>> main
+
     }
 }
 
