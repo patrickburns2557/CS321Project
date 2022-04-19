@@ -5,7 +5,10 @@ import Model.JsonInterface;
 import Model.Movie;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -25,7 +28,16 @@ public class MainWindow extends JFrame
     private MainWindow()
     {
         Model.System sys = Model.System.getInstance();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent event)
+            {
+                MainWindow.getInstance().closingProcedure();
+            }
+        });
         this.setSize(1500,900);
         //Maximize window on creation
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
@@ -70,6 +82,15 @@ public class MainWindow extends JFrame
         this.setVisible(true);
     }
 
+    public void ShowHomeOnLogin()
+    {
+        this.getContentPane().removeAll();
+        homeView = new HomeView();
+        this.add(homeView);
+        this.repaint();
+        this.setVisible(true);
+    }
+
     public void ShowMovie(Movie movie)
     {
         this.getContentPane().removeAll();
@@ -79,11 +100,14 @@ public class MainWindow extends JFrame
         this.setVisible(true);
     }
 
-    public void ShowTemp()
+    public void ShowCollectionList(ArrayList<Model.Collection> collections)
     {
         this.getContentPane().removeAll();
-        Collection temp = new Collection("master", Model.System.getInstance().getMasterList());
-        this.add(new MovieGridCollection(temp));
+        collectionView = new CollectionView(collections);
+        this.add(collectionView);
+        collectionView.refresh();
+        this.repaint();
+        this.setVisible(true);
     }
 
     public void ShowCollection(Collection collection)
@@ -93,6 +117,13 @@ public class MainWindow extends JFrame
         this.add(collectionDetailView);
         this.repaint();
         this.setVisible(true);
+    }
+
+    public void closingProcedure()
+    {
+        JsonInterface.writeUser(Model.System.getInstance().getUserList());
+        this.dispose();
+        java.lang.System.exit(0);
     }
 }
 

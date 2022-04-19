@@ -24,28 +24,33 @@ public class HomeView extends JPanel
     public HomeView()
     {
         Model.System sys = Model.System.getInstance();
-
         this.setLayout(new BorderLayout());
-        JPanel temp = new JPanel();
-        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
-        JButton b1 = new JButton("tempbutton b1");
-        JButton b2 = new JButton("tempbutton collectiongrid");
-        JButton b3 = new JButton("tempbutton sort");
-        JButton b4 = new JButton("tempbutton");
-        temp.add(b1);
-        temp.add(b2);
-        temp.add(b3);
-        temp.add(b4);
-        this.add(temp, BorderLayout.WEST);
 
-        b2.addActionListener(event ->
+        if(sys.getCurrentUser() != null)
         {
-            MainWindow.getInstance().ShowTemp();
-        });
-        b3.addActionListener(event ->
-        {
-            ResetMovies();
-        });
+            JPanel temp = new JPanel();
+            temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
+            JButton b1 = new JButton("tempbutton b1");
+            JButton b2 = new JButton("tempbutton collectionview");
+            JButton b3 = new JButton("tempbutton dummy");
+            JButton b4 = new JButton("tempbutton");
+            temp.add(b1);
+            temp.add(b2);
+            temp.add(b3);
+            temp.add(b4);
+            this.add(temp, BorderLayout.WEST);
+
+            b2.addActionListener(event ->
+            {
+                MainWindow.getInstance().ShowCollectionList(sys.getCurrentUser().getCollections());
+            });
+            b3.addActionListener(event ->
+            {
+                java.lang.System.out.println("dummy event");
+            });
+        }
+
+
 
         //Setup Movie grid
         currentList = new Collection("master", sys.getMasterList());

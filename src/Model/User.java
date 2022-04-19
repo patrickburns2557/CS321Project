@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class User {
     private String username;
@@ -12,6 +13,8 @@ public class User {
     {
         this.password = pw;
         this.username = ur;
+        Collections = new ArrayList<Collection>();
+        UserRatings = new ArrayList<UserRating>();
     }
     //Getter
 
@@ -23,6 +26,11 @@ public class User {
         return username;
     }
 
+    public ArrayList<Collection> getCollections()
+    {
+        return Collections;
+    }
+
     //Setter
 
     public void setPassword(String password) {
@@ -31,5 +39,10 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void addCollection(Collection input)
+    {
+        Collections.add(input);
     }
 }
