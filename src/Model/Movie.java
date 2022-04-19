@@ -2,6 +2,7 @@ package Model;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 
 public class Movie
@@ -26,8 +27,11 @@ public class Movie
 
     public Movie() {}
 
-
-
+    private ArrayList<String> toArrayList(String string) {
+        ArrayList<String> strings = new ArrayList<>();
+        Collections.addAll(strings, string.split(","));
+        return strings;
+    }
 
     /** Getter **/
     public String gettitle()
@@ -47,19 +51,14 @@ public class Movie
         return this.Plot;
     }
 
-
-   
-	/*
-    public ArrayList<String> getDirectors()
-	{
-        return (ArrayList<String>)this.director.clone();
+    public String getdirector() {
+        return this.Director;
     }
-	
-    public ArrayList<String> getGenres()
-    {
-        return (ArrayList<String>)this.genre.clone();
-	}
-	*/
+
+    public ArrayList<String> getDirectors()
+	  {
+        return toArrayList(Director);
+    }
 
     public String getruntime()
     {
@@ -77,6 +76,11 @@ public class Movie
         return this.Genre;
     }
 
+    public ArrayList<String> getGenres()
+    {
+        return toArrayList(Genre);
+    }
+
     public String getposter()
     {
         return this.Poster;
@@ -92,15 +96,17 @@ public class Movie
         return this.Language;
     }
 
+    public ArrayList<String> getLanguages() {
+        return toArrayList(Language);
+    }
+
     public String getcountry()
     {
         return this.Country;
     }
 
-
-    public String getDirector()
-    {
-        return this.Director;
+    public ArrayList<String> getCountries() {
+        return toArrayList(Country);
     }
 
     public String getActors()

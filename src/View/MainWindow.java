@@ -51,6 +51,7 @@ public class MainWindow extends JFrame
 
         homeView = new HomeView();
         this.add(homeView);
+
         /*ArrayList<Collection> tempCollections = new ArrayList<>();
         Collection collectionA = new Collection("Collection A", new ArrayList<>(newList.subList(0, 3)));
         Collection collectionB = new Collection("Collection B", new ArrayList<>(newList.subList(9, 20)));
@@ -59,6 +60,8 @@ public class MainWindow extends JFrame
         tempCollections.add(collectionB);
         tempCollections.add(collectionC);
         collectionView = new CollectionView(tempCollections);
+        //this.add(collectionView);
+        collectionView.refresh();
         this.add(collectionView);
         collectionView.refresh();*/
     }
