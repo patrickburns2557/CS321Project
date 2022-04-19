@@ -34,7 +34,7 @@ public class MovieView extends JPanel
         String AgeRating = inputMovie.getagerating();
         String Runtime = inputMovie.getruntime();
         String Plot = inputMovie.getplot();
-        String Directors = inputMovie.getDirector();
+        String Directors = inputMovie.getdirector();
         String Actors = inputMovie.getActors();
 
 
