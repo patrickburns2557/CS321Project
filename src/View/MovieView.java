@@ -14,6 +14,7 @@ public class MovieView extends JPanel
     private JComboBox collectionList;
     private JLabel movieLabel;
     private JLabel yearLabel;
+    private JLabel ageLabel;
     private JLabel genreLabel;
     private JLabel runtimeLabel;
     private JLabel userRating;
@@ -30,10 +31,11 @@ public class MovieView extends JPanel
         String Title = inputMovie.gettitle();
         int Year = inputMovie.getyear();
         String Genre = inputMovie.getgenre();
+        String AgeRating = inputMovie.getagerating();
         String Runtime = inputMovie.getruntime();
         String Plot = inputMovie.getplot();
-        String Directors; /////////////////////////////////////////////////
-        String Actors; ////////////////////////////////////////////
+        String Directors = inputMovie.getDirector();
+        String Actors = inputMovie.getActors();
 
 
         this.setLayout(new GridBagLayout());
@@ -78,16 +80,13 @@ public class MovieView extends JPanel
         picLabelC.ipadx = 25;
         picLabelC.ipady = 25;
         picLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
-        //picLabelC.fill = GridBagConstraints.VERTICAL;
-        //this.add(picLabel, picLabelC);
         this.add(posterAndCollectionsLabel, picLabelC);
 
 
 
         //Label for Movie name
-        movieLabel = new JLabel(inputMovie.gettitle());                                        //GRAB MOVIE NAME
-        //movieLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
-        movieLabel.setFont(new Font("Arial Black", Font.BOLD, 50));             //FIND A DECENT FONT
+        movieLabel = new JLabel(inputMovie.gettitle());
+        movieLabel.setFont(new Font("Arial Black", Font.BOLD, 50));
         GridBagConstraints movieLabelC = new GridBagConstraints();
         movieLabelC.gridx = 1;
         movieLabelC.gridy = 1;
@@ -99,7 +98,7 @@ public class MovieView extends JPanel
 
 
         //Label for Movie year
-        yearLabel = new JLabel(Integer.toString(Year));                                             //GRAB MOVIE YEAR
+        yearLabel = new JLabel(Integer.toString(Year));
         yearLabel.setFont(new Font("Georgia", Font.BOLD, 20));
         GridBagConstraints yearLabelC = new GridBagConstraints();
         yearLabelC.gridx = 1;
@@ -111,12 +110,25 @@ public class MovieView extends JPanel
 
 
 
+        //Label for Movie age rating
+        ageLabel = new JLabel(AgeRating);
+        ageLabel.setFont(new Font("Georgia", Font.BOLD, 20));
+        GridBagConstraints ageLabelC = new GridBagConstraints();
+        ageLabelC.gridx = 1;
+        ageLabelC.gridy = 3;
+        ageLabelC.ipadx = 10;
+        ageLabelC.ipady = 10;
+        ageLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
+        this.add(ageLabel, ageLabelC);
+
+
+
         //Label for Movie genre(s)
-        genreLabel = new JLabel(Genre);                     //GRAB MOVIE GENRE(S)
+        genreLabel = new JLabel(Genre);
         genreLabel.setFont(new Font("Georgia", Font.BOLD, 15));
         GridBagConstraints genreLabelC = new GridBagConstraints();
         genreLabelC.gridx = 1;
-        genreLabelC.gridy = 3;
+        genreLabelC.gridy = 4;
         genreLabelC.ipadx = 10;
         genreLabelC.ipady = 10;
         genreLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -128,7 +140,7 @@ public class MovieView extends JPanel
         runtimeLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints runtimeLabelC = new GridBagConstraints();
         runtimeLabelC.gridx = 1;
-        runtimeLabelC.gridy = 4;
+        runtimeLabelC.gridy = 5;
         runtimeLabelC.ipadx = 10;
         runtimeLabelC.ipady = 10;
         runtimeLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -140,7 +152,7 @@ public class MovieView extends JPanel
         userRating.setFont(new Font("Georgia", Font.BOLD, 17));
         GridBagConstraints userRatingC = new GridBagConstraints();
         userRatingC.gridx = 1;
-        userRatingC.gridy = 5;
+        userRatingC.gridy = 6;
         userRatingC.ipadx = 10;
         userRatingC.ipady = 10;
         userRatingC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -153,14 +165,14 @@ public class MovieView extends JPanel
         //Label for Movie description
         //Add a "<html>" to the beginning of the label so that it gets interpreted as html and will word wrap
         //It does not word wrap by default
-        descriptionLabel = new JLabel("<html>" + Plot);                   //GRAB MOVIE DESCRIPTIONS
+        descriptionLabel = new JLabel("<html>" + Plot);
         descriptionLabel.setFont(new Font("Georgia", Font.PLAIN, 20));
         descriptionLabel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Movie Description"));
         GridBagConstraints descriptionLabelC = new GridBagConstraints();
         //descriptionLabelC.weightx = 0.5;
         //descriptionLabelC.weighty = 0.5;
         descriptionLabelC.gridx = 1;
-        descriptionLabelC.gridy = 6;
+        descriptionLabelC.gridy = 7;
         descriptionLabelC.ipadx = 15;
         descriptionLabelC.ipady = 15;
         descriptionLabelC.insets = new Insets(30, 0, 30, 20);
@@ -171,14 +183,13 @@ public class MovieView extends JPanel
 
 
         //Label for movie director(s)
-        String directors = "Person1, Person2, Person3";
-        directorLabel = new JLabel("Directors: " + directors);                  //GRAB MOVIE DIRECTORS
+        directorLabel = new JLabel("Directors: " + Directors);
         directorLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints directorLabelC = new GridBagConstraints();
         //directorLabelC.weightx = 0.5;
         //directorLabelC.weighty = 0.5;
         directorLabelC.gridx = 1;
-        directorLabelC.gridy = 7;
+        directorLabelC.gridy = 8;
         directorLabelC.ipadx = 10;
         directorLabelC.ipady = 10;
         directorLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -187,14 +198,13 @@ public class MovieView extends JPanel
 
 
         //Label for movie actor(s)
-        String actors = "Actor1, Actor2, Actor3";
-        actorLabel = new JLabel("Actors: " + actors);                           //GRAB MOVIE ACTORS
+        actorLabel = new JLabel("Actors: " + Actors);
         actorLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints actorLabelC = new GridBagConstraints();
         //actorLabelC.weightx = 0.5;
         //actorLabelC.weighty = 0.5;
         actorLabelC.gridx = 1;
-        actorLabelC.gridy = 8;
+        actorLabelC.gridy = 9;
         actorLabelC.ipadx = 10;
         actorLabelC.ipady = 10;
         actorLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -228,7 +238,7 @@ public class MovieView extends JPanel
         ratingC.weightx = 0.5;
         ratingC.weighty = 0.5;
         ratingC.gridx = 1;
-        ratingC.gridy = 9;
+        ratingC.gridy = 10;
         ratingC.ipadx = 10;
         ratingC.ipady = 10;
         ratingC.anchor = GridBagConstraints.FIRST_LINE_START;

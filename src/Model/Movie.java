@@ -10,15 +10,19 @@ public class Movie
     private String Title = "";
     private Integer Year = 0;
     private String Plot = "";
-    private String  Runtime = "";
+
+    private String Runtime = "";
+
     private Float imdbRating = 0.0f;
 
     private String Poster = "";
     private String Director = "";
+    private String Actors = "";
     private String Genre = "";
     private String Language = "";
     private String Rated = "";
     private String Country = "";
+
 
 
     public Movie() {}
@@ -52,7 +56,7 @@ public class Movie
     }
 
     public ArrayList<String> getDirectors()
-	{
+	  {
         return toArrayList(Director);
     }
 
@@ -105,7 +109,12 @@ public class Movie
         return toArrayList(Country);
     }
 
-    public Float getCriticRating() {
-        return imdbRating;
+    public String getActors()
+    {
+        return this.Actors;
+    }
+
+    public float getCriticRating() {
+        return this.imdbRating;
     }
 }
