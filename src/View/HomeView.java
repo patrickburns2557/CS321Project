@@ -26,27 +26,17 @@ public class HomeView extends JPanel
         Model.System sys = Model.System.getInstance();
         this.setLayout(new BorderLayout());
 
+        //If user logged in, show button to get to collection view
         if(sys.getCurrentUser() != null)
         {
-            JPanel temp = new JPanel();
-            temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
-            JButton b1 = new JButton("tempbutton b1");
-            JButton b2 = new JButton("tempbutton collectionview");
-            JButton b3 = new JButton("tempbutton dummy");
-            JButton b4 = new JButton("tempbutton");
-            temp.add(b1);
-            temp.add(b2);
-            temp.add(b3);
-            temp.add(b4);
-            this.add(temp, BorderLayout.WEST);
-
-            b2.addActionListener(event ->
+            JPanel collectionButtonPanel = new JPanel();
+            collectionButtonPanel.setLayout(new BoxLayout(collectionButtonPanel, BoxLayout.Y_AXIS));
+            JButton colButton = new JButton("View Collections");
+            collectionButtonPanel.add(colButton);
+            this.add(collectionButtonPanel, BorderLayout.WEST);
+            colButton.addActionListener(event ->
             {
                 MainWindow.getInstance().ShowCollectionList(sys.getCurrentUser().getCollections());
-            });
-            b3.addActionListener(event ->
-            {
-                java.lang.System.out.println("dummy event");
             });
         }
 
@@ -56,6 +46,18 @@ public class HomeView extends JPanel
         currentList = new Collection("master", sys.getMasterList());
         Collections.sort(currentList.getMovies(), new MovieComparatorByName());
         grid = new MovieGrid(currentList);
+
+        //Create action listeners for the movie buttons that bring you to the corresponding MovieView
+        for(int i = 0; i < currentList.getMovies().size(); i++)
+        {
+            final int final_i = i;
+            grid.addPosterListener(event ->
+            {
+                MainWindow view = MainWindow.getInstance();
+                view.ShowMovie(currentList.getMovies().get(final_i));
+            }, i);
+        }
+
         jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jp.getVerticalScrollBar().setUnitIncrement(20);
         this.add(jp,BorderLayout.CENTER);
@@ -180,6 +182,18 @@ public class HomeView extends JPanel
     {
         this.remove(jp);
         grid = new MovieGrid(currentList);
+
+        //Create action listeners for the movie buttons that bring you to the corresponding MovieView
+        for(int i = 0; i < currentList.getMovies().size(); i++)
+        {
+            final int final_i = i;
+            grid.addPosterListener(event ->
+            {
+                MainWindow view = MainWindow.getInstance();
+                view.ShowMovie(currentList.getMovies().get(final_i));
+            }, i);
+        }
+
         jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jp.getVerticalScrollBar().setUnitIncrement(20);
 

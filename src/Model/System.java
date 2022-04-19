@@ -45,7 +45,7 @@ public class System {
             currentUser = admin;
             addUser(admin);*/
 
-            //loginUser("admin", "password");
+            loginUser("admin", "password");
 
 
 
@@ -97,5 +97,7 @@ public class System {
     {
         userList.add(input);
     }
+
+
 
 }
