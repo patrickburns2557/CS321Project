@@ -6,6 +6,7 @@ public class User {
     private String username;
     private String password;
     private ArrayList<Collection> Collections;
+    private ArrayList<UserRating> UserRatings;
 
     public User(String ur, String pw)
     {

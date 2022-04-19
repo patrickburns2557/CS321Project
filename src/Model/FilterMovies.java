@@ -59,6 +59,7 @@ public class FilterMovies {
      * @param movies
      * @param title
      */
+
     public static void filterByTitle(ArrayList<Movie> movies, String title) {
         movies.removeIf((movie) -> !movie.gettitle().toLowerCase().contains(title.toLowerCase()));
     }
