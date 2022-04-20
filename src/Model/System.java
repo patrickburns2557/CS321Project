@@ -107,6 +107,45 @@ public class System {
         userList.add(input);
     }
 
+    public double calculateUserRatingForMovie(Movie movie)
+    {
+        int counter = 0;
+        double rating = 0.0;
+        for(User user : userList)
+        {
+            for(UserRating userRating : user.getUserRatings())
+            {
+                if(userRating.getMovieTitle().equals(movie.gettitle()))
+                {
+                    rating += (double) userRating.getRated();
+                    counter++;
+                }
+            }
+        }
 
+        if(counter == 0)
+        {
+            return 0;
+        }
+
+        rating = rating / ((double) counter);
+        return rating;
+    }
+
+    public int calculateNumberUserRatingsForMovie(Movie movie)
+    {
+        int counter = 0;
+        for(User user : userList)
+        {
+            for(UserRating userRating : user.getUserRatings())
+            {
+                if(userRating.getMovieTitle().equals(movie.gettitle()))
+                {
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
 
 }

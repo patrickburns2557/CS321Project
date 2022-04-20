@@ -1,6 +1,7 @@
 package View;
 
 import Model.Movie;
+import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -99,10 +100,7 @@ public class MovieView extends JPanel
             });
         }
 
-
-
-
-        picLabel.setBorder(BorderFactory.createEtchedBorder());         //maybe find some border that looks decent for the Movie picture
+        picLabel.setBorder(BorderFactory.createEtchedBorder());
         GridBagConstraints picLabelC = new GridBagConstraints();
         picLabelC.gridx = 0;
         picLabelC.gridy = 1;
@@ -194,7 +192,7 @@ public class MovieView extends JPanel
 
 
         //Label for user ratings
-        userRating = new JLabel("User Ratings: " + "3.4/5");                    //CALCULATE USER RATING
+        userRating = new JLabel("User Ratings: " + Model.System.getInstance().calculateUserRatingForMovie(inputMovie) + "/5 from " + Model.System.getInstance().calculateNumberUserRatingsForMovie(inputMovie) + " ratings");
         userRating.setFont(new Font("Georgia", Font.BOLD, 17));
         GridBagConstraints userRatingC = new GridBagConstraints();
         userRatingC.gridx = 1;
@@ -289,6 +287,26 @@ public class MovieView extends JPanel
             ratingC.ipady = 10;
             ratingC.anchor = GridBagConstraints.FIRST_LINE_START;
             this.add(ratingPanel, ratingC);
+            submitRatingButton.addActionListener(event ->
+            {
+                if(star1.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 1);
+                else if(star2.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 2);
+                else if(star3.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 3);
+                else if(star4.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 4);
+                else if(star5.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 5);
+                else
+                {
+
+                }
+                MainWindow parent = MainWindow.getInstance();
+                JOptionPane.showMessageDialog(parent, "Rating submitted!");
+                MainWindow.getInstance().ShowMovie(inputMovie);
+            });
         }
         else
         {
@@ -302,15 +320,5 @@ public class MovieView extends JPanel
             fillerPanelC.ipady = 10;
             this.add(fillerPanel, fillerPanelC);
         }
-
-        //Label for showing current user rating
-        //userRating = new JLabel();
-        JButton temp = new JButton("temp");
-        this.add(temp);
-        temp.addActionListener(event ->
-        {
-            System.out.println("test");
-        });
-
     }
 }
