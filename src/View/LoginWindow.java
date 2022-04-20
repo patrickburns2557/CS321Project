@@ -56,10 +56,23 @@ public class LoginWindow extends JPanel implements ActionListener {
                 break;
             case 1:
                 // Sign-Up
-                this.setLayout(new GridLayout(5, 2, 3, 5));
+                this.setLayout(new GridLayout(4, 2, 3, 5));
                 this.add(new JLabel("Confirm Password", RIGHT));
                 JPasswordField confirmPassword = new JPasswordField();
                 this.add(confirmPassword);
+                JButton help = new JButton("Help");
+                JPanel helpPanel = new JPanel();
+                helpPanel.setLayout(new GridLayout(5, 1));
+                helpPanel.add(new JLabel("Username length must be at least 3 characters", RIGHT));
+                helpPanel.add(new JLabel("Password length must be at least 6 characters", RIGHT));
+                helpPanel.add(new JLabel("Password must contain at least 1 number", RIGHT));
+                helpPanel.add(new JLabel("Password must contain at least 1 special character", RIGHT));
+                helpPanel.add(new JLabel("Special characters: ('_', '?', '!', '@', '-', '&', '*', '+')", RIGHT));
+                help.addActionListener(event -> {
+                    JOptionPane.showMessageDialog(parent, helpPanel);
+                });
+                this.add(help);
+
                 int signUpResult = JOptionPane.showConfirmDialog(
                         parent,
                         this,
@@ -76,12 +89,12 @@ public class LoginWindow extends JPanel implements ActionListener {
                     }
 
                     if (newUsername.length() < 3) {
-                        JOptionPane.showMessageDialog(parent, "Username is too short");
+                        JOptionPane.showMessageDialog(parent, "Username length must be at least 3 character");
                         break;
                     }
 
                     if (newPassword.length() < 6) {
-                        JOptionPane.showMessageDialog(parent, "Password is too short");
+                        JOptionPane.showMessageDialog(parent, "Password length must be at least 6 characters");
                         break;
                     }
 
@@ -93,7 +106,7 @@ public class LoginWindow extends JPanel implements ActionListener {
                         }
                     }
                     if (!hasSpecialChar) {
-                        JOptionPane.showMessageDialog(parent, "Password doesn't have a special character");
+                        JOptionPane.showMessageDialog(parent, "Password doesn't have a special character ('_', '?', '!', '@', '-', '&', '*', '+')");
                         break;
                     }
                     boolean hasDigit = false;
