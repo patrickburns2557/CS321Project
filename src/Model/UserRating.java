@@ -6,11 +6,12 @@ public class UserRating {
     String movie;
     Integer Rated;
 
-    UserRating(Movie inputmovie, Integer score)
+    public UserRating(Movie inputmovie, Integer score)
     {
         this.movie = inputmovie.gettitle();
         this.Rated = score;
     }
 
-
+    public UserRating() {
+    }
 }
