@@ -1,5 +1,7 @@
 package Model;
 
+import View.MainWindow;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class System {
             currentUser = admin;
             addUser(admin);*/
 
-            loginUser("admin", "password");
+            //loginUser("admin", "password");
 
 
 
@@ -88,9 +90,16 @@ public class System {
             if(userName.equals(u.getUsername()) && password.equals(u.getPassword()))
             {
                 currentUser = u;
+                MainWindow.getInstance().ShowHomeOnLogin();
                 return;
             }
         }
+    }
+
+    public void logoutUser()
+    {
+        currentUser = null;
+        MainWindow.getInstance().ShowHomeOnLogin();
     }
 
     public void addUser(User input)

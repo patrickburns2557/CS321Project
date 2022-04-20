@@ -27,21 +27,32 @@ public class SearchPanel extends JPanel
         });
 
         //setup login/signup button
-        loginSignupButton = new JButton("Login/Signup");
-        loginSignupButton.addActionListener(new LoginWindow());
+        if(Model.System.getInstance().getCurrentUser() == null)
+        {
+            loginSignupButton = new JButton("Login/Signup");
+            loginSignupButton.addActionListener(new LoginWindow());
+        }
+        else
+        {
+            loginSignupButton = new JButton("Logout of " + Model.System.getInstance().getCurrentUser().getUsername());
+            loginSignupButton.addActionListener(event ->
+            {
+                Model.System.getInstance().logoutUser();
+            });
+        }
+
 
         //setup home button
         homeButton = new JButton("Home");
         homeButton.addActionListener(event ->
         {
-            System.out.println("Home button pressed"); //action listener for home button
+            MainWindow.getInstance().ShowHome();
         });
 
 
         this.add(searchBar, BorderLayout.CENTER);
         this.add(loginSignupButton, BorderLayout.EAST);
         this.add(homeButton, BorderLayout.WEST);
-        //this.add(SortFilterPanel, BorderLayout.SOUTH);  maybe add the sort and filter panel here when that's made
     }
 
     public void addSearchListener(ActionListener listenForSearch)
