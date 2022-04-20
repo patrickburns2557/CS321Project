@@ -82,8 +82,7 @@ public class System {
         return currentUser;
     }
 
-    //MAYBE HAVE RETURN A BOOLEAN VALUE TO INDICATE IF LOGIN WAS SUCCESSFUL OR NOT
-    public void loginUser(String userName, String password)
+    public boolean loginUser(String userName, String password)
     {
         for(User u : userList)
         {
@@ -91,9 +90,10 @@ public class System {
             {
                 currentUser = u;
                 MainWindow.getInstance().ShowHomeOnLogin();
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public void logoutUser()
