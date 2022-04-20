@@ -31,6 +31,10 @@ public class User {
         return Collections;
     }
 
+    public ArrayList<UserRating> getUserRatings() {
+        return UserRatings;
+    }
+
     //Setter
 
     public void setPassword(String password) {
@@ -44,5 +48,12 @@ public class User {
     public void addCollection(Collection input)
     {
         Collections.add(input);
+    }
+
+
+    //other
+    public void addUserRating(Movie mov, Integer score){
+        UserRating rate = new UserRating(mov, score);
+        this.UserRatings.add(rate);
     }
 }
