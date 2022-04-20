@@ -75,17 +75,11 @@ public class MovieGrid extends JPanel
         final int final_i = i;
         //resize the poster to fit on the button for it
         buttonList.get(i).setPreferredSize(new Dimension(MOVIE_WIDTH,MOVIE_HEIGHT));
-        buttonList.get(i).addActionListener(new
-                                                    ActionListener()
-                                                    {
-                                                        @Override
-                                                        public void actionPerformed(ActionEvent e)
-                                                        {
-                                                            MainWindow view = MainWindow.getInstance();
-                                                            view.ShowMovie(movieList.get(final_i));
-                                                        }
-                                                    });
         this.add(buttonList.get(i));
+    }
+    public void addPosterListener(ActionListener listener, int i)
+    {
+        buttonList.get(i).addActionListener(listener);
     }
 
 
