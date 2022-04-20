@@ -14,4 +14,12 @@ public class UserRating {
 
     public UserRating() {
     }
+
+    public String getMovieTitle(){
+        return this.movie;
+    }
+
+    public Integer getRated() {
+        return this.Rated;
+    }
 }
