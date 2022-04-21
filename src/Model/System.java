@@ -35,7 +35,7 @@ public class System {
             Movie[] list = JsonInterface.buildmasterlist("src\\Model\\Movies.json");
             masterList = new ArrayList<Movie>(Arrays.asList(list));
 
-            User[] users = JsonInterface.getuserlist("src\\MasterUser.json");
+            User[] users = JsonInterface.getuserlist("src\\Model\\MasterUser.json");
             userList = new ArrayList<User>(Arrays.asList(users));
         }catch(IOException ex)
         {
