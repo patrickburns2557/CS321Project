@@ -1,18 +1,15 @@
 package View;
 
 import Model.*;
-import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.AreaAveragingScaleFilter;
-import java.security.cert.CollectionCertStoreParameters;
-import java.sql.Array;
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Filter;
 
+/**
+ * Class to create a JPanel for the HomeView that the user is able to search and sort/filter through all the movies in the database
+ */
 public class HomeView extends JPanel
 {
     private MovieGrid grid;
@@ -21,6 +18,10 @@ public class HomeView extends JPanel
     private SearchPanel searchPanel;
     private SortFilterPanel sortFilterPanel;
 
+    /**
+     * Default constructor for HomeView
+     * Creates grid of movies based on full database
+     */
     public HomeView()
     {
         Model.System sys = Model.System.getInstance();
@@ -39,8 +40,6 @@ public class HomeView extends JPanel
                 MainWindow.getInstance().ShowCollectionList(sys.getCurrentUser().getCollections());
             });
         }
-
-
 
         //Setup Movie grid
         currentList = new Collection("master", sys.getMasterList());
@@ -71,13 +70,16 @@ public class HomeView extends JPanel
         this.add(sortFilterPanel, BorderLayout.EAST);
 
 
-
+        //Add action listner to make the searchbar functional
         searchPanel.searchBar.addActionListener(event ->
         {
             SearchMovies();
         });
     }
 
+    /**
+     * Resets the view to show all movies in the database again
+     */
     public void ResetMovies()
     {
         Model.System sys = Model.System.getInstance();
@@ -85,6 +87,9 @@ public class HomeView extends JPanel
         SortMoviesTitle();
     }
 
+    /**
+     * Searches the database for movies based on what's typed into the searchbar
+     */
     public void SearchMovies()
     {
         Model.System sys = Model.System.getInstance();
@@ -93,59 +98,100 @@ public class HomeView extends JPanel
         RefreshGrid();
     }
 
+    /**
+     * Sorts movies by title using MovieComparatorByName()
+     */
     public void SortMoviesTitle()
     {
         Collections.sort(currentList.getMovies(), new MovieComparatorByName());
         RefreshGrid();
     }
+
+    /**
+     * Sorts movies by critic rating using MovieComparatorByCriticRating()
+     */
     public void SortMoviesCritic()
     {
         Collections.sort(currentList.getMovies(), new MovieComparatorByCriticRating());
         RefreshGrid();
     }
+
+    /**
+     * Sorts movies by release year by using MovieComparatorByDate()
+     */
     public void SortMoviesDate()
     {
         Collections.sort(currentList.getMovies(), new MovieComparatorByDate());
         RefreshGrid();
     }
+
+    /**
+     * Sorts movies by runtime by using MovieComparatorByRuntime()
+     */
     public void SortMoviesRuntime()
     {
-        //Collections.sort(currentList.getMovies(), new MovieComparatorByName());
         Collections.sort(currentList.getMovies(), new MovieComparatorByRuntime());
         RefreshGrid();
     }
 
+    /**
+     * Filters movies by genre
+     * @param genre - passed in genre to filter by
+     */
     public void FilterMoviesGenre(String genre)
     {
+        //Indicates no genre was selected in the filter panel
         if(genre.equals("Genre"))
             return;
+
         ArrayList<String> genrePass = new ArrayList<String>();
         genrePass.add(genre);
         FilterMovies.filterByGenre(currentList.getMovies(),genrePass);
         RefreshGrid();
     }
+
+    /**
+     * Filters movies by language
+     * @param language - passed in language to filter by
+     */
     public void FilterMoviesLanguage(String language)
     {
+        //Indicates no language was selected in the filter panel
         if(language.equals("Language"))
             return;
+
         ArrayList<String> languagePass = new ArrayList<String>();
         languagePass.add(language);
         FilterMovies.filterByLanguage(currentList.getMovies(), languagePass);
         RefreshGrid();
     }
+
+    /**
+     * Filters movies by country
+     * @param country - passed in country to filter by
+     */
     public void FilterMoviesCountry(String country)
     {
+        //Indicates no country was selected in the filter panel
         if(country.equals("Country"))
             return;
+
         ArrayList<String> countryPass = new ArrayList<String>();
         countryPass.add(country);
         FilterMovies.filterByCountry(currentList.getMovies(), countryPass);
         RefreshGrid();
     }
+
+    /**
+     * Filter movies by release year (will be grouped into decades)
+     * @param year - passed in decade to filter by
+     */
     public void FilterMoviesYear(String year)
     {
+        //Indicates no year was selected in the filter panel
         if(year.equals("Years"))
             return;
+
         ArrayList<Integer> years = new ArrayList<Integer>();
         int begin = 0, end = 9;
         //Generate a range of years to pass into the filter method based on the selected decade
@@ -170,14 +216,24 @@ public class HomeView extends JPanel
         FilterMovies.filterByYear(currentList.getMovies(), years);
         RefreshGrid();
     }
+
+    /**
+     * Filter movies by age rating
+     * @param age - passed in age rating to filter by
+     */
     public void FilterMoviesAge(String age)
     {
+        //Indicates no age rating was selected in the filter panel
         if(age.equals("Age Rating"))
             return;
+
         FilterMovies.filterByAgeRating(currentList.getMovies(), age);
         RefreshGrid();
     }
 
+    /**
+     * Refreshes the currently shown movie grid to reflect any changes made to it
+     */
     public void RefreshGrid()
     {
         this.remove(jp);

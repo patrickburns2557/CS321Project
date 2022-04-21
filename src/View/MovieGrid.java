@@ -5,21 +5,26 @@ import Model.Movie;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static java.lang.Math.min;
 
+/**
+ * Class to create a JPanel that shows a grid of movie posters based on the passed in collection
+ * Can be used anywhere that a grid of movies needs to be shown
+ */
 public class MovieGrid extends JPanel
 {
     public static final int MOVIE_WIDTH = 220;
     public static final int MOVIE_HEIGHT = 330;
-    public ArrayList<JPanel> posterPanels;
-    ArrayList<JButton> buttonList;
-    ArrayList<Movie> movieList;
+    ArrayList<JButton> buttonList; //ArrayList to hold buttons that display the posters
+    ArrayList<Movie> movieList; //ArrayList to hold the list of movies to show
 
-
+    /**
+     * Default constructor for MovieGrid
+     * Creates a movie grid using the movie master list
+     */
     public MovieGrid()
     {
         Model.System sys = Model.System.getInstance();
@@ -30,7 +35,6 @@ public class MovieGrid extends JPanel
 
 
         //Create Buttons for each movie listed in the grid
-        posterPanels = new ArrayList<JPanel>();
         buttonList = new ArrayList<JButton>();
         for(Movie movie : movieList)
         {
@@ -39,10 +43,15 @@ public class MovieGrid extends JPanel
         //add each button to the MovieGrid JPanel
         for(int i = 0; i < movieList.size(); i++)
         {
-            SelectMovie(i);
+            AddToGrid(i);
         }
     }
 
+    /**
+     * Constructor that creates a MovieGrid based on the passed in collection, and restricted to a certain length
+     * @param list - Collection passed in for MovieGrid to display
+     * @param viewableMovies - number to limit the number of movies to display
+     */
     public MovieGrid(Collection list, int viewableMovies)
     {
         movieList = list.getMovies();
@@ -52,8 +61,7 @@ public class MovieGrid extends JPanel
         // Regular FlowLayout doesn't wrap to the next line when a JScrollPane is added to it
 
 
-        //Create Buttons for each movie listed in the grid
-        posterPanels = new ArrayList<JPanel>();
+        //Create Buttons to display each movie listed in the grid
         buttonList = new ArrayList<JButton>();
         for(int i = 0; i < viewableMovies; i++)
         {
@@ -62,27 +70,48 @@ public class MovieGrid extends JPanel
         //add each button to the MovieGrid JPanel
         for(int i = 0; i < viewableMovies; i++)
         {
-            SelectMovie(i);
+            AddToGrid(i);
         }
     }
 
-    public MovieGrid(Collection list) {
+    /**
+     * Constructor used when no limit is needed on how many posters to show
+     * Just calls the previous constructor, and passes the size of collection in as the number of posters to display
+     * @param list - Collecion passed in for MovieGrid to display
+     */
+    public MovieGrid(Collection list)
+    {
         this(list, list.getMovies().size());
     }
 
-    private void SelectMovie(int i)
+    /**
+     * Adds the corresponding movie poster in buttonList to the view
+     * @param i - index of movie to add
+     */
+    private void AddToGrid(int i)
     {
-        final int final_i = i;
         //resize the poster to fit on the button for it
         buttonList.get(i).setPreferredSize(new Dimension(MOVIE_WIDTH,MOVIE_HEIGHT));
         this.add(buttonList.get(i));
     }
+
+    /**
+     * Used to add ActionListeners to the movie posters
+     * Calling class will ideally iterate through it's list of movies to do this,
+     * passing in the iterator variable to this method while doing so
+     * @param listener - ActionListener to be added to the button
+     * @param i - variable to indicate which poster in the buttonList to add the listener to
+     */
     public void addPosterListener(ActionListener listener, int i)
     {
         buttonList.get(i).addActionListener(listener);
     }
 
-
+    /**
+     * Creates the button with movie poster to be added to the grid
+     * and resizes the poster to fit on the indicated button size
+     * @param movie - passed in movie to create poster button for
+     */
     private void CreateButton(Movie movie)
     {
         Image img = new ImageIcon(CreatePoster.getFromURL(movie.getposter(), movie.gettitle(), movie.getyear())).getImage();//create image from the poster link
@@ -91,7 +120,6 @@ public class MovieGrid extends JPanel
         JButton button = new JButton(new ImageIcon(resizedImage));
         panel.add(button);
         buttonList.add(button);
-        posterPanels.add(panel);
     }
 }
 

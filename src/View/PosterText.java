@@ -4,12 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Class to create an Icon based on the passed in text
+ */
 public class PosterText implements Icon
 {
     private int width = 300;
     private int height = 444;
     String movieName;
 
+    /**
+     * Constructor to set the text to be shown on the poster
+     * @param movieName
+     */
     public PosterText(String movieName)
     {
         this.movieName = movieName;
