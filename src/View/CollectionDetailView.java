@@ -40,12 +40,15 @@ public class CollectionDetailView extends JPanel {
         JButton deleteButton = new JButton("Delete Collection");
         deleteButton.addActionListener(e -> {
             // Deletes the collection and returns to collection view
-            ArrayList<Collection> collectionList = System.getInstance().getCurrentUser().getCollections();
-            int i = 0;
-            while (collection != collectionList.get(i++));
-            System.getInstance().getCurrentUser().removeCollection(collection);
-            CollectionView.getInstance().removeCollection(i - 1);
-            MainWindow.getInstance().ShowCollectionList();
+            int result = JOptionPane.showConfirmDialog(MainWindow.getInstance(), "Are you sure?");
+            if (result == JOptionPane.YES_OPTION) {
+                ArrayList<Collection> collectionList = System.getInstance().getCurrentUser().getCollections();
+                int i = 0;
+                while (collection != collectionList.get(i++));
+                System.getInstance().getCurrentUser().removeCollection(collection);
+                CollectionView.getInstance().removeCollection(i - 1);
+                MainWindow.getInstance().ShowCollectionList();
+            }
         });
         topBar.add(backButton);
         topBar.add(editButton);
