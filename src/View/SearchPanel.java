@@ -12,7 +12,7 @@ public class SearchPanel extends JPanel
 {
     JTextField searchBar;
     JButton loginSignupButton;
-    JButton homeButton;
+    JButton collectionButton;
 
     /**
      * Constructor to create the SearchPanel
@@ -44,17 +44,23 @@ public class SearchPanel extends JPanel
         }
 
 
-        //setup home button
-        homeButton = new JButton("Home");
-        homeButton.addActionListener(event ->
+        //setup Collection button to bring user to their collection list
+        //Will only show up if the user is logged in
+        if(Model.System.getInstance().getCurrentUser() != null)
         {
-            MainWindow.getInstance().ShowHome();
-        });
+            collectionButton = new JButton("Collections");
+            collectionButton.addActionListener(event ->
+            {
+                MainWindow.getInstance().ShowCollectionList();
+            });
+            this.add(collectionButton, BorderLayout.WEST);
+        }
+
 
 
         this.add(searchBar, BorderLayout.CENTER);
         this.add(loginSignupButton, BorderLayout.EAST);
-        this.add(homeButton, BorderLayout.WEST);
+
     }
 
     /**

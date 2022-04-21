@@ -28,7 +28,7 @@ public class HomeView extends JPanel
         this.setLayout(new BorderLayout());
 
         //If user logged in, show button to get to collection view
-        if(sys.getCurrentUser() != null)
+        /*if(sys.getCurrentUser() != null)
         {
             JPanel collectionButtonPanel = new JPanel();
             collectionButtonPanel.setLayout(new BoxLayout(collectionButtonPanel, BoxLayout.Y_AXIS));
@@ -39,7 +39,7 @@ public class HomeView extends JPanel
             {
                 MainWindow.getInstance().ShowCollectionList();
             });
-        }
+        }*/
 
         //Setup Movie grid
         currentList = new Collection("master", sys.getMasterList());
