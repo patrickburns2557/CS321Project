@@ -12,6 +12,8 @@ public class temp
         MainWindow view = MainWindow.getInstance();
         view.setVisible(true);
 
+        Model.System.getInstance().loginUser("admin", "password");
+
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String[] fonts = ge.getAvailableFontFamilyNames();
 

@@ -5,6 +5,7 @@ import Model.JsonInterface;
 import Model.Movie;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -18,7 +19,6 @@ public class MainWindow extends JFrame
     private static MainWindow mainWindow;
     private static HomeView homeView;
     private static MovieView movieView;
-    private static CollectionView collectionView;
     private static CollectionDetailView collectionDetailView;
 
     static
@@ -52,18 +52,9 @@ public class MainWindow extends JFrame
         homeView = new HomeView();
         this.add(homeView);
 
-        /*ArrayList<Collection> tempCollections = new ArrayList<>();
-        Collection collectionA = new Collection("Collection A", new ArrayList<>(newList.subList(0, 3)));
-        Collection collectionB = new Collection("Collection B", new ArrayList<>(newList.subList(9, 20)));
-        Collection collectionC = new Collection("Collection C", new ArrayList<>(newList.subList(21, 26)));
-        tempCollections.add(collectionA);
-        tempCollections.add(collectionB);
-        tempCollections.add(collectionC);
-        collectionView = new CollectionView(tempCollections);
+        //collectionView = new CollectionView(sys.getCurrentUser().getCollections());
         //this.add(collectionView);
-        collectionView.refresh();
-        this.add(collectionView);
-        collectionView.refresh();*/
+        //collectionView.refresh();
     }
 
     public static MainWindow getInstance()
@@ -79,7 +70,6 @@ public class MainWindow extends JFrame
     public void ShowHome()
     {
         this.getContentPane().removeAll();
-        //homeView = new HomeView();
         this.add(homeView);
         this.repaint();
         this.setVisible(true);
@@ -94,21 +84,19 @@ public class MainWindow extends JFrame
         this.setVisible(true);
     }
 
-    public void ShowMovie(Movie movie)
+    public void ShowMovie(Movie movie, ActionListener homeButtonActionListener)
     {
         this.getContentPane().removeAll();
-        movieView = new MovieView(movie);
+        movieView = new MovieView(movie, homeButtonActionListener);
         this.add(movieView);
         this.repaint();
         this.setVisible(true);
     }
 
-    public void ShowCollectionList(ArrayList<Model.Collection> collections)
+    public void ShowCollectionList()
     {
         this.getContentPane().removeAll();
-        collectionView = new CollectionView(collections);
-        this.add(collectionView);
-        collectionView.refresh();
+        this.add(CollectionView.getInstance());
         this.repaint();
         this.setVisible(true);
     }

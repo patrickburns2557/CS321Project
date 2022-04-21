@@ -28,11 +28,11 @@ public class User {
 
     public ArrayList<Collection> getCollections()
     {
-        return Collections;
+        return (ArrayList<Collection>)Collections.clone();
     }
 
     public ArrayList<UserRating> getUserRatings() {
-        return UserRatings;
+        return (ArrayList<UserRating>)UserRatings.clone();
     }
 
     //Setter
@@ -50,6 +50,9 @@ public class User {
         Collections.add(input);
     }
 
+    public void removeCollection(String collectionName) {
+        Collections.removeIf(collection -> collection.getName().equals(collectionName));
+    }
 
     //other
     public void addUserRating(Movie mov, Integer score){

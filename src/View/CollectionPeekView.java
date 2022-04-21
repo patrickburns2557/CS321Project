@@ -9,15 +9,36 @@ import java.util.ArrayList;
 import Model.Collection;
 import Model.Movie;
 
-public class CollectionPeekView extends JPanel implements ComponentListener, ActionListener{
+import static java.lang.Math.min;
+
+/**
+ * The view associated with CollectionView that "peeks" at the collection
+ */
+public class CollectionPeekView extends JPanel implements ComponentListener {
     private Collection collection;
     private int componentCount = 0;
     private JPanel parent;
     private Border border;
 
+    /**
+     * No functionality
+     * @param e
+     */
     public void componentHidden(ComponentEvent e) {};
+    /**
+     * No functionality
+     * @param e
+     */
     public void componentShown(ComponentEvent e) {};
+    /**
+     * No functionality
+     * @param e
+     */
     public void componentMoved(ComponentEvent e) {};
+    /**
+     * Readjusts the amount of movies shown when the window is resized
+     * @param e
+     */
     public void componentResized(ComponentEvent e) {
         // Everytime the panel is resized, the number of movies shown updates to fit the width of the panel
         int panelWidth = parent.getWidth();
@@ -29,11 +50,25 @@ public class CollectionPeekView extends JPanel implements ComponentListener, Act
             this.remove(getComponentCount() - 1);
         // Correct the size by recreating the movie grid
         MovieGrid grid = new MovieGrid(collection, viewableMovies);
-        Insets insets = border.getBorderInsets(this);
         grid.setLayout(new FlowLayout(FlowLayout.CENTER, horizontalPadding, 0));
+
+        for(int i = 0; i < min(viewableMovies, collection.getMovies().size()); i++)
+        {
+            final int final_i = i;
+            grid.addPosterListener(event ->
+            {
+                MainWindow view = MainWindow.getInstance();
+                view.ShowMovie(collection.getMovies().get(final_i), event1 -> view.ShowCollectionList());
+            }, i);
+        }
+
         this.add(grid, BorderLayout.CENTER);
     }
 
+    /**
+     * @param parent required to adjust viewable movies
+     * @param collection the collection to show
+     */
     public CollectionPeekView(JPanel parent, Collection collection) {
         this.parent = parent;
         this.collection = collection;
@@ -43,7 +78,10 @@ public class CollectionPeekView extends JPanel implements ComponentListener, Act
         this.setLayout(new BorderLayout());
 
         JButton viewMore = new JButton("View More");
-        viewMore.addActionListener(this);
+        viewMore.addActionListener(e -> {
+            MainWindow mainWindow = MainWindow.getInstance();
+            mainWindow.ShowCollection(collection);
+        });
 
         JPanel topBar = new JPanel();
         topBar.setLayout(new BorderLayout());
@@ -52,11 +90,5 @@ public class CollectionPeekView extends JPanel implements ComponentListener, Act
         this.add(topBar, BorderLayout.NORTH);
 
         componentCount = getComponentCount();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        MainWindow mainWindow = MainWindow.getInstance();
-        mainWindow.ShowCollection(collection);
     }
 }

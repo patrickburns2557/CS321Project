@@ -28,7 +28,7 @@ public class MovieView extends JPanel
     private JButton submitRatingButton;
 
 
-    public MovieView(Movie inputMovie) //TEMP FOR NOW, WILL BE MOVIE OBJECT LATER
+    public MovieView(Movie inputMovie, ActionListener homeButtonActionListener) //TEMP FOR NOW, WILL BE MOVIE OBJECT LATER
     {
         String Title = inputMovie.gettitle();
         int Year = inputMovie.getyear();
@@ -47,7 +47,7 @@ public class MovieView extends JPanel
         this.setLayout(new GridBagLayout());
 
         //Button to return home
-        homeButton = new JButton("<-- Return to home");
+        homeButton = new JButton("Back");
         homeButton.setFont(new Font("Georgia", Font.BOLD, 18));
         GridBagConstraints homeButtonC = new GridBagConstraints();
         homeButtonC.gridx = 0;
@@ -58,13 +58,7 @@ public class MovieView extends JPanel
         homeButtonC.anchor = GridBagConstraints.FIRST_LINE_START;
         this.add(homeButton, homeButtonC);
 
-        homeButton.addActionListener(event ->
-        {
-            MainWindow view = MainWindow.getInstance();
-            view.ShowHome();
-        });
-
-
+        homeButton.addActionListener(homeButtonActionListener);
 
         //Poster and add to collection dropdown
         poster = new ImageIcon(CreatePoster.getFromURL(inputMovie.getposter(), Title, Year));

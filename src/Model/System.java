@@ -1,5 +1,6 @@
 package Model;
 
+import View.CollectionView;
 import View.MainWindow;
 
 import javax.swing.*;
@@ -90,6 +91,7 @@ public class System {
             {
                 currentUser = u;
                 MainWindow.getInstance().ShowHomeOnLogin();
+                CollectionView.getInstance().refresh();
                 return true;
             }
         }
