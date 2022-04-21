@@ -72,7 +72,7 @@ public class CollectionDetailView extends JPanel {
                     for (Collection c : user.getCollections()) {
                         if (c == collection) {
                             c.setName(collectionNameString);
-                            CollectionView.getInstance().getCollectionPeekView(collection).refresh();
+                            CollectionView.getInstance().getCollectionPeekView(collection).refreshBorder();
                         }
                     }
                 }
