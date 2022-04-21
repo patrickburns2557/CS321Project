@@ -2,6 +2,7 @@ package View;
 
 import Model.Collection;
 import Model.System;
+import Model.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +36,46 @@ public class CollectionDetailView extends JPanel {
         });
         JButton editNameButton = new JButton("Change Collection Name");
         editNameButton.addActionListener(e -> {
-            // Create JOptionPane
+            MainWindow view = MainWindow.getInstance();
+            User user = Model.System.getInstance().getCurrentUser();
+
+            JPanel newCollection = new JPanel();
+            newCollection.setLayout(new GridLayout(1, 2));
+            newCollection.add(new JLabel("Enter a collection name: ", JLabel.RIGHT));
+            JTextField collectionName = new JTextField("Name");
+            newCollection.add(collectionName);
+            int result = JOptionPane.showOptionDialog(
+                    view,
+                    newCollection,
+                    "Add Collection",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    null,
+                    null
+            );
+
+            if (result == JOptionPane.OK_OPTION) {
+                String collectionNameString = collectionName.getText();
+                boolean add = true;
+                if (collectionNameString.isEmpty()) {
+                    JOptionPane.showMessageDialog(view, "Collection name can't be blank");
+                    add = false;
+                }
+                for (Collection c : user.getCollections()) {
+                    if (collectionNameString.equals(c.getName())) {
+                        JOptionPane.showMessageDialog(view, "Collection already exists");
+                        add = false;
+                    }
+                }
+                if (add) {
+                    for (Collection c : user.getCollections()) {
+                        if (c == collection) {
+                            c.setName(collectionNameString);
+                        }
+                    }
+                }
+            }
         });
         JButton deleteButton = new JButton("Delete Collection");
         deleteButton.addActionListener(e -> {

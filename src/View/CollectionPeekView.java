@@ -91,4 +91,9 @@ public class CollectionPeekView extends JPanel implements ComponentListener {
 
         componentCount = getComponentCount();
     }
+
+    public void updateName() {
+        border = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), collection.getName());
+        this.setBorder(border);
+    }
 }

@@ -136,4 +136,5 @@ public class CollectionView extends JPanel implements ActionListener {
         listLayout.setRows(listLayout.getRows() - 1);
         list.remove(index);
     }
+
 }
