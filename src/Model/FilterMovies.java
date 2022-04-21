@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class FilterMovies {
 
@@ -9,7 +10,7 @@ public class FilterMovies {
      * @param movies
      * @param genres
      */
-    public void filterByGenre(ArrayList<Movie> movies, ArrayList<String> genres) {
+    public static void filterByGenre(ArrayList<Movie> movies, ArrayList<String> genres) {
         // Uses a lambda to test if the movies have one of the genres
         movies.removeIf(
                 (movie) -> {
@@ -26,7 +27,7 @@ public class FilterMovies {
      * @param movies
      * @param languages
      */
-    public void filterByLanguage(ArrayList<Movie> movies, ArrayList<String> languages) {
+    public static void filterByLanguage(ArrayList<Movie> movies, ArrayList<String> languages) {
         movies.removeIf(
                 (movie) -> {
                     boolean remove = false;
@@ -42,7 +43,7 @@ public class FilterMovies {
      * @param movies
      * @param countries
      */
-    public void filterByCountry(ArrayList<Movie> movies, ArrayList<String> countries) {
+    public static void filterByCountry(ArrayList<Movie> movies, ArrayList<String> countries) {
         movies.removeIf(
                 (movie) -> {
                     boolean remove = false;
@@ -58,19 +59,20 @@ public class FilterMovies {
      * @param movies
      * @param title
      */
-    public void filterByTitle(ArrayList<Movie> movies, String title) {
-        movies.removeIf((movie) -> !movie.getTitle().contains(title));
+
+    public static void filterByTitle(ArrayList<Movie> movies, String title) {
+        movies.removeIf((movie) -> !movie.gettitle().toLowerCase().contains(title.toLowerCase()));
     }
 
     /**
-     * Will remove movies from the array list that weren't released that year
+     * Will remove movies from the array list that weren't released in the specified years
      * @param movies
-     * @param year
+     * @param years - Will contain 2 numbers, the beginning of the range, and end of the range
      */
-    public void filterByYear(ArrayList<Movie> movies, int year) {
+    public static void filterByYear(ArrayList<Movie> movies, ArrayList<Integer> years) {
         movies.removeIf(
                 (movie) -> {
-                   return movie.getyear() != year;
+                    return !(movie.getyear() >= years.get(0) && movie.getyear() <= years.get(1));
                 });
     }
 
@@ -79,10 +81,7 @@ public class FilterMovies {
      * @param movies
      * @param ageRating
      */
-    public void filterByAgeRating(ArrayList<Movie> movies, String ageRating) {
-        movies.removeIf(
-                (movie) -> {
-                    return movie.getagerating() != ageRating;
-                });
+    public static void filterByAgeRating(ArrayList<Movie> movies, String ageRating) {
+        movies.removeIf((movie) -> !movie.getagerating().equals(ageRating));
     }
 }

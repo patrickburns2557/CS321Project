@@ -1,14 +1,32 @@
 package Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Collection {
+public class Collection implements Cloneable {
     private String name;
     private ArrayList<Movie> movies;
 
     public Collection(String name) {
         this.name = name;
         this.movies = new ArrayList<>();
+    }
+
+    public Collection(String name, ArrayList<Movie> movies)
+    {
+        this.name = name;
+        this.movies = movies;
+    }
+
+    public Collection clone()
+    {
+        try
+        {
+            return (Collection) super.clone();
+        } catch(CloneNotSupportedException ex)
+        {
+            return null;
+        }
     }
 
     public String getName() {
