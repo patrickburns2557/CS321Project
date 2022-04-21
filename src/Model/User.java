@@ -50,8 +50,12 @@ public class User {
         Collections.add(input);
     }
 
-    public void removeCollection(String collectionName) {
+    /*public void removeCollection(String collectionName) {
         Collections.removeIf(collection -> collection.getName().equals(collectionName));
+    }*/
+
+    public void removeCollection(Collection collection) {
+        Collections.remove(collection);
     }
 
     //other

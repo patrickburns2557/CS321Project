@@ -78,6 +78,7 @@ public class CollectionView extends JPanel implements ActionListener {
                     Collection collection = new Collection(collectionNameString);
                     user.addCollection(collection);
                     addCollection(collection);
+                    view.ShowCollection(collection);
                 }
             }
 
@@ -132,6 +133,7 @@ public class CollectionView extends JPanel implements ActionListener {
     }
 
     public void removeCollection(int index) {
+        listLayout.setRows(listLayout.getRows() - 1);
         list.remove(index);
     }
 }

@@ -43,7 +43,8 @@ public class CollectionDetailView extends JPanel {
             ArrayList<Collection> collectionList = System.getInstance().getCurrentUser().getCollections();
             int i = 0;
             while (collection != collectionList.get(i++));
-            CollectionView.getInstance().removeCollection(i);
+            System.getInstance().getCurrentUser().removeCollection(collection);
+            CollectionView.getInstance().removeCollection(i - 1);
             MainWindow.getInstance().ShowCollectionList();
         });
         topBar.add(backButton);
