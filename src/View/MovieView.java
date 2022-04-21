@@ -7,12 +7,16 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Class to generate a JPanel that displays all the information about the specified movie
+ * Also allows the user to rate the shown movie, as well as add it to one of their collections
+ */
 public class MovieView extends JPanel
 {
     private JButton homeButton;
     private ImageIcon poster;
     private JPanel posterAndCollectionsLabel = new JPanel();
-    private JComboBox<String> collectionList;
+    private JComboBox<String> collectionListComboBox;
     private JButton addToCollectionButton;
     private JLabel movieLabel;
     private JLabel yearLabel;
@@ -24,12 +28,19 @@ public class MovieView extends JPanel
     private JLabel descriptionLabel;
     private JLabel directorLabel;
     private JLabel actorLabel;
+    private JLabel countryLabel;
+    private JLabel languageLabel;
     private ButtonGroup ratingGroup;
     private JButton submitRatingButton;
 
-
+    /**
+     * Constructor to create a MovieView based on all the information stored in the passed in Movie
+     * Uses GridBagLayout to format the view
+     * @param inputMovie
+     */
     public MovieView(Movie inputMovie, ActionListener homeButtonActionListener) //TEMP FOR NOW, WILL BE MOVIE OBJECT LATER
     {
+        String spacer = "   ";
         String Title = inputMovie.gettitle();
         int Year = inputMovie.getyear();
         float imdbRating = inputMovie.getCriticRating();
@@ -39,12 +50,13 @@ public class MovieView extends JPanel
         String Plot = inputMovie.getplot();
         String Directors = inputMovie.getdirector();
         String Actors = inputMovie.getActors();
+        String Countries = inputMovie.getcountry();
+        String Languages = inputMovie.getlanguage();
         String[] CollectionNames;
 
 
-
-
         this.setLayout(new GridBagLayout());
+
 
         //Button to return home
         homeButton = new JButton("Back");
@@ -60,7 +72,7 @@ public class MovieView extends JPanel
 
         homeButton.addActionListener(homeButtonActionListener);
 
-        //Poster and add to collection dropdown
+        //JPanel for Poster and add to collection dropdown
         poster = new ImageIcon(CreatePoster.getFromURL(inputMovie.getposter(), Title, Year));
         JLabel picLabel = new JLabel(poster);
 
@@ -70,33 +82,38 @@ public class MovieView extends JPanel
         //Only show collection dropdown if a user is logged in
         if(Model.System.getInstance().getCurrentUser() != null)
         {
-            ArrayList<Model.Collection> CollectionList = Model.System.getInstance().getCurrentUser().getCollections();
+            ArrayList<Model.Collection> CollectionList = Model.System.getInstance().getCurrentUser().getCollections(); //Get collections of currently logged-in user
+
+            //Create array of names based on the user's collections to be used to create the ComboBox
             CollectionNames = new String[CollectionList.size()];
             for(int i = 0; i < CollectionList.size();i++)
             {
                 CollectionNames[i] = CollectionList.get(i).getName();
             }
-            collectionList = new JComboBox(CollectionNames);
-            posterAndCollectionsLabel.add(collectionList, BorderLayout.CENTER);
+
+            collectionListComboBox = new JComboBox(CollectionNames);
+            posterAndCollectionsLabel.add(collectionListComboBox, BorderLayout.CENTER);
 
             addToCollectionButton = new JButton("Add to collection");
             posterAndCollectionsLabel.add(addToCollectionButton, BorderLayout.SOUTH);
 
+            //Iterate through the user's collections and add the movie to the one that's selected in the ComboBox
             addToCollectionButton.addActionListener(event ->
             {
-                Model.Collection current;
                 for(Model.Collection i : CollectionList)
                 {
-                    if(i.getName().equals(collectionList.getSelectedItem()))
+                    if(i.getName().equals(collectionListComboBox.getSelectedItem()))
+                    {
                         i.addMovie(inputMovie);
+                        MainWindow parent = MainWindow.getInstance();
+                        JOptionPane.showMessageDialog(parent, "Movie added to collection!");
+                    }
+
                 }
             });
         }
 
-
-
-
-        picLabel.setBorder(BorderFactory.createEtchedBorder());         //maybe find some border that looks decent for the Movie picture
+        picLabel.setBorder(BorderFactory.createEtchedBorder());
         GridBagConstraints picLabelC = new GridBagConstraints();
         picLabelC.gridx = 0;
         picLabelC.gridy = 1;
@@ -110,7 +127,7 @@ public class MovieView extends JPanel
 
 
         //Label for Movie name
-        movieLabel = new JLabel(inputMovie.gettitle());
+        movieLabel = new JLabel(" " + inputMovie.gettitle());
         movieLabel.setFont(new Font("Arial Black", Font.BOLD, 50));
         GridBagConstraints movieLabelC = new GridBagConstraints();
         movieLabelC.gridx = 1;
@@ -123,7 +140,7 @@ public class MovieView extends JPanel
 
 
         //Label for Movie year
-        yearLabel = new JLabel(Integer.toString(Year));
+        yearLabel = new JLabel(spacer + Integer.toString(Year));
         yearLabel.setFont(new Font("Georgia", Font.BOLD, 20));
         GridBagConstraints yearLabelC = new GridBagConstraints();
         yearLabelC.gridx = 1;
@@ -136,7 +153,7 @@ public class MovieView extends JPanel
 
 
         //Label for Movie age rating
-        ageLabel = new JLabel(AgeRating);
+        ageLabel = new JLabel(spacer + AgeRating);
         ageLabel.setFont(new Font("Georgia", Font.BOLD, 20));
         GridBagConstraints ageLabelC = new GridBagConstraints();
         ageLabelC.gridx = 1;
@@ -149,7 +166,7 @@ public class MovieView extends JPanel
 
 
         //Label for Movie genre(s)
-        genreLabel = new JLabel(Genre);
+        genreLabel = new JLabel(spacer + Genre);
         genreLabel.setFont(new Font("Georgia", Font.BOLD, 15));
         GridBagConstraints genreLabelC = new GridBagConstraints();
         genreLabelC.gridx = 1;
@@ -162,7 +179,7 @@ public class MovieView extends JPanel
 
 
         //Label for Movie runtime
-        runtimeLabel = new JLabel(Runtime);
+        runtimeLabel = new JLabel(spacer + Runtime);
         runtimeLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints runtimeLabelC = new GridBagConstraints();
         runtimeLabelC.gridx = 1;
@@ -175,7 +192,7 @@ public class MovieView extends JPanel
 
 
         //Label for imdb ratings
-        imdbLabel = new JLabel("IMDb Rating: " + imdbRating);
+        imdbLabel = new JLabel(spacer + "IMDb Rating: " + imdbRating);
         imdbLabel.setFont(new Font("Georgia", Font.BOLD, 17));
         GridBagConstraints imdbLabelC = new GridBagConstraints();
         imdbLabelC.gridx = 1;
@@ -188,7 +205,7 @@ public class MovieView extends JPanel
 
 
         //Label for user ratings
-        userRating = new JLabel("User Ratings: " + "3.4/5");                    //CALCULATE USER RATING
+        userRating = new JLabel(spacer + "User Ratings: " + Model.System.getInstance().calculateUserRatingForMovie(inputMovie) + "/5 from " + Model.System.getInstance().calculateNumberUserRatingsForMovie(inputMovie) + " ratings");
         userRating.setFont(new Font("Georgia", Font.BOLD, 17));
         GridBagConstraints userRatingC = new GridBagConstraints();
         userRatingC.gridx = 1;
@@ -207,13 +224,11 @@ public class MovieView extends JPanel
         descriptionLabel.setFont(new Font("Georgia", Font.PLAIN, 20));
         descriptionLabel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Movie Description"));
         GridBagConstraints descriptionLabelC = new GridBagConstraints();
-        //descriptionLabelC.weightx = 0.5;
-        //descriptionLabelC.weighty = 0.5;
         descriptionLabelC.gridx = 1;
         descriptionLabelC.gridy = 8;
         descriptionLabelC.ipadx = 15;
         descriptionLabelC.ipady = 15;
-        descriptionLabelC.insets = new Insets(30, 0, 30, 20);
+        descriptionLabelC.insets = new Insets(30, 10, 30, 20);
         descriptionLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
         descriptionLabelC.fill = GridBagConstraints.HORIZONTAL;
         this.add(descriptionLabel, descriptionLabelC);
@@ -221,11 +236,9 @@ public class MovieView extends JPanel
 
 
         //Label for movie director(s)
-        directorLabel = new JLabel("Directors: " + Directors);
+        directorLabel = new JLabel(spacer + "Directors: " + Directors);
         directorLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints directorLabelC = new GridBagConstraints();
-        //directorLabelC.weightx = 0.5;
-        //directorLabelC.weighty = 0.5;
         directorLabelC.gridx = 1;
         directorLabelC.gridy = 9;
         directorLabelC.ipadx = 10;
@@ -236,11 +249,9 @@ public class MovieView extends JPanel
 
 
         //Label for movie actor(s)
-        actorLabel = new JLabel("Actors: " + Actors);
+        actorLabel = new JLabel(spacer + "Actors: " + Actors);
         actorLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints actorLabelC = new GridBagConstraints();
-        //actorLabelC.weightx = 0.5;
-        //actorLabelC.weighty = 0.5;
         actorLabelC.gridx = 1;
         actorLabelC.gridy = 10;
         actorLabelC.ipadx = 10;
@@ -250,7 +261,34 @@ public class MovieView extends JPanel
 
 
 
+        //Label for movie country/countries
+        countryLabel = new JLabel(spacer + "Countries: " + Countries);
+        countryLabel.setFont(new Font("Georgia", Font.BOLD, 14));
+        GridBagConstraints countryLabelC = new GridBagConstraints();
+        countryLabelC.gridx = 1;
+        countryLabelC.gridy = 11;
+        countryLabelC.ipadx = 10;
+        countryLabelC.ipady = 10;
+        countryLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
+        this.add(countryLabel, countryLabelC);
+
+
+
+        //Label for movie langauge(s)
+        languageLabel = new JLabel(spacer + "Available langauges: " + Languages);
+        languageLabel.setFont(new Font("Georgia", Font.BOLD, 14));
+        GridBagConstraints languageLabelC = new GridBagConstraints();
+        languageLabelC.gridx = 1;
+        languageLabelC.gridy = 12;
+        languageLabelC.ipadx = 10;
+        languageLabelC.ipady = 10;
+        languageLabelC.anchor = GridBagConstraints.FIRST_LINE_START;
+        this.add(languageLabel, languageLabelC);
+
+
+
         //Panel for letting the user rate the movie
+        //Will only be shown if the user is logged in
         if(Model.System.getInstance().getCurrentUser() != null)
         {
             final JRadioButton star1 = new JRadioButton("1");
@@ -278,33 +316,45 @@ public class MovieView extends JPanel
             ratingC.weightx = 0.5;
             ratingC.weighty = 0.5;
             ratingC.gridx = 1;
-            ratingC.gridy = 11;
+            ratingC.gridy = 13;
             ratingC.ipadx = 10;
             ratingC.ipady = 10;
+            ratingC.insets = new Insets(0,10,0,0);
             ratingC.anchor = GridBagConstraints.FIRST_LINE_START;
             this.add(ratingPanel, ratingC);
+            submitRatingButton.addActionListener(event ->
+            {
+                if(star1.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 1);
+                else if(star2.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 2);
+                else if(star3.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 3);
+                else if(star4.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 4);
+                else if(star5.isSelected())
+                    Model.System.getInstance().getCurrentUser().addUserRating(inputMovie, 5);
+                else
+                {
+
+                }
+                MainWindow parent = MainWindow.getInstance();
+                JOptionPane.showMessageDialog(parent, "Rating submitted!");
+                MainWindow.getInstance().ShowMovie(inputMovie, homeButtonActionListener);
+            });
         }
-        else
+        else//Filler panel to fill up the rest of the GridBag's weighting system adjustment thing
+        //Only occurs if the Ratings panel doesn't get displayed (user not logged in)
         {
             JPanel fillerPanel = new JPanel();
             GridBagConstraints fillerPanelC = new GridBagConstraints();
             fillerPanelC.weightx = 0.5;
             fillerPanelC.weighty = 0.5;
             fillerPanelC.gridx = 1;
-            fillerPanelC.gridy = 11;
+            fillerPanelC.gridy = 13;
             fillerPanelC.ipadx = 10;
             fillerPanelC.ipady = 10;
             this.add(fillerPanel, fillerPanelC);
         }
-
-        //Label for showing current user rating
-        //userRating = new JLabel();
-        JButton temp = new JButton("temp");
-        this.add(temp);
-        temp.addActionListener(event ->
-        {
-            System.out.println("test");
-        });
-
     }
 }
