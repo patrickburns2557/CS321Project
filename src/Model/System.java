@@ -1,5 +1,6 @@
 package Model;
 
+import View.CollectionView;
 import View.MainWindow;
 
 import java.io.IOException;
@@ -32,10 +33,10 @@ public class System {
     {
         try
         {
-            Movie[] list = JsonInterface.buildmasterlist("src\\Model\\Movies.json");
+            Movie[] list = JsonInterface.buildmasterlist(JsonInterface.MovieDirectory);
             masterList = new ArrayList<Movie>(Arrays.asList(list));
 
-            User[] users = JsonInterface.getuserlist("src\\MasterUser.json");
+            User[] users = JsonInterface.getuserlist(JsonInterface.UserDirectory);
             userList = new ArrayList<User>(Arrays.asList(users));
         }catch(IOException ex)
         {
@@ -98,6 +99,7 @@ public class System {
             {
                 currentUser = u;
                 MainWindow.getInstance().ShowHomeOnLogin();
+                CollectionView.getInstance().refresh();
                 return true;
             }
         }

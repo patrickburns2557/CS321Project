@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public class JsonInterface
 {
+    public static final String MovieDirectory = "src\\Model\\Movies.json";
+    public static final String UserDirectory = "src\\Model\\MasterUser.json";
 
     /**
      * Constructs an array containing all movies from a json file
@@ -54,7 +56,7 @@ public class JsonInterface
 
         try
         {
-            FileWriter writer = new FileWriter("src/MasterUser.json");
+            FileWriter writer = new FileWriter(UserDirectory);
             writer.write(json);
             writer.close();
 

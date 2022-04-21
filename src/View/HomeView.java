@@ -37,7 +37,7 @@ public class HomeView extends JPanel
             this.add(collectionButtonPanel, BorderLayout.WEST);
             colButton.addActionListener(event ->
             {
-                MainWindow.getInstance().ShowCollectionList(sys.getCurrentUser().getCollections());
+                MainWindow.getInstance().ShowCollectionList();
             });
         }
 
@@ -53,7 +53,7 @@ public class HomeView extends JPanel
             grid.addPosterListener(event ->
             {
                 MainWindow view = MainWindow.getInstance();
-                view.ShowMovie(currentList.getMovies().get(final_i));
+                view.ShowMovie(currentList.getMovies().get(final_i), e -> view.ShowHome());
             }, i);
         }
 
@@ -246,7 +246,7 @@ public class HomeView extends JPanel
             grid.addPosterListener(event ->
             {
                 MainWindow view = MainWindow.getInstance();
-                view.ShowMovie(currentList.getMovies().get(final_i));
+                view.ShowMovie(currentList.getMovies().get(final_i), e -> view.ShowHome());
             }, i);
         }
 

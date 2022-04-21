@@ -40,11 +40,11 @@ public class User {
 
     public ArrayList<Collection> getCollections()
     {
-        return Collections;
+        return (ArrayList<Collection>)Collections.clone();
     }
 
     public ArrayList<UserRating> getUserRatings() {
-        return UserRatings;
+        return (ArrayList<UserRating>)UserRatings.clone();
     }
 
     //Setter
@@ -61,8 +61,12 @@ public class User {
     {
         Collections.add(input);
     }
-
-    /**
+  
+    public void removeCollection(Collection collection) {
+        Collections.remove(collection);
+    }
+  
+   /**
      * Add a movie and its rating rated by the user to the user's array list of rated movies
      * @param mov The movie that the user rated
      * @param score An integar value from 1 to 5 that the user rated the movie as

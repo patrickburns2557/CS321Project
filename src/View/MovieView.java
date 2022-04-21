@@ -4,6 +4,7 @@ import Model.Movie;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -37,7 +38,7 @@ public class MovieView extends JPanel
      * Uses GridBagLayout to format the view
      * @param inputMovie
      */
-    public MovieView(Movie inputMovie)
+    public MovieView(Movie inputMovie, ActionListener homeButtonActionListener) //TEMP FOR NOW, WILL BE MOVIE OBJECT LATER
     {
         String spacer = "   ";
         String Title = inputMovie.gettitle();
@@ -58,7 +59,7 @@ public class MovieView extends JPanel
 
 
         //Button to return home
-        homeButton = new JButton("<-- Return to home");
+        homeButton = new JButton("Back");
         homeButton.setFont(new Font("Georgia", Font.BOLD, 18));
         GridBagConstraints homeButtonC = new GridBagConstraints();
         homeButtonC.gridx = 0;
@@ -69,14 +70,7 @@ public class MovieView extends JPanel
         homeButtonC.anchor = GridBagConstraints.FIRST_LINE_START;
         this.add(homeButton, homeButtonC);
 
-        //ActionListener to have the homeButton take you back to HomeView when clicked
-        homeButton.addActionListener(event ->
-        {
-            MainWindow view = MainWindow.getInstance();
-            view.ShowHome();
-        });
-
-
+        homeButton.addActionListener(homeButtonActionListener);
 
         //JPanel for Poster and add to collection dropdown
         poster = new ImageIcon(CreatePoster.getFromURL(inputMovie.getposter(), Title, Year));
@@ -346,7 +340,7 @@ public class MovieView extends JPanel
                 }
                 MainWindow parent = MainWindow.getInstance();
                 JOptionPane.showMessageDialog(parent, "Rating submitted!");
-                MainWindow.getInstance().ShowMovie(inputMovie);
+                MainWindow.getInstance().ShowMovie(inputMovie, homeButtonActionListener);
             });
         }
         else//Filler panel to fill up the rest of the GridBag's weighting system adjustment thing

@@ -5,6 +5,7 @@ import Model.JsonInterface;
 import Model.Movie;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ public class MainWindow extends JFrame
     private static MainWindow mainWindow;
     private static HomeView homeView;
     private static MovieView movieView;
-    private static CollectionView collectionView;
     private static CollectionDetailView collectionDetailView;
 
     //Create the singleton class's one instance
@@ -96,29 +96,27 @@ public class MainWindow extends JFrame
         this.setVisible(true);
     }
 
+    public void ShowMovie(Movie movie, ActionListener homeButtonActionListener)
     /**
      * Show the movieView for the indicated movie
      * @param movie - Movie for which to create the movieView for
      */
-    public void ShowMovie(Movie movie)
     {
         this.getContentPane().removeAll();
-        movieView = new MovieView(movie);
+        movieView = new MovieView(movie, homeButtonActionListener);
         this.add(movieView);
         this.repaint();
         this.setVisible(true);
     }
 
+
     /**
      * Show the collectionView of the passed in collection list
-     * @param collections - list of collections to display
      */
-    public void ShowCollectionList(ArrayList<Model.Collection> collections)
+    public void ShowCollectionList()
     {
         this.getContentPane().removeAll();
-        collectionView = new CollectionView(collections);
-        this.add(collectionView);
-        collectionView.refresh();
+        this.add(CollectionView.getInstance());
         this.repaint();
         this.setVisible(true);
     }
