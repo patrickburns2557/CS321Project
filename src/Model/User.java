@@ -40,11 +40,11 @@ public class User {
 
     public ArrayList<Collection> getCollections()
     {
-        return (ArrayList<Collection>)Collections.clone();
+        return Collections;
     }
 
     public ArrayList<UserRating> getUserRatings() {
-        return (ArrayList<UserRating>)UserRatings.clone();
+        return UserRatings;
     }
 
     //Setter
