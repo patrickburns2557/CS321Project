@@ -72,6 +72,7 @@ public class CollectionDetailView extends JPanel {
                     for (Collection c : user.getCollections()) {
                         if (c == collection) {
                             c.setName(collectionNameString);
+                            CollectionView.getInstance().getCollectionPeekView(collection).refresh();
                         }
                     }
                 }
@@ -82,11 +83,8 @@ public class CollectionDetailView extends JPanel {
             // Deletes the collection and returns to collection view
             int result = JOptionPane.showConfirmDialog(MainWindow.getInstance(), "Are you sure?");
             if (result == JOptionPane.YES_OPTION) {
-                ArrayList<Collection> collectionList = System.getInstance().getCurrentUser().getCollections();
-                int i = 0;
-                while (collection != collectionList.get(i++));
+                CollectionView.getInstance().removeCollection(collection);
                 System.getInstance().getCurrentUser().removeCollection(collection);
-                CollectionView.getInstance().removeCollection(i - 1);
                 MainWindow.getInstance().ShowCollectionList();
             }
         });

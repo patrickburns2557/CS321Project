@@ -45,6 +45,8 @@ public class CollectionPeekView extends JPanel implements ComponentListener {
 
     public void refresh() {
         // Everytime the panel is resized, the number of movies shown updates to fit the width of the panel
+        border = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), collection.getName());
+        this.setBorder(border);
         int panelWidth = parent.getWidth();
         int horizontalPadding = 50;
         int viewableMovies = panelWidth / (MovieGrid.MOVIE_WIDTH + horizontalPadding);

@@ -100,13 +100,23 @@ public class MovieView extends JPanel
             //Iterate through the user's collections and add the movie to the one that's selected in the ComboBox
             addToCollectionButton.addActionListener(event ->
             {
-                for(Model.Collection i : CollectionList)
+                for(Model.Collection collection : CollectionList)
                 {
-                    if(i.getName().equals(collectionListComboBox.getSelectedItem()))
+                    if(collection.getName().equals(collectionListComboBox.getSelectedItem()))
                     {
-                        i.addMovie(inputMovie);
-                        MainWindow parent = MainWindow.getInstance();
-                        JOptionPane.showMessageDialog(parent, "Movie added to collection!");
+                        boolean movieExistsInCollection = false;
+                        for (Movie movie : collection.getMovies()) {
+                            if (inputMovie == movie)
+                                movieExistsInCollection = true;
+                        }
+                        if (!movieExistsInCollection) {
+                            collection.addMovie(inputMovie);
+                            CollectionView.getInstance().getCollectionPeekView(collection).refresh();
+                            JOptionPane.showMessageDialog(MainWindow.getInstance(), "Movie added to collection!");
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(MainWindow.getInstance(), "Movie already exists in collection");
+                        }
                     }
 
                 }

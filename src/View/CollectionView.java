@@ -18,6 +18,7 @@ public class CollectionView extends JPanel implements ActionListener {
     private static JPanel list;
     private static GridLayout listLayout;
     private static CollectionView collectionView;
+    private static ArrayList<CollectionPeekView> collections;
 
     /**
      *
@@ -28,6 +29,7 @@ public class CollectionView extends JPanel implements ActionListener {
     private CollectionView() {
         // Reference to the user's current collections list
         this.setLayout(new BorderLayout());
+        collections = new ArrayList<>();
         list = new JPanel();
         listLayout = new GridLayout(0, 1);
         list.setLayout(listLayout);
@@ -129,12 +131,18 @@ public class CollectionView extends JPanel implements ActionListener {
 
     private void addCollection(Collection collection) {
         listLayout.setRows(listLayout.getRows() + 1);
-        list.add(new CollectionPeekView(this, collection), BorderLayout.CENTER);
+        collections.add(new CollectionPeekView(this, collection));
+        list.add(collections.get(collections.size() - 1), BorderLayout.CENTER);
     }
 
-    public void removeCollection(int index) {
+    public void removeCollection(Collection collection) {
         listLayout.setRows(listLayout.getRows() - 1);
-        list.remove(index);
+        list.remove(Model.System.getInstance().getCurrentUser().getCollections().indexOf(collection));
+        collections.remove(collection);
+    }
+
+    public CollectionPeekView getCollectionPeekView(Collection collection) {
+        return collections.get(Model.System.getInstance().getCurrentUser().getCollections().indexOf(collection));
     }
 
 }
