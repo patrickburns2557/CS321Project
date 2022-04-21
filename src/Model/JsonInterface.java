@@ -13,6 +13,8 @@ public class JsonInterface
     //array movie (master list)
     //load user
     //save user
+    public static final String MovieDirectory = "src\\Model\\Movies.json";
+    public static final String UserDirectory = "src\\Model\\MasterUser.json";
 
     public static Movie[] buildmasterlist(String jsonfile) throws IOException
     {
@@ -43,7 +45,7 @@ public class JsonInterface
 
         try
         {
-            FileWriter writer = new FileWriter("src/MasterUser.json");
+            FileWriter writer = new FileWriter(UserDirectory);
             writer.write(json);
             writer.close();
 

@@ -33,10 +33,10 @@ public class System {
     {
         try
         {
-            Movie[] list = JsonInterface.buildmasterlist("src\\Model\\Movies.json");
+            Movie[] list = JsonInterface.buildmasterlist(JsonInterface.MovieDirectory);
             masterList = new ArrayList<Movie>(Arrays.asList(list));
 
-            User[] users = JsonInterface.getuserlist("src\\Model\\MasterUser.json");
+            User[] users = JsonInterface.getuserlist(JsonInterface.UserDirectory);
             userList = new ArrayList<User>(Arrays.asList(users));
         }catch(IOException ex)
         {
