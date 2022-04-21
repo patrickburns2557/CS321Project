@@ -6,12 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Class to generate a JPanel that displays all the information about the specified movie
+ * Also allows the user to rate the shown movie, as well as add it to one of their collections
+ */
 public class MovieView extends JPanel
 {
     private JButton homeButton;
     private ImageIcon poster;
     private JPanel posterAndCollectionsLabel = new JPanel();
-    private JComboBox<String> collectionList;
+    private JComboBox<String> collectionListComboBox;
     private JButton addToCollectionButton;
     private JLabel movieLabel;
     private JLabel yearLabel;
@@ -28,8 +32,12 @@ public class MovieView extends JPanel
     private ButtonGroup ratingGroup;
     private JButton submitRatingButton;
 
-
-    public MovieView(Movie inputMovie) //TEMP FOR NOW, WILL BE MOVIE OBJECT LATER
+    /**
+     * Constructor to create a MovieView based on all the information stored in the passed in Movie
+     * Uses GridBagLayout to format the view
+     * @param inputMovie
+     */
+    public MovieView(Movie inputMovie)
     {
         String spacer = "   ";
         String Title = inputMovie.gettitle();
@@ -46,9 +54,8 @@ public class MovieView extends JPanel
         String[] CollectionNames;
 
 
-
-
         this.setLayout(new GridBagLayout());
+
 
         //Button to return home
         homeButton = new JButton("<-- Return to home");
@@ -62,6 +69,7 @@ public class MovieView extends JPanel
         homeButtonC.anchor = GridBagConstraints.FIRST_LINE_START;
         this.add(homeButton, homeButtonC);
 
+        //ActionListener to have the homeButton take you back to HomeView when clicked
         homeButton.addActionListener(event ->
         {
             MainWindow view = MainWindow.getInstance();
@@ -70,7 +78,7 @@ public class MovieView extends JPanel
 
 
 
-        //Poster and add to collection dropdown
+        //JPanel for Poster and add to collection dropdown
         poster = new ImageIcon(CreatePoster.getFromURL(inputMovie.getposter(), Title, Year));
         JLabel picLabel = new JLabel(poster);
 
@@ -80,25 +88,33 @@ public class MovieView extends JPanel
         //Only show collection dropdown if a user is logged in
         if(Model.System.getInstance().getCurrentUser() != null)
         {
-            ArrayList<Model.Collection> CollectionList = Model.System.getInstance().getCurrentUser().getCollections();
+            ArrayList<Model.Collection> CollectionList = Model.System.getInstance().getCurrentUser().getCollections(); //Get collections of currently logged-in user
+
+            //Create array of names based on the user's collections to be used to create the ComboBox
             CollectionNames = new String[CollectionList.size()];
             for(int i = 0; i < CollectionList.size();i++)
             {
                 CollectionNames[i] = CollectionList.get(i).getName();
             }
-            collectionList = new JComboBox(CollectionNames);
-            posterAndCollectionsLabel.add(collectionList, BorderLayout.CENTER);
+
+            collectionListComboBox = new JComboBox(CollectionNames);
+            posterAndCollectionsLabel.add(collectionListComboBox, BorderLayout.CENTER);
 
             addToCollectionButton = new JButton("Add to collection");
             posterAndCollectionsLabel.add(addToCollectionButton, BorderLayout.SOUTH);
 
+            //Iterate through the user's collections and add the movie to the one that's selected in the ComboBox
             addToCollectionButton.addActionListener(event ->
             {
-                Model.Collection current;
                 for(Model.Collection i : CollectionList)
                 {
-                    if(i.getName().equals(collectionList.getSelectedItem()))
+                    if(i.getName().equals(collectionListComboBox.getSelectedItem()))
+                    {
                         i.addMovie(inputMovie);
+                        MainWindow parent = MainWindow.getInstance();
+                        JOptionPane.showMessageDialog(parent, "Movie added to collection!");
+                    }
+
                 }
             });
         }
@@ -214,8 +230,6 @@ public class MovieView extends JPanel
         descriptionLabel.setFont(new Font("Georgia", Font.PLAIN, 20));
         descriptionLabel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Movie Description"));
         GridBagConstraints descriptionLabelC = new GridBagConstraints();
-        //descriptionLabelC.weightx = 0.5;
-        //descriptionLabelC.weighty = 0.5;
         descriptionLabelC.gridx = 1;
         descriptionLabelC.gridy = 8;
         descriptionLabelC.ipadx = 15;
@@ -231,8 +245,6 @@ public class MovieView extends JPanel
         directorLabel = new JLabel(spacer + "Directors: " + Directors);
         directorLabel.setFont(new Font("Georgia", Font.BOLD, 14));
         GridBagConstraints directorLabelC = new GridBagConstraints();
-        //directorLabelC.weightx = 0.5;
-        //directorLabelC.weighty = 0.5;
         directorLabelC.gridx = 1;
         directorLabelC.gridy = 9;
         directorLabelC.ipadx = 10;
@@ -282,6 +294,7 @@ public class MovieView extends JPanel
 
 
         //Panel for letting the user rate the movie
+        //Will only be shown if the user is logged in
         if(Model.System.getInstance().getCurrentUser() != null)
         {
             final JRadioButton star1 = new JRadioButton("1");
@@ -336,7 +349,8 @@ public class MovieView extends JPanel
                 MainWindow.getInstance().ShowMovie(inputMovie);
             });
         }
-        else
+        else//Filler panel to fill up the rest of the GridBag's weighting system adjustment thing
+        //Only occurs if the Ratings panel doesn't get displayed (user not logged in)
         {
             JPanel fillerPanel = new JPanel();
             GridBagConstraints fillerPanelC = new GridBagConstraints();
