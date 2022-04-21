@@ -4,7 +4,10 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
-
+/**
+ * Standard class that stores information of a movie.
+ * Reused in other classes
+ */
 public class Movie
 {
     private String Title = "";
@@ -33,49 +36,39 @@ public class Movie
         return strings;
     }
 
-    /** Getter **/
+    /* Getter */
     public String gettitle()
     {
         return this.Title;
     }
-
-
     public Integer getyear()
     {
         return this.Year;
     }
-
-
     public String getplot()
     {
         return this.Plot;
     }
-
     public String getdirector() {
         return this.Director;
     }
-
     public ArrayList<String> getDirectors()
 	  {
         return toArrayList(Director);
     }
-
     public String getruntime()
     {
         return this.Runtime;
 
     }
-
     public float getscore()
     {
         return this.imdbRating;
     }
-
     public String getgenre()
     {
         return this.Genre;
     }
-
     public ArrayList<String> getGenres()
     {
         return toArrayList(Genre);
