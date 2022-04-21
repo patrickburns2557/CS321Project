@@ -25,7 +25,7 @@ public class CollectionView extends JPanel implements ActionListener {
     static {
         collectionView = new CollectionView();
     }
-    public CollectionView() {
+    private CollectionView() {
         // Reference to the user's current collections list
         this.setLayout(new BorderLayout());
         list = new JPanel();
@@ -131,7 +131,7 @@ public class CollectionView extends JPanel implements ActionListener {
         list.add(new CollectionPeekView(this, collection), BorderLayout.CENTER);
     }
 
-    private void removeCollection(int index) {
+    public void removeCollection(int index) {
         list.remove(index);
     }
 }
