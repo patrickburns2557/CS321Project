@@ -17,6 +17,7 @@ public class RunProgram
 
 
         MainWindow view = MainWindow.getInstance();
+        Model.System.getInstance().loginUser("admin", "password");
         view.setVisible(true);
     }
 }

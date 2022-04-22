@@ -1,6 +1,7 @@
 package View;
 
 import Model.Collection;
+import Model.Movie;
 import Model.System;
 import Model.User;
 
@@ -9,7 +10,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CollectionDetailView extends JPanel {
-    private JPanel collectionPanel;
+    private JPanel mainPanel;
+    private CollectionTraverser collectionPanel;
+    private MasterListTraverser masterListPanel;
     private JPanel topBar;
     private boolean currentlyEditing = false;
 
@@ -20,21 +23,34 @@ public class CollectionDetailView extends JPanel {
     public CollectionDetailView(Collection collection) {
         this.setLayout(new BorderLayout());
 
-        collectionPanel = new JPanel();
-        collectionPanel.setLayout(new BorderLayout());
+        mainPanel = new JPanel();
+        //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.LINE_AXIS));
+        mainPanel.setLayout(new GridLayout(1, 2));
+
+        collectionPanel = new CollectionTraverser(collection);
+        masterListPanel = new MasterListTraverser(collectionPanel);
 
         topBar = new JPanel();
         topBar.setLayout(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("Back");
+        JButton editButton = new JButton("Edit Collection");
+        JButton editNameButton = new JButton("Change Collection Name");
+        JButton deleteButton = new JButton("Delete Collection");
+
+        topBar.add(backButton);
+        topBar.add(editButton);
+        topBar.add(editNameButton);
+        topBar.add(deleteButton);
+
+        mainPanel.add(collectionPanel);
+        this.add(topBar, BorderLayout.NORTH);
+        this.add(mainPanel, BorderLayout.CENTER);
+
         backButton.addActionListener(e -> {
             // Go back to collection view
             MainWindow.getInstance().ShowCollectionList();
         });
-        JButton editButton = new JButton("Edit Collection");
-        editButton.addActionListener(e -> {
-            // Show home view on left panel
-        });
-        JButton editNameButton = new JButton("Change Collection Name");
+
         editNameButton.addActionListener(e -> {
             MainWindow view = MainWindow.getInstance();
             User user = Model.System.getInstance().getCurrentUser();
@@ -72,43 +88,43 @@ public class CollectionDetailView extends JPanel {
                     for (Collection c : user.getCollections()) {
                         if (c == collection) {
                             c.setName(collectionNameString);
+                            CollectionView.getInstance().getCollectionPeekView(collection).refreshBorder();
                         }
                     }
                 }
             }
         });
-        JButton deleteButton = new JButton("Delete Collection");
+
+        editButton.addActionListener(e -> {
+            if (currentlyEditing) {
+                currentlyEditing = false;
+                mainPanel.remove(masterListPanel);
+                mainPanel.remove(collectionPanel);
+                mainPanel.add(collectionPanel);
+                this.repaint();
+                MainWindow.getInstance().setVisible(true);
+            }
+            else {
+                currentlyEditing = true;
+                mainPanel.remove(collectionPanel);
+                mainPanel.add(masterListPanel);
+                mainPanel.add(collectionPanel);
+                this.repaint();
+                MainWindow.getInstance().setVisible(true);
+            }
+
+            collectionPanel.setDeleteMode(currentlyEditing);
+            collectionPanel.RefreshGrid();
+        });
+
         deleteButton.addActionListener(e -> {
             // Deletes the collection and returns to collection view
             int result = JOptionPane.showConfirmDialog(MainWindow.getInstance(), "Are you sure?");
             if (result == JOptionPane.YES_OPTION) {
-                ArrayList<Collection> collectionList = System.getInstance().getCurrentUser().getCollections();
-                int i = 0;
-                while (collection != collectionList.get(i++));
+                CollectionView.getInstance().removeCollection(collection);
                 System.getInstance().getCurrentUser().removeCollection(collection);
-                CollectionView.getInstance().removeCollection(i - 1);
                 MainWindow.getInstance().ShowCollectionList();
             }
         });
-        topBar.add(backButton);
-        topBar.add(editButton);
-        topBar.add(editNameButton);
-        topBar.add(deleteButton);
-
-        MovieGrid grid = new MovieGrid(collection);
-
-        for(int i = 0; i < collection.getMovies().size(); i++)
-        {
-            final int final_i = i;
-            grid.addPosterListener(event ->
-            {
-                MainWindow view = MainWindow.getInstance();
-                view.ShowMovie(collection.getMovies().get(final_i), e -> view.ShowCollection(collection));
-            }, i);
-        }
-
-        collectionPanel.add(grid, BorderLayout.CENTER);
-        this.add(topBar, BorderLayout.NORTH);
-        this.add(collectionPanel, BorderLayout.CENTER);
     }
 }

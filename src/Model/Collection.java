@@ -28,16 +28,18 @@ public class Collection implements Cloneable {
         this.name = name;
         this.movies = movies;
     }
-
+  
     /**
      * Public Clone method used to make the Collection class Cloneable
      * @return
      */
-    public Collection clone()
+    public Object clone()
     {
         try
         {
-            return (Collection) super.clone();
+            Collection deepCopy = (Collection)super.clone();
+            deepCopy.movies = (ArrayList)this.movies.clone();
+            return deepCopy;
         } catch(CloneNotSupportedException ex)
         {
             return null;

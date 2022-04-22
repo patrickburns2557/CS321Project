@@ -40,6 +40,10 @@ public class CollectionPeekView extends JPanel implements ComponentListener {
      * @param e
      */
     public void componentResized(ComponentEvent e) {
+        refresh();
+    }
+
+    public void refresh() {
         // Everytime the panel is resized, the number of movies shown updates to fit the width of the panel
         int panelWidth = parent.getWidth();
         int horizontalPadding = 50;
@@ -63,6 +67,11 @@ public class CollectionPeekView extends JPanel implements ComponentListener {
         }
 
         this.add(grid, BorderLayout.CENTER);
+    }
+
+    public void refreshBorder() {
+        border = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), collection.getName());
+        this.setBorder(border);
     }
 
     /**
@@ -90,10 +99,5 @@ public class CollectionPeekView extends JPanel implements ComponentListener {
         this.add(topBar, BorderLayout.NORTH);
 
         componentCount = getComponentCount();
-    }
-
-    public void updateName() {
-        border = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), collection.getName());
-        this.setBorder(border);
     }
 }
