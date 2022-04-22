@@ -25,8 +25,8 @@ public class UserRating {
     public UserRating() {
     }
     /**
-     *
-     * @return
+     * Returns the title of the movie
+     * @return String containing title of the movie
      */
     public String getMovieTitle(){
         return this.movie;
