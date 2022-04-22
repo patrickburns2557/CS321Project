@@ -2,18 +2,22 @@ package Model;
 
 import com.google.gson.*;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 /**
  * Handles json file reading and writing for movies and user
  */
 public class JsonInterface
 {
-    public static final String MovieDirectory = "src\\Model\\Movies.json";
-    public static final String UserDirectory = "src\\Model\\MasterUser.json";
+    //public static final String MovieDirectory = "src\\Model\\Movies.json";
+    public static final String MovieDirectory = "Movies.json";
+    //public static final String UserDirectory = "src\\Model\\MasterUser.json";
+    public static final String UserDirectory = "MasterUser.json";
 
     /**
      * Reads and constructs an array containing all movies from a json file
@@ -26,7 +30,12 @@ public class JsonInterface
         Gson gson = new Gson();
         Movie[] MasterList;
 
-        String content = new String(Files.readAllBytes(Paths.get(jsonfile))); //Movie file
+        //old
+        //String content = new String(Files.readAllBytes(Paths.get(jsonfile))); //Movie file
+
+        InputStream in = Model.System.class.getResourceAsStream(MovieDirectory);
+        String content = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining(""));
+
         MasterList = gson.fromJson(content, Movie[].class);
         return MasterList;
     }
@@ -40,7 +49,11 @@ public class JsonInterface
 
         Gson gson = new Gson();
         User[] UserList;
-        String content = new String(Files.readAllBytes(Paths.get(userjson))); //Movie file
+        //String content = new String(Files.readAllBytes(Paths.get(userjson))); //Movie file
+        InputStream in = Model.System.class.getResourceAsStream(UserDirectory);
+
+        String content = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining(""));
+
         UserList = gson.fromJson(content, User[].class);
         return UserList;
     }
