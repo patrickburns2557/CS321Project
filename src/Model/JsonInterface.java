@@ -16,7 +16,7 @@ public class JsonInterface
     public static final String UserDirectory = "src\\Model\\MasterUser.json";
 
     /**
-     * Constructs an array containing all movies from a json file
+     * Reads and constructs an array containing all movies from a json file
      * @param jsonfile The string that contains the directory to the movie json file
      * @return A master array for the system to read that conatins all information of movies from json file.
      */
@@ -31,7 +31,7 @@ public class JsonInterface
         return MasterList;
     }
     /**
-     * Constructs an array containing all users form a json file
+     * Reads and constructs an array containing all users form a json file
      * @param userjson The string that contains the directory to the muser list json file
      * @return A master user list array for the system to handle user logging and collections
      */
