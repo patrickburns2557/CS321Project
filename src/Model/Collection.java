@@ -46,7 +46,7 @@ public class Collection implements Cloneable {
 
     /**
      * Gets the name of the collection
-     * 
+     * @return - String of collection name
      */
     public String getName() {
         return name;
@@ -61,6 +61,7 @@ public class Collection implements Cloneable {
 
     /**
      * Gets the movie from the Array List
+     * @return - ArrayList of movies contained in collection
      */
     public ArrayList<Movie> getMovies() {
         return movies;
