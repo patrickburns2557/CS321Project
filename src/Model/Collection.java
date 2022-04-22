@@ -1,8 +1,11 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * Class to hold collections that the user creates.
+ * Contains an ArrayList of movies and the name of the collection.
+ */
 public class Collection implements Cloneable {
     private String name;
     private ArrayList<Movie> movies;
@@ -15,11 +18,11 @@ public class Collection implements Cloneable {
         this.name = name;
         this.movies = new ArrayList<>();
     }
+
     /**
      * Public constructor that holds the variable name and Array List object movie
      * @param name
      */
-
     public Collection(String name, ArrayList<Movie> movies)
     {
         this.name = name;
@@ -30,7 +33,6 @@ public class Collection implements Cloneable {
      * Public Clone method used to make the Collection class Cloneable
      * @return
      */
-
     public Collection clone()
     {
         try
@@ -44,61 +46,45 @@ public class Collection implements Cloneable {
 
     /**
      * Gets the name of the collection
-     * @return
+     * 
      */
-
     public String getName() {
-
         return name;
     }
 
     /**
      * Sets the name of the collection
-     * @return
      */
-
     public void setName(String name) {
-
         this.name = name;
     }
 
     /**
-     * Gets the movie from the Arrary List
-     * @return
+     * Gets the movie from the Array List
      */
-
     public ArrayList<Movie> getMovies() {
-
         return movies;
     }
 
     /**
-     * Adds the movie to the Arrary List
-     * @return
+     * Adds the movie to the Array List
      */
 
     public void addMovie(Movie movie){
-
         movies.add(movie);
     }
 
     /**
-     * Removes the movie from the Arrary List
-     * @return
+     * Removes the movie from the Array Lisl
      */
-
     public void removeMovie(Movie movie){
-
         movies.remove(movie);
     }
 
     /**
      * Deletes the Collection
-     * @return
      */
-
     public void deleteCollection(){
-
         movies.clear();
     }
 }
