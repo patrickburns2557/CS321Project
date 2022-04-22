@@ -19,14 +19,30 @@ public class UserRating {
         this.Rated = score;
     }
 
+    /**
+     * Default Constructor for the Class
+     */
+
     public UserRating() {
     }
 
+    /**
+     * Gets the name of the movie
+     * @return
+     */
+
     public String getMovieTitle(){
+
         return this.movie;
     }
 
+    /**
+     * Gets the Rating for the User
+     * @return
+     */
+
     public Integer getRated() {
+
         return this.Rated;
     }
 }
