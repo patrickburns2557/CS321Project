@@ -150,9 +150,8 @@ public class Movie
         return toArrayList(Country);
     }
     /**
-     *
-     * @param
-     * @return
+     * Gets the actors of the movie
+     * @return String containing the list of actors in the movie
      */
     public String getActors()
     {
