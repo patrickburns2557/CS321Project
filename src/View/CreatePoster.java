@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 
 /**
@@ -28,27 +27,13 @@ public class CreatePoster
         {
             //replaces all ":" with "_" since colons are not a valid character for file names.
             MovieName = MovieName.replace(":", "_");
-
-            //old way of loading
-            //File posterFile = new File(  "src\\Posters\\" + MovieName + MovieYear + ".png");
-            /*//Check to see if a poster file already exists for the movie, and load that if so
+            File posterFile = new File("src\\Posters\\" + MovieName + MovieYear + ".png");
+            //Check to see if a poster file already exists for the movie, and load that if so
             if(posterFile.exists())
             {
                 BufferedImage img = null;
-                //img = ImageIO.read(new File("src\\Posters\\" + MovieName + MovieYear + ".png"));
-                img = ImageIO.read(posterFile);
+                img = ImageIO.read(new File("src\\Posters\\" + MovieName + MovieYear + ".png"));
                 return img;
-            }*/
-
-            BufferedImage buff = null;
-            if(CreatePoster.class.getResource("/main/resources/Posters/" + MovieName + MovieYear + ".png") != null)
-            {
-                buff = ImageIO.read(CreatePoster.class.getResource("/main/resources/Posters/" + MovieName + MovieYear + ".png"));
-            }
-
-            if(buff != null)
-            {
-                return buff;
             }
             else//image file doesn't exist yet
             {
