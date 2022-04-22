@@ -18,11 +18,13 @@ public class Collection implements Cloneable {
         this.movies = movies;
     }
 
-    public Collection clone()
+    public Object clone()
     {
         try
         {
-            return (Collection) super.clone();
+            Collection deepCopy = (Collection)super.clone();
+            deepCopy.movies = (ArrayList)this.movies.clone();
+            return deepCopy;
         } catch(CloneNotSupportedException ex)
         {
             return null;
