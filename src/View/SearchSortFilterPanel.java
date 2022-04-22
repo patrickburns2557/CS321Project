@@ -11,6 +11,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+/**
+ * Search, sort, filter panel combo
+ */
 public class SearchSortFilterPanel extends JPanel {
     private JTextField searchBar;
     private JButton sortFilterPopupButton;
@@ -21,6 +24,8 @@ public class SearchSortFilterPanel extends JPanel {
 
     /**
      * Constructor to create the SearchSortFilterPanel
+     * @param movies list of movies to be sorted
+     * @param actionListener used to refresh the grid
      */
     public SearchSortFilterPanel(ArrayList<Movie> movies, ActionListener actionListener)
     {
@@ -57,17 +62,20 @@ public class SearchSortFilterPanel extends JPanel {
         searchBar.addActionListener(actionListener);
         searchBar.addActionListener(event ->
         {
-            FilterMovies.filterByTitle(sortFilterPanel.getSortedFilteredMovies(), searchBar.getText());
+            if (searchBar.getText().isEmpty())
+                sortFilterPanel.ResetMovies();
+            else
+                FilterMovies.filterByTitle(sortFilterPanel.getSortedFilteredMovies(), searchBar.getText());
         });
 
         this.add(sortFilterPopupButton, BorderLayout.EAST);
     }
 
+    /**
+     * Retrieves sorted movies as a list
+     * @return
+     */
     public ArrayList<Movie> getSortedFilteredMovies() {
         return sortFilterPanel.getSortedFilteredMovies();
-    }
-
-    public void hidePanel() {
-        sortFilterPopup.hide();
     }
 }

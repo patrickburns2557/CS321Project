@@ -10,12 +10,18 @@ import static javax.swing.SwingConstants.RIGHT;
 import Model.System;
 import Model.User;
 
+/**
+ * Login popup that prompts the user to either login or signup
+ */
 public class LoginWindow extends JPanel implements ActionListener {
     JTextField username;
     JPasswordField password;
     Character[] specialCharacters = {'_', '?', '!', '@', '-', '&', '*', '+'};
     Character[] digitCharacters = {'0','1','2','3','4','5','6','7','8','9'};
 
+    /**
+     * Initializes the window
+     */
     private void initialize() {
         this.removeAll();
         this.setLayout(new GridLayout(2, 2, 3, 5));
@@ -27,10 +33,17 @@ public class LoginWindow extends JPanel implements ActionListener {
         this.add(password);
     }
 
+    /**
+     * Constructor for LoginWindow
+     */
     public LoginWindow() {
         initialize();
     }
 
+    /**
+     * To be used in conjuction with a button that will pull up the window
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
         initialize();
 
