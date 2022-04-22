@@ -7,14 +7,17 @@ import Model.Movie;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class SearchSortFilterPanel extends JPanel {
-    JTextField searchBar;
-    JButton sortFilterPopupButton;
-    SortFilterPanel sortFilterPanel;
-    PopupFactory popupFactory;
-    Popup sortFilterPopup;
+    private JTextField searchBar;
+    private JButton sortFilterPopupButton;
+    private SortFilterPanel sortFilterPanel;
+    private PopupFactory popupFactory;
+    private Popup sortFilterPopup;
+    private boolean showingPopup = false;
 
     /**
      * Constructor to create the SearchSortFilterPanel
@@ -34,12 +37,23 @@ public class SearchSortFilterPanel extends JPanel {
         sortFilterPopupButton = new JButton("Sort/Filter");
         popupFactory = new PopupFactory();
         sortFilterPanel = new SortFilterPanel(movies, actionListener);
-        sortFilterPopup = popupFactory.getPopup(MainWindow.getInstance(), sortFilterPanel, 180, 100);
         sortFilterPopupButton.addActionListener(e -> {
-            sortFilterPopup.show();
+            if (showingPopup) {
+                sortFilterPopup.hide();
+                showingPopup = false;
+            }
+            else {
+                sortFilterPopup = popupFactory.getPopup(
+                        MainWindow.getInstance(),
+                        sortFilterPanel,
+                        sortFilterPopupButton.getLocationOnScreen().x - 100,
+                        sortFilterPopupButton.getLocationOnScreen().y + 64);
+                sortFilterPopup.show();
+                showingPopup = true;
+            }
         });
 
-        //Add action listner to make the searchbar functional
+        //Add action listener to make the searchbar functional
         searchBar.addActionListener(event ->
         {
             FilterMovies.filterByTitle(movies, searchBar.getText());
@@ -53,4 +67,7 @@ public class SearchSortFilterPanel extends JPanel {
         return sortFilterPanel.getSortedFilteredMovies();
     }
 
+    public void hidePanel() {
+        sortFilterPopup.hide();
+    }
 }

@@ -5,14 +5,17 @@ import Model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.lang.System;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class SortFilterPanel extends JPanel
 {
-    protected ArrayList<Movie> originalCollection;
-    protected ArrayList<Movie> cloneCollection;
+    private ArrayList<Movie> originalCollection;
+    private ArrayList<Movie> cloneCollection;
+    private SearchSortFilterPanel parent;
 
     private JPanel sortPanel;
     private JButton sortNameButton;
@@ -31,10 +34,11 @@ public class SortFilterPanel extends JPanel
     private JButton fillerButton;
 
     public SortFilterPanel(ArrayList<Movie> movies, ActionListener actionListener) {
+        this.parent = parent;
+
         originalCollection = movies;
         ResetMovies();
 
-        //this.setLayout(new GridLayout(2,1));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         sortPanel = new JPanel();
@@ -84,9 +88,6 @@ public class SortFilterPanel extends JPanel
         filterPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Filter by:"));
         this.add(filterPanel);
 
-        this.add(Box.createRigidArea(new Dimension(1,10000)));//fill up bottom of panel
-
-
         sortNameButton.addActionListener(actionListener);
         sortDateButton.addActionListener(actionListener);
         sortIMDBButton.addActionListener(actionListener);
@@ -95,8 +96,6 @@ public class SortFilterPanel extends JPanel
         clearFiltersButton.addActionListener(actionListener);
         CreateSortListeners();
         CreateFilterListeners();
-
-
     }
 
     public ArrayList<Movie> getSortedFilteredMovies() {
