@@ -1,7 +1,5 @@
 package Model;
 
-import Model.Movie;
-
 /**
  * Class for storing user's rating of a movie.
  */
@@ -19,13 +17,24 @@ public class UserRating {
         this.Rated = score;
     }
 
+    /**
+     * Default constructor
+     */
     public UserRating() {
     }
-
+	
+    /**
+     *
+     * @return
+     */
     public String getMovieTitle(){
         return this.movie;
     }
 
+    /**
+     * Returns the rated score
+     * @return Integar score that the user rated on the movie
+     */
     public Integer getRated() {
         return this.Rated;
     }

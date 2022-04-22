@@ -15,7 +15,6 @@ public class RunProgram
             //Do nothing because if it fails, will just fallback to default look
         }
 
-
         MainWindow view = MainWindow.getInstance();
         view.setVisible(true);
     }

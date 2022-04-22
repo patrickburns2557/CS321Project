@@ -1,7 +1,15 @@
 package View;
 
+import Model.*;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.lang.System;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Class to create a panel to sort and filter the movies currently shown on the screen
@@ -9,6 +17,9 @@ import java.awt.*;
  */
 public class SortFilterPanel extends JPanel
 {
+    private ArrayList<Movie> originalCollection;
+    private ArrayList<Movie> cloneCollection;
+
     private JPanel sortPanel;
     private JButton sortNameButton;
     private JButton sortDateButton;
@@ -27,11 +38,13 @@ public class SortFilterPanel extends JPanel
 
     /**
      * Constructor to create the SortFilterPanel
+     * @param movies list of movies to be sorted
+     * @param actionListener used to refresh the grid
      */
-    public SortFilterPanel()
-    {
+    public SortFilterPanel(ArrayList<Movie> movies, ActionListener actionListener) {
+        originalCollection = movies;
+        ResetMovies();
 
-        //this.setLayout(new GridLayout(2,1));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         sortPanel = new JPanel();
@@ -50,7 +63,6 @@ public class SortFilterPanel extends JPanel
         sortPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Sort by:"));
         this.add(sortPanel);
 
-
         filterPanel = new JPanel();
         filterPanel.setLayout(new GridLayout(5, 1));
 
@@ -59,7 +71,6 @@ public class SortFilterPanel extends JPanel
         String[] countries = {"Country", "Argentina", "Australia", "Belgium", "Canada", "China", "Czech Republic", "Czechoslovakia", "France", "Germany", "Hong Kong", "Ireland", "Italy", "Japan", "Malta", "Mexico", "Spain", "Taiwan", "South Korea", "Switzerland", "United Kingdom", "United States"};
         String[] years = {"Years", "1920s", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"};
         String[] ageRatings = {"Age Rating", "G", "TV-G", "PG", "PG-13", "R", "TV-MA", "X", "Not Rated"};
-
 
         filterGenreCombo = new JComboBox(genres);
         filterLanguageCombo = new JComboBox(languages);
@@ -83,10 +94,62 @@ public class SortFilterPanel extends JPanel
         filterPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Filter by:"));
         this.add(filterPanel);
 
-
-        this.add(Box.createRigidArea(new Dimension(1,10000)));//fill up bottom of panel
+        sortNameButton.addActionListener(actionListener);
+        sortDateButton.addActionListener(actionListener);
+        sortIMDBButton.addActionListener(actionListener);
+        sortRuntimeButton.addActionListener(actionListener);
+        filterButton.addActionListener(actionListener);
+        clearFiltersButton.addActionListener(actionListener);
         CreateSortListeners();
         CreateFilterListeners();
+    }
+
+    /**
+     * @return sorted movies list
+     */
+    public ArrayList<Movie> getSortedFilteredMovies() {
+        return cloneCollection;
+    }
+
+    /**
+     * Resets the view to show all movies in the database again
+     */
+    public void ResetMovies()
+    {
+        cloneCollection = (ArrayList)originalCollection.clone();
+        SortMoviesTitle();
+    }
+
+    /**
+     * Sorts movies by title using MovieComparatorByName()
+     */
+    protected void SortMoviesTitle()
+    {
+        Collections.sort(cloneCollection, new MovieComparatorByName());
+    }
+
+    /**
+     * Sorts movies by critic rating using MovieComparatorByCriticRating()
+     */
+    private void SortMoviesCritic()
+    {
+        Collections.sort(cloneCollection, new MovieComparatorByCriticRating());
+    }
+
+    /**
+     * Sorts movies by release year by using MovieComparatorByDate()
+     */
+    private void SortMoviesDate()
+    {
+        Collections.sort(cloneCollection, new MovieComparatorByDate());
+    }
+
+    /**
+     * Sorts movies by runtime by using MovieComparatorByRuntime()
+     */
+    private void SortMoviesRuntime()
+    {
+        Collections.sort(cloneCollection, new MovieComparatorByRuntime());
     }
 
     /**
@@ -96,38 +159,130 @@ public class SortFilterPanel extends JPanel
     {
         sortNameButton.addActionListener(event ->
         {
-            MainWindow.getInstance().getHomeView().SortMoviesTitle();
+            SortMoviesTitle();
         });
 
         sortDateButton.addActionListener(event ->
         {
-            MainWindow.getInstance().getHomeView().SortMoviesDate();
+            SortMoviesDate();
         });
 
         sortIMDBButton.addActionListener(event ->
         {
-            MainWindow.getInstance().getHomeView().SortMoviesCritic();
+            SortMoviesCritic();
         });
 
         sortRuntimeButton.addActionListener(event ->
         {
-            MainWindow.getInstance().getHomeView().SortMoviesRuntime();
+            SortMoviesRuntime();
         });
     }
 
     /**
-     * Method for creating the ActionListeners for the filtering dropdown menus and buttons
+     * Filters movies by genre
+     * @param genre - passed in genre to filter by
+     */
+    private void FilterMoviesGenre(String genre)
+    {
+        //Indicates no genre was selected in the filter panel
+        if(genre.equals("Genre"))
+            return;
+
+        ArrayList<String> genrePass = new ArrayList<String>();
+        genrePass.add(genre);
+        FilterMovies.filterByGenre(cloneCollection,genrePass);
+    }
+
+    /**
+     * Filters movies by language
+     * @param language - passed in language to filter by
+     */
+    private void FilterMoviesLanguage(String language)
+    {
+        //Indicates no language was selected in the filter panel
+        if(language.equals("Language"))
+            return;
+
+        ArrayList<String> languagePass = new ArrayList<String>();
+        languagePass.add(language);
+        FilterMovies.filterByLanguage(cloneCollection, languagePass);
+    }
+
+    /**
+     * Filters movies by country
+     * @param country - passed in country to filter by
+     */
+    private void FilterMoviesCountry(String country)
+    {
+        //Indicates no country was selected in the filter panel
+        if(country.equals("Country"))
+            return;
+
+        ArrayList<String> countryPass = new ArrayList<String>();
+        countryPass.add(country);
+        FilterMovies.filterByCountry(cloneCollection, countryPass);
+    }
+
+    /**
+     * Filter movies by release year (will be grouped into decades)
+     * @param year - passed in decade to filter by
+     */
+    private void FilterMoviesYear(String year)
+    {
+        //Indicates no year was selected in the filter panel
+        if(year.equals("Years"))
+            return;
+
+        ArrayList<Integer> years = new ArrayList<Integer>();
+        int begin = 0, end = 9;
+        //Generate a range of years to pass into the filter method based on the selected decade
+        switch(year)
+        {
+            case "1920s": begin = 1920; end = 1929; break;
+            case "1950s": begin = 1950; end = 1959; break;
+            case "1960s": begin = 1960; end = 1969; break;
+            case "1970s": begin = 1970; end = 1979; break;
+            case "1980s": begin = 1980; end = 1989; break;
+            case "1990s": begin = 1990; end = 1999; break;
+            case "2000s": begin = 2000; end = 2009; break;
+            case "2010s": begin = 2010; end = 2019; break;
+            case "2020s": begin = 2020; end = 2029; break;
+        }
+        /*for(int i = begin;i<=end;i++)
+            years.add(i);*/
+
+        years.add(begin);
+        years.add(end);
+
+        FilterMovies.filterByYear(cloneCollection, years);
+    }
+
+    /**
+     * Filter movies by age rating
+     * @param age - passed in age rating to filter by
+     */
+    private void FilterMoviesAge(String age)
+    {
+        //Indicates no age rating was selected in the filter panel
+        if(age.equals("Age Rating"))
+            return;
+
+        FilterMovies.filterByAgeRating(cloneCollection, age);
+    }
+
+    /**
+     * Creates the filter listeners
      */
     private void CreateFilterListeners()
     {
         filterButton.addActionListener(event ->
         {
-            MainWindow.getInstance().getHomeView().ResetMovies();
-            MainWindow.getInstance().getHomeView().FilterMoviesGenre((String) filterGenreCombo.getSelectedItem());
-            MainWindow.getInstance().getHomeView().FilterMoviesLanguage((String) filterLanguageCombo.getSelectedItem());
-            MainWindow.getInstance().getHomeView().FilterMoviesCountry((String) filterCountryCombo.getSelectedItem());
-            MainWindow.getInstance().getHomeView().FilterMoviesYear((String) filterYearCombo.getSelectedItem());
-            MainWindow.getInstance().getHomeView().FilterMoviesAge((String) filterAgeCombo.getSelectedItem());
+            ResetMovies();
+            FilterMoviesGenre((String) filterGenreCombo.getSelectedItem());
+            FilterMoviesLanguage((String) filterLanguageCombo.getSelectedItem());
+            FilterMoviesCountry((String) filterCountryCombo.getSelectedItem());
+            FilterMoviesYear((String) filterYearCombo.getSelectedItem());
+            FilterMoviesAge((String) filterAgeCombo.getSelectedItem());
         });
 
         clearFiltersButton.addActionListener(event ->
@@ -137,7 +292,7 @@ public class SortFilterPanel extends JPanel
             filterCountryCombo.setSelectedIndex(0);
             filterYearCombo.setSelectedIndex(0);
             filterAgeCombo.setSelectedIndex(0);
-            MainWindow.getInstance().getHomeView().ResetMovies();
+            ResetMovies();
         });
     }
 }
