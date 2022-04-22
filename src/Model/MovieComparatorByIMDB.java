@@ -4,8 +4,8 @@ import java.util.Comparator;
 
 public class MovieComparatorByIMDB implements Comparator<Movie> {
     public int compare(Movie a, Movie b) {
-        float A = a.getscore();
-        float B = b.getscore();
+        float A = a.getCriticRating();
+        float B = b.getCriticRating();
 
         if(A == B)
         {

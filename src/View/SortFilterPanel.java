@@ -11,6 +11,10 @@ import java.lang.System;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Class to create a panel to sort and filter the movies currently shown on the screen
+ * Allows the user to use both sorting and filtering simultaneously for the current movies.
+ */
 public class SortFilterPanel extends JPanel
 {
     private ArrayList<Movie> originalCollection;
@@ -32,6 +36,9 @@ public class SortFilterPanel extends JPanel
     private JButton clearFiltersButton;
     private JButton fillerButton;
 
+    /**
+     * Constructor to create the SortFilterPanel
+     */
     public SortFilterPanel(ArrayList<Movie> movies, ActionListener actionListener) {
         originalCollection = movies;
         ResetMovies();
@@ -140,6 +147,9 @@ public class SortFilterPanel extends JPanel
         Collections.sort(cloneCollection, new MovieComparatorByRuntime());
     }
 
+    /**
+     * Method for creating the ActionListeners for the sorting buttons
+     */
     private void CreateSortListeners()
     {
         sortNameButton.addActionListener(event ->
