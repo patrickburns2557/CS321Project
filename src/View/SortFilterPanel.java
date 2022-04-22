@@ -15,7 +15,6 @@ public class SortFilterPanel extends JPanel
 {
     private ArrayList<Movie> originalCollection;
     private ArrayList<Movie> cloneCollection;
-    private SearchSortFilterPanel parent;
 
     private JPanel sortPanel;
     private JButton sortNameButton;
@@ -34,8 +33,6 @@ public class SortFilterPanel extends JPanel
     private JButton fillerButton;
 
     public SortFilterPanel(ArrayList<Movie> movies, ActionListener actionListener) {
-        this.parent = parent;
-
         originalCollection = movies;
         ResetMovies();
 

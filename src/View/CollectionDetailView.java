@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class CollectionDetailView extends JPanel {
     private JPanel mainPanel;
-    private MovieTraverser collectionPanel;
-    private MovieTraverser masterListPanel;
+    private CollectionTraverser collectionPanel;
+    private MasterListTraverser masterListPanel;
     private JPanel topBar;
     private boolean currentlyEditing = false;
 
@@ -27,9 +27,8 @@ public class CollectionDetailView extends JPanel {
         //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.LINE_AXIS));
         mainPanel.setLayout(new GridLayout(1, 2));
 
-
-        collectionPanel = new MovieTraverser(collection.getMovies());
-        masterListPanel = new MovieTraverser(Model.System.getInstance().getMasterList());
+        collectionPanel = new CollectionTraverser(collection);
+        masterListPanel = new MasterListTraverser(collectionPanel);
 
         topBar = new JPanel();
         topBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -113,6 +112,9 @@ public class CollectionDetailView extends JPanel {
                 this.repaint();
                 MainWindow.getInstance().setVisible(true);
             }
+
+            collectionPanel.setDeleteMode(currentlyEditing);
+            collectionPanel.RefreshGrid();
         });
 
         deleteButton.addActionListener(e -> {

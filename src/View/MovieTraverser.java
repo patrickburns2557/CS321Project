@@ -10,29 +10,31 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MovieTraverser extends JPanel implements ActionListener {
-    private MovieGrid grid;
-    private JScrollPane jp;
-    private SearchSortFilterPanel searchSortFilterPanel;
-    private JPanel topBar;
-    private boolean initialized = false;
+    protected MovieGrid grid;
+    protected JScrollPane jp;
+    protected SearchSortFilterPanel searchSortFilterPanel;
+    protected JPanel topBar;
+    protected boolean initialized = false;
+    protected Collection collection;
 
     /**
      * Default constructor for HomeView
      * Creates grid of movies based on full database
      */
-    public MovieTraverser(ArrayList<Movie> movies)
+    public MovieTraverser(Collection collection, boolean refresh)
     {
+        this.collection = collection;
         this.setLayout(new BorderLayout());
 
         topBar = new JPanel();
         topBar.setLayout(new BorderLayout());
 
         //Setup Search panel
-        searchSortFilterPanel = new SearchSortFilterPanel(movies, this);
+        searchSortFilterPanel = new SearchSortFilterPanel(collection.getMovies(), this);
         topBar.add(searchSortFilterPanel, BorderLayout.CENTER);
 
-        RefreshGrid();
-        initialized = true;
+        if (refresh)
+            RefreshGrid();
 
         this.add(topBar, BorderLayout.NORTH);
     }
@@ -65,6 +67,8 @@ public class MovieTraverser extends JPanel implements ActionListener {
         this.repaint();
         if (initialized)
             MainWindow.getInstance().setVisible(true);
+        else
+            initialized = true;
     }
 
     @Override

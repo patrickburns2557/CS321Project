@@ -46,7 +46,7 @@ public class SearchSortFilterPanel extends JPanel {
                 sortFilterPopup = popupFactory.getPopup(
                         MainWindow.getInstance(),
                         sortFilterPanel,
-                        sortFilterPopupButton.getLocationOnScreen().x - 100,
+                        sortFilterPopupButton.getLocationOnScreen().x - 170,
                         sortFilterPopupButton.getLocationOnScreen().y + 64);
                 sortFilterPopup.show();
                 showingPopup = true;
@@ -54,11 +54,11 @@ public class SearchSortFilterPanel extends JPanel {
         });
 
         //Add action listener to make the searchbar functional
+        searchBar.addActionListener(actionListener);
         searchBar.addActionListener(event ->
         {
-            FilterMovies.filterByTitle(movies, searchBar.getText());
+            FilterMovies.filterByTitle(sortFilterPanel.getSortedFilteredMovies(), searchBar.getText());
         });
-        searchBar.addActionListener(actionListener);
 
         this.add(sortFilterPopupButton, BorderLayout.EAST);
     }
