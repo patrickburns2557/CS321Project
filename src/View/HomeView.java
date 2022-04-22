@@ -29,7 +29,6 @@ public class HomeView extends JPanel implements ActionListener
      */
     public HomeView()
     {
-        Model.System sys = Model.System.getInstance();
         this.setLayout(new BorderLayout());
 
         topBar = new JPanel();
@@ -104,7 +103,6 @@ public class HomeView extends JPanel implements ActionListener
         if (initialized)
             MainWindow.getInstance().setVisible(true);
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
