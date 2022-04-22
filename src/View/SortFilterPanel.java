@@ -3,6 +3,10 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class to create a panel to sort and filter the movies currently shown on the screen
+ * Allows the user to use both sorting and filtering simultaneously for the current movies.
+ */
 public class SortFilterPanel extends JPanel
 {
     private JPanel sortPanel;
@@ -21,7 +25,9 @@ public class SortFilterPanel extends JPanel
     private JButton clearFiltersButton;
     private JButton fillerButton;
 
-
+    /**
+     * Constructor to create the SortFilterPanel
+     */
     public SortFilterPanel()
     {
 
@@ -43,10 +49,6 @@ public class SortFilterPanel extends JPanel
 
         sortPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Sort by:"));
         this.add(sortPanel);
-
-
-
-
 
 
         filterPanel = new JPanel();
@@ -87,6 +89,9 @@ public class SortFilterPanel extends JPanel
         CreateFilterListeners();
     }
 
+    /**
+     * Method for creating the ActionListeners for the sorting buttons
+     */
     private void CreateSortListeners()
     {
         sortNameButton.addActionListener(event ->
@@ -110,6 +115,9 @@ public class SortFilterPanel extends JPanel
         });
     }
 
+    /**
+     * Method for creating the ActionListeners for the filtering dropdown menus and buttons
+     */
     private void CreateFilterListeners()
     {
         filterButton.addActionListener(event ->

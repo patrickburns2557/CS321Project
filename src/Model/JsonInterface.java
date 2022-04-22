@@ -46,7 +46,7 @@ public class JsonInterface
     }
     /**
      * Writes the user array into a json file
-     * @param user The array of users that will be written to a json file
+     * @param users The array of users that will be written to a json file
      */
     public static void writeUser(ArrayList<User> users)
     {
