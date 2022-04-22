@@ -18,23 +18,23 @@ public class UserRating {
     }
 
     /**
-     * Default Constructor for the Class
-     */
 
+     * Default constructor
+     */
     public UserRating() {
     }
-
+	
     /**
-     * Gets the name of the movie
-     * @return - Returns String of movie name
+     *
+     * @return
      */
     public String getMovieTitle(){
         return this.movie;
     }
 
     /**
-     * Gets the Rating for the User
-     * @return - returns integer value of rating
+     * Returns the rated score
+     * @return Integar score that the user rated on the movie
      */
     public Integer getRated() {
         return this.Rated;
