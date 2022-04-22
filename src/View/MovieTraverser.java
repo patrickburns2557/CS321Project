@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Movie grid with a SearchSortFilterPanel
+ */
 public class MovieTraverser extends JPanel implements ActionListener {
     protected MovieGrid grid;
     protected JScrollPane jp;
@@ -18,8 +21,10 @@ public class MovieTraverser extends JPanel implements ActionListener {
     protected Collection collection;
 
     /**
-     * Default constructor for HomeView
-     * Creates grid of movies based on full database
+     * Default constructor for MovieTraverser
+     * Creates grid of movies based on collection given
+     * @param collection collection to be made into a grid
+     * @param refresh refresh on first initialization
      */
     public MovieTraverser(Collection collection, boolean refresh)
     {
@@ -71,6 +76,10 @@ public class MovieTraverser extends JPanel implements ActionListener {
             initialized = true;
     }
 
+    /**
+     * Refreshes the grid whenever something changes
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         RefreshGrid();

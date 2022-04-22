@@ -16,23 +16,21 @@ import Model.User;
  */
 public class CollectionView extends JPanel implements ActionListener {
     private static JPanel list;
-    private static GridLayout listLayout;
     private static CollectionView collectionView;
     private static ArrayList<CollectionPeekView> collections;
 
-    /**
-     *
-     */
     static {
         collectionView = new CollectionView();
     }
+    /**
+     * Constructor for collection view
+     */
     private CollectionView() {
         // Reference to the user's current collections list
         this.setLayout(new BorderLayout());
         collections = new ArrayList<>();
         list = new JPanel();
-        listLayout = new GridLayout(0, 1);
-        list.setLayout(listLayout);
+        list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
         JPanel topBar = new JPanel();
         topBar.setLayout(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("Back");
@@ -80,7 +78,7 @@ public class CollectionView extends JPanel implements ActionListener {
                     Collection collection = new Collection(collectionNameString);
                     user.addCollection(collection);
                     addCollection(collection);
-                    view.ShowCollection(collection);
+                    view.ShowCollection(collection, true);
                 }
             }
 
@@ -89,7 +87,7 @@ public class CollectionView extends JPanel implements ActionListener {
         topBar.add(backButton);
         topBar.add(addButton);
         this.add(topBar, BorderLayout.NORTH);
-        JScrollPane jp = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane jp = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         jp.getVerticalScrollBar().setUnitIncrement(20);
         JPanel collectionsPanel = new JPanel();
         collectionsPanel.setLayout(new BorderLayout());
@@ -97,6 +95,10 @@ public class CollectionView extends JPanel implements ActionListener {
         this.add(collectionsPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Gets the singleton of CollectionView
+     * @return singleton
+     */
     public static CollectionView getInstance() {
         return collectionView;
     }
@@ -117,30 +119,38 @@ public class CollectionView extends JPanel implements ActionListener {
         list.removeAll();
 
         ArrayList<Collection> userCollections = Model.System.getInstance().getCurrentUser().getCollections();
-        if (!userCollections.isEmpty()) {
-            for (var collection : userCollections) {
-                addCollection(collection);
-            }
+        for (var collection : userCollections) {
+            addCollection(collection);
         }
-        else {
-            // If the user collection list is empty then display text
-            JLabel noCollections = new JLabel("No collections to view");
-            list.add(noCollections);
+
+        for (var collection : collections) {
+            collection.refresh();
         }
     }
 
+    /**
+     * Adds a CollectionPeekView to the view
+     * @param collection collection to be added
+     */
     private void addCollection(Collection collection) {
-        listLayout.setRows(listLayout.getRows() + 1);
         collections.add(new CollectionPeekView(this, collection));
-        list.add(collections.get(collections.size() - 1), BorderLayout.CENTER);
+        list.add(collections.get(collections.size() - 1));
     }
 
+    /**
+     * Removes a CollectionPeekView from the view
+     * @param collection collection to be removed
+     */
     public void removeCollection(Collection collection) {
-        listLayout.setRows(listLayout.getRows() - 1);
         list.remove(Model.System.getInstance().getCurrentUser().getCollections().indexOf(collection));
         collections.remove(collection);
     }
 
+    /**
+     * Retrieves the CollectionPeekView
+     * @param collection collection to be retrieved
+     * @return CollectionPeekView that's associated with the collection
+     */
     public CollectionPeekView getCollectionPeekView(Collection collection) {
         return collections.get(Model.System.getInstance().getCurrentUser().getCollections().indexOf(collection));
     }

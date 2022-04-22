@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Allows the user to view their collection in full, edit the list, edit the name, and delete it
+ */
 public class CollectionDetailView extends JPanel {
     private JPanel mainPanel;
     private CollectionTraverser collectionPanel;
@@ -18,16 +21,17 @@ public class CollectionDetailView extends JPanel {
 
     /**
      * The view that displays what's in a collection and gives the user a way to edit it
-     * @param collection
+     * @param collection collection associated with the view
      */
-    public CollectionDetailView(Collection collection) {
+    public CollectionDetailView(Collection collection, boolean currentlyEditing) {
+        this.currentlyEditing = currentlyEditing;
         this.setLayout(new BorderLayout());
 
         mainPanel = new JPanel();
         //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.LINE_AXIS));
         mainPanel.setLayout(new GridLayout(1, 2));
 
-        collectionPanel = new CollectionTraverser(collection);
+        collectionPanel = new CollectionTraverser(collection, this.currentlyEditing);
         masterListPanel = new MasterListTraverser(collectionPanel);
 
         topBar = new JPanel();
@@ -42,6 +46,8 @@ public class CollectionDetailView extends JPanel {
         topBar.add(editNameButton);
         topBar.add(deleteButton);
 
+        if (this.currentlyEditing)
+            mainPanel.add(masterListPanel);
         mainPanel.add(collectionPanel);
         this.add(topBar, BorderLayout.NORTH);
         this.add(mainPanel, BorderLayout.CENTER);
@@ -96,8 +102,8 @@ public class CollectionDetailView extends JPanel {
         });
 
         editButton.addActionListener(e -> {
-            if (currentlyEditing) {
-                currentlyEditing = false;
+            if (this.currentlyEditing) {
+                this.currentlyEditing = false;
                 mainPanel.remove(masterListPanel);
                 mainPanel.remove(collectionPanel);
                 mainPanel.add(collectionPanel);
@@ -105,7 +111,7 @@ public class CollectionDetailView extends JPanel {
                 MainWindow.getInstance().setVisible(true);
             }
             else {
-                currentlyEditing = true;
+                this.currentlyEditing = true;
                 mainPanel.remove(collectionPanel);
                 mainPanel.add(masterListPanel);
                 mainPanel.add(collectionPanel);
@@ -113,7 +119,7 @@ public class CollectionDetailView extends JPanel {
                 MainWindow.getInstance().setVisible(true);
             }
 
-            collectionPanel.setDeleteMode(currentlyEditing);
+            collectionPanel.setDeleteMode(this.currentlyEditing);
             collectionPanel.RefreshGrid();
         });
 

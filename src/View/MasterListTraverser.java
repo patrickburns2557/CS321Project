@@ -8,9 +8,17 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * The master list associated with editing a collection
+ * Pairs with CollectionDetailView
+ */
 public class MasterListTraverser extends MovieTraverser{
     private CollectionTraverser collectionTraverser;
 
+    /**
+     * Constructor for MasterListTraverser
+     * @param collectionTraverser CollectionTraverser that you want to add movies to
+     */
     public MasterListTraverser(CollectionTraverser collectionTraverser)
     {
         super(new Collection ("ml", Model.System.getInstance().getMasterList()), false);
@@ -19,6 +27,9 @@ public class MasterListTraverser extends MovieTraverser{
         initialized = true;
     }
 
+    /**
+     * Refreshes the grid with buttons that add movies to the collection
+     */
     public void RefreshGrid() {
         if (initialized)
             this.remove(jp);

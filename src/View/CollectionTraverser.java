@@ -7,14 +7,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * The collection view associated with editing the collection
+ * Pairs with CollectionDetailView
+ */
 public class CollectionTraverser extends MovieTraverser {
-    private boolean deleteMode = false;
+    private boolean deleteMode;
 
-    public CollectionTraverser(Collection collection)
+    /**
+     * Constructor for CollectionTraverser
+     * @param collection
+     */
+    public CollectionTraverser(Collection collection, boolean deleteMode)
     {
-        super(collection, true);
+        super(collection, false);
+        this.deleteMode = deleteMode;
+        RefreshGrid();
     }
 
+    /**
+     * Will either refresh grid with delete buttons or view buttons depending on deleteMode
+     */
     public void RefreshGrid() {
         if (initialized)
             this.remove(jp);
@@ -32,6 +45,7 @@ public class CollectionTraverser extends MovieTraverser {
                     RefreshGrid();
                 }, i);
             }
+            System.out.println("delete mode");
         }
         else {
             for(int i = 0; i < currentList.size(); i++)
@@ -40,12 +54,12 @@ public class CollectionTraverser extends MovieTraverser {
                 grid.addPosterListener(event ->
                 {
                     MainWindow view = MainWindow.getInstance();
-                    view.ShowMovie(currentList.get(final_i), e -> view.ShowCollection(collection));
+                    view.ShowMovie(currentList.get(final_i), e -> view.ShowCollection(collection, false));
                 }, i);
             }
+            System.out.println("view mode");
         }
 
-        System.out.println("Refreshed");
         jp = new JScrollPane(grid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jp.getVerticalScrollBar().setUnitIncrement(20);
 
@@ -57,6 +71,10 @@ public class CollectionTraverser extends MovieTraverser {
             initialized = true;
     }
 
+    /**
+     * Sets whether the buttons will be used to delete or view the movie
+     * @param deleteMode
+     */
     public void setDeleteMode(boolean deleteMode) {
         this.deleteMode = deleteMode;
     }

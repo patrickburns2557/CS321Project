@@ -38,6 +38,8 @@ public class SortFilterPanel extends JPanel
 
     /**
      * Constructor to create the SortFilterPanel
+     * @param movies list of movies to be sorted
+     * @param actionListener used to refresh the grid
      */
     public SortFilterPanel(ArrayList<Movie> movies, ActionListener actionListener) {
         originalCollection = movies;
@@ -102,6 +104,9 @@ public class SortFilterPanel extends JPanel
         CreateFilterListeners();
     }
 
+    /**
+     * @return sorted movies list
+     */
     public ArrayList<Movie> getSortedFilteredMovies() {
         return cloneCollection;
     }
@@ -265,6 +270,9 @@ public class SortFilterPanel extends JPanel
         FilterMovies.filterByAgeRating(cloneCollection, age);
     }
 
+    /**
+     * Creates the filter listeners
+     */
     private void CreateFilterListeners()
     {
         filterButton.addActionListener(event ->

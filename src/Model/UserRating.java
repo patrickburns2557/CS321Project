@@ -18,7 +18,6 @@ public class UserRating {
     }
 
     /**
-
      * Default constructor
      */
     public UserRating() {

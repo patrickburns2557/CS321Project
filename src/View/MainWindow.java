@@ -96,11 +96,11 @@ public class MainWindow extends JFrame
         this.setVisible(true);
     }
 
-    public void ShowMovie(Movie movie, ActionListener homeButtonActionListener)
     /**
      * Show the movieView for the indicated movie
      * @param movie - Movie for which to create the movieView for
      */
+    public void ShowMovie(Movie movie, ActionListener homeButtonActionListener)
     {
         this.getContentPane().removeAll();
         movieView = new MovieView(movie, homeButtonActionListener);
@@ -116,6 +116,7 @@ public class MainWindow extends JFrame
     public void ShowCollectionList()
     {
         this.getContentPane().removeAll();
+        CollectionView.getInstance().refresh();
         this.add(CollectionView.getInstance());
         this.repaint();
         this.setVisible(true);
@@ -125,10 +126,10 @@ public class MainWindow extends JFrame
      * Show the detailed view of the indicated collection
      * @param collection - collection to show
      */
-    public void ShowCollection(Collection collection)
+    public void ShowCollection(Collection collection, boolean currentlyEditing)
     {
         this.getContentPane().removeAll();
-        collectionDetailView = new CollectionDetailView(collection);
+        collectionDetailView = new CollectionDetailView(collection, currentlyEditing);
         this.add(collectionDetailView);
         this.repaint();
         this.setVisible(true);
